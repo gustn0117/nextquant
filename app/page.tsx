@@ -186,58 +186,62 @@ function HeroDashboard() {
         </div>
       </div>
 
-      {/* 좌 떠 있는 카드 */}
-      <div className="card-dark absolute -left-10 -top-10 hidden w-56 p-4 shadow-darkDepth lg:block">
-        <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/50">
-          <span className="live-dot" /> 활성 포지션
-        </div>
-        <ul className="mt-3 space-y-2 text-sm">
-          {[
-            { sym: "BTC/USDT", pnl: "+2.41%", up: true },
-            { sym: "ETH/USDT", pnl: "+1.08%", up: true },
-            { sym: "SOL/USDT", pnl: "-0.32%", up: false },
-          ].map((r) => (
-            <li key={r.sym} className="flex items-center justify-between">
-              <span className="font-medium text-white">{r.sym}</span>
-              <span
-                className={`font-bold tnum ${
-                  r.up ? "text-brand-primary" : "text-rose-400"
-                }`}
-              >
-                {r.pnl}
-              </span>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      {/* 우 떠 있는 카드 */}
-      <div className="card-dark absolute -right-8 -bottom-10 hidden w-56 p-4 shadow-darkDepth lg:block">
-        <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/50">
-          오늘의 시그널
-        </div>
-        <div className="mt-3 space-y-2 text-sm">
-          {[
-            { t: "LONG", s: "BTC/USDT", time: "13분 전" },
-            { t: "EXIT", s: "ETH/USDT", time: "27분 전" },
-            { t: "LONG", s: "ADA/USDT", time: "1시간 전" },
-          ].map((r, i) => (
-            <div key={i} className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
+      {/* 보조 사이드 카드 — 보드 아래쪽에 2-컬럼으로 배치 (가리지 않음) */}
+      <div className="mt-6 hidden grid-cols-2 gap-4 lg:grid">
+        <div className="card-dark p-4 shadow-darkDepth">
+          <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/50">
+            <span className="live-dot" /> 활성 포지션
+          </div>
+          <ul className="mt-3 space-y-2 text-sm">
+            {[
+              { sym: "BTC/USDT", pnl: "+2.41%", up: true },
+              { sym: "ETH/USDT", pnl: "+1.08%", up: true },
+              { sym: "SOL/USDT", pnl: "-0.32%", up: false },
+            ].map((r) => (
+              <li key={r.sym} className="flex items-center justify-between">
+                <span className="font-medium text-white">{r.sym}</span>
                 <span
-                  className={`rounded-sm px-1.5 py-0.5 text-[10px] font-extrabold ${
-                    r.t === "LONG"
-                      ? "bg-brand-primary/20 text-brand-primary"
-                      : "bg-white/10 text-white/70"
+                  className={`font-bold tnum ${
+                    r.up ? "text-brand-primary" : "text-rose-400"
                   }`}
                 >
-                  {r.t}
+                  {r.pnl}
                 </span>
-                <span className="font-medium text-white">{r.s}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="card-dark p-4 shadow-darkDepth">
+          <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/50">
+            오늘의 시그널
+          </div>
+          <div className="mt-3 space-y-2 text-sm">
+            {[
+              { t: "LONG", s: "BTC/USDT", time: "13분 전" },
+              { t: "EXIT", s: "ETH/USDT", time: "27분 전" },
+              { t: "LONG", s: "ADA/USDT", time: "1시간 전" },
+            ].map((r, i) => (
+              <div
+                key={i}
+                className="flex items-center justify-between"
+              >
+                <div className="flex items-center gap-2">
+                  <span
+                    className={`rounded-sm px-1.5 py-0.5 text-[10px] font-extrabold ${
+                      r.t === "LONG"
+                        ? "bg-brand-primary/20 text-brand-primary"
+                        : "bg-white/10 text-white/70"
+                    }`}
+                  >
+                    {r.t}
+                  </span>
+                  <span className="font-medium text-white">{r.s}</span>
+                </div>
+                <span className="text-xs text-white/45">{r.time}</span>
               </div>
-              <span className="text-xs text-white/45">{r.time}</span>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </div>
