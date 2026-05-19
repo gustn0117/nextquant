@@ -6,13 +6,10 @@ export const metadata: Metadata = {
     "FAQ, 이메일 문의, 1:1 채팅 등 다양한 채널로 신속하게 도와드립니다.",
 };
 
-const SUPPORT_IMG =
-  "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1400&q=80";
-
 export default function SupportPage() {
   return (
     <>
-      <SupportHero />
+      <Hero />
       <ChannelCards />
       <FaqFull />
       <ContactForm />
@@ -20,46 +17,56 @@ export default function SupportPage() {
   );
 }
 
-function SupportHero() {
+/* ─────────── Hero (dark) ─────────── */
+function Hero() {
   return (
-    <section className="relative overflow-hidden border-b border-brand-line">
-      <div className="absolute inset-0 bg-hero-soft" />
-      <div className="absolute inset-0 bg-grid opacity-60" />
-      <div className="container-x relative section-padding pt-24 md:pt-32">
-        <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_1fr]">
-          <div>
-            <span className="eyebrow">SUPPORT</span>
-            <h1 className="mt-5 text-4xl font-extrabold tracking-tight md:text-6xl">
-              궁금한 점, <br />
-              <span className="gradient-text">바로 답변드립니다.</span>
-            </h1>
-            <p className="mt-7 section-sub">
-              FAQ에서 답을 찾지 못했다면 이메일·채팅으로 평일 10:00–18:00 안에
-              신속하게 답변드립니다.
-            </p>
-            <div className="mt-9 flex flex-col items-start gap-3 sm:flex-row">
-              <a href="mailto:contact@nextquant.kr" className="btn-primary">
-                이메일 문의
-              </a>
-              <a href="#faq" className="btn-ghost">
-                FAQ 먼저 보기
-              </a>
-            </div>
-          </div>
-          <div className="overflow-hidden rounded-xl border border-brand-line bg-white shadow-elevated">
-            <img
-              src={SUPPORT_IMG}
-              alt="고객지원 이미지"
-              className="aspect-[5/4] w-full object-cover"
-              loading="eager"
-            />
-          </div>
+    <section className="relative isolate overflow-hidden border-b border-white/5">
+      <div
+        className="absolute inset-0 -z-10"
+        style={{ background: "var(--ink)" }}
+      />
+      <div className="dot-grid-dark pointer-events-none absolute inset-0 -z-10" />
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-32"
+        style={{
+          background: "linear-gradient(0deg, rgba(8,15,30,0.95), transparent)",
+        }}
+      />
+
+      <div className="container-x relative pb-24 pt-32 text-center md:pb-28 md:pt-40">
+        <div className="fade-up flex items-center justify-center gap-3 text-[11px] font-bold uppercase tracking-[0.22em] text-white/55">
+          <span className="h-px w-8 bg-white/20" />
+          SUPPORT
+          <span className="h-px w-8 bg-white/20" />
+        </div>
+        <h1 className="fade-up fade-up-1 mt-6 text-5xl font-extrabold tracking-tightest text-white md:text-7xl">
+          궁금한 점,
+          <br />
+          <span className="text-brand-primary">바로 답변드립니다.</span>
+        </h1>
+        <p className="fade-up fade-up-2 mx-auto mt-7 max-w-2xl text-base text-white/70 md:text-xl">
+          FAQ에서 답을 찾지 못했다면 이메일·채팅으로
+          <br className="hidden md:block" />
+          평일 10:00–18:00 안에 신속하게 답변드립니다.
+        </p>
+        <div className="fade-up fade-up-3 mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <a href="mailto:contact@nextquant.kr" className="btn-primary btn-3d">
+            이메일 문의
+          </a>
+          <a href="#faq" className="btn-outline-light">
+            FAQ 먼저 보기
+          </a>
+        </div>
+
+        <div className="fade-up fade-up-4 mx-auto mt-10 inline-flex items-center gap-3 rounded-md border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold text-white/70">
+          <span className="live-dot" /> 평균 응답 시간 4시간 이내 (지난 30일)
         </div>
       </div>
     </section>
   );
 }
 
+/* ─────────── Channels ─────────── */
 function ChannelCards() {
   const channels = [
     {
@@ -67,37 +74,55 @@ function ChannelCards() {
       label: "이메일",
       value: "contact@nextquant.kr",
       desc: "평일 24시간 내 답변",
+      action: "메일 보내기",
+      href: "mailto:contact@nextquant.kr",
     },
     {
       icon: <ChatIcon />,
       label: "1:1 채팅",
       value: "프로그램 내 채팅창",
       desc: "평일 10:00 - 18:00",
+      action: "채팅 열기",
+      href: "#",
     },
     {
       icon: <DocIcon />,
       label: "사용설명서",
       value: "온라인 매뉴얼",
       desc: "기능별 상세 가이드",
+      action: "매뉴얼 보기",
+      href: "#",
     },
   ];
   return (
-    <section className="section-padding">
+    <section className="border-b border-brand-line bg-white section-padding">
       <div className="container-x">
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid gap-5 md:grid-cols-3">
           {channels.map((c) => (
-            <div key={c.label} className="card-soft lift p-7">
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-brand-primarySoft text-brand-primary">
-                {c.icon}
+            <a
+              key={c.label}
+              href={c.href}
+              className="lift group card-soft block p-7"
+            >
+              <div className="flex items-start justify-between">
+                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-brand-primarySoft text-brand-primary">
+                  {c.icon}
+                </div>
+                <span className="text-brand-muted transition-transform group-hover:translate-x-1">
+                  →
+                </span>
               </div>
-              <div className="mt-5 text-sm font-semibold tracking-[0.18em] text-brand-muted">
+              <div className="mt-6 text-[11px] font-bold uppercase tracking-[0.2em] text-brand-muted">
                 {c.label}
               </div>
-              <div className="mt-1 text-lg font-bold text-brand-text">
+              <div className="mt-1 text-lg font-extrabold text-brand-text">
                 {c.value}
               </div>
               <p className="mt-3 text-sm text-brand-muted">{c.desc}</p>
-            </div>
+              <div className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-brand-primary">
+                {c.action}
+              </div>
+            </a>
           ))}
         </div>
       </div>
@@ -105,6 +130,7 @@ function ChannelCards() {
   );
 }
 
+/* ─────────── FAQ full ─────────── */
 function FaqFull() {
   const groups: { tag: string; items: { q: string; a: string }[] }[] = [
     {
@@ -116,7 +142,7 @@ function FaqFull() {
         },
         {
           q: "구매 후에도 환불이 가능한가요?",
-          a: "결제일로부터 7일 이내, 실거래가 발생하지 않은 경우 100% 환불 가능합니다. 자세한 내용은 약관을 확인해주세요.",
+          a: "결제일로부터 7일 이내, 실거래가 발생하지 않은 경우 100% 환불 가능합니다.",
         },
         {
           q: "여러 대의 PC에서 동시에 사용 가능한가요?",
@@ -161,51 +187,41 @@ function FaqFull() {
   ];
 
   return (
-    <section
-      id="faq"
-      className="border-y border-brand-line bg-brand-subtle section-padding"
-    >
+    <section id="faq" className="bg-brand-subtle section-padding">
       <div className="container-x">
         <div className="mx-auto max-w-3xl text-center">
-          <span className="text-sm font-semibold tracking-[0.18em] text-brand-primary">
+          <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-primary">
             FAQ
           </span>
-          <h2 className="mt-3 section-title">자주 묻는 질문</h2>
+          <h2 className="mt-4 section-title">자주 묻는 질문</h2>
         </div>
 
         <div className="mx-auto mt-12 max-w-4xl space-y-10">
           {groups.map((g) => (
             <div key={g.tag}>
               <div className="mb-4 flex items-center gap-3">
-                <span className="rounded-md bg-brand-primarySoft px-3 py-1 text-xs font-bold tracking-[0.18em] text-brand-primary">
+                <span className="rounded-md bg-brand-primarySoft px-3 py-1 text-[11px] font-extrabold tracking-[0.22em] text-brand-primary">
                   {g.tag}
                 </span>
                 <span className="h-px flex-1 bg-brand-line" />
               </div>
-              <div className="divide-y divide-brand-lineSoft overflow-hidden rounded-lg border border-brand-line bg-white">
+              <div className="divide-y divide-brand-lineSoft overflow-hidden rounded-xl border border-brand-line bg-white shadow-soft">
                 {g.items.map((f) => (
-                  <details
-                    key={f.q}
-                    className="group p-6 open:bg-brand-subtle"
-                  >
-                    <summary className="flex cursor-pointer items-center justify-between text-base font-semibold text-brand-text">
-                      {f.q}
+                  <details key={f.q} className="group p-6 open:bg-brand-subtle">
+                    <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-semibold text-brand-text">
+                      <span className="flex items-center gap-3">
+                        <span className="inline-flex h-6 w-6 items-center justify-center rounded-md bg-brand-primarySoft text-[11px] font-extrabold text-brand-primary">
+                          Q
+                        </span>
+                        {f.q}
+                      </span>
                       <span className="text-brand-muted transition-transform group-open:rotate-180">
-                        <svg
-                          width="18"
-                          height="18"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                           <polyline points="6 9 12 15 18 9" />
                         </svg>
                       </span>
                     </summary>
-                    <p className="mt-3 text-sm text-brand-muted">{f.a}</p>
+                    <p className="mt-3 pl-9 text-sm text-brand-muted">{f.a}</p>
                   </details>
                 ))}
               </div>
@@ -217,22 +233,22 @@ function FaqFull() {
   );
 }
 
+/* ─────────── Contact form ─────────── */
 function ContactForm() {
   return (
     <section className="section-padding">
       <div className="container-x">
         <div className="mx-auto grid max-w-5xl gap-10 rounded-xl border border-brand-line bg-white p-8 shadow-card md:p-12 lg:grid-cols-[1fr_1.2fr]">
           <div>
-            <span className="text-sm font-semibold tracking-[0.18em] text-brand-accent">
-              CONTACT
+            <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-primary">
+              Contact
             </span>
             <h2 className="mt-3 text-3xl font-extrabold tracking-tight md:text-4xl">
               아직 답을 못 찾으셨나요?
             </h2>
             <p className="mt-5 text-base text-brand-muted">
-              아래 폼을 작성해주시면 담당자가 직접 답변드립니다.
-              <br />
-              평일 기준 24시간 내 회신을 목표로 합니다.
+              아래 폼을 작성해주시면 담당자가 직접 답변드립니다. 평일 기준 24시간
+              내 회신을 목표로 합니다.
             </p>
             <div className="mt-8 space-y-3 text-sm text-brand-subText">
               <div className="flex items-center gap-3">
@@ -240,6 +256,12 @@ function ContactForm() {
               </div>
               <div className="flex items-center gap-3">
                 <ClockIcon /> 평일 10:00 - 18:00 (점심 12:00-13:00)
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="inline-flex h-5 w-5 shrink-0" />
+                <span className="inline-flex items-center gap-2 text-xs text-brand-muted">
+                  <span className="live-dot" /> 평균 응답 4시간 이내
+                </span>
               </div>
             </div>
           </div>
@@ -259,12 +281,12 @@ function ContactForm() {
               <textarea
                 rows={6}
                 placeholder="문의 내용을 입력해주세요"
-                className="rounded-xl border border-brand-line bg-white px-4 py-3 text-base font-normal text-brand-text placeholder:text-brand-mutedSoft focus:border-brand-primary focus:outline-none focus:ring-4 focus:ring-brand-primarySoft"
+                className="rounded-lg border border-brand-line bg-white px-4 py-3 text-base font-normal text-brand-text placeholder:text-brand-mutedSoft focus:border-brand-primary focus:outline-none focus:ring-4 focus:ring-brand-primarySoft"
               />
             </label>
             <button
               type="button"
-              className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-md bg-brand-primary px-6 py-3.5 text-base font-bold text-white shadow-soft transition-all hover:bg-brand-primaryDim hover:shadow-[0_10px_28px_-10px_rgba(0,183,131,0.55)]"
+              className="btn-3d mt-2 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-brand-primary px-6 py-3.5 text-base font-bold text-white shadow-soft transition-all hover:bg-brand-primaryDim hover:shadow-[0_10px_28px_-10px_rgba(0,183,131,0.55)]"
             >
               문의 보내기
             </button>
@@ -294,7 +316,7 @@ function Field({
       <input
         type={type}
         placeholder={placeholder}
-        className="rounded-xl border border-brand-line bg-white px-4 py-3 text-base font-normal text-brand-text placeholder:text-brand-mutedSoft focus:border-brand-primary focus:outline-none focus:ring-4 focus:ring-brand-primarySoft"
+        className="rounded-lg border border-brand-line bg-white px-4 py-3 text-base font-normal text-brand-text placeholder:text-brand-mutedSoft focus:border-brand-primary focus:outline-none focus:ring-4 focus:ring-brand-primarySoft"
       />
     </label>
   );
@@ -302,51 +324,22 @@ function Field({
 
 function MailIcon() {
   return (
-    <svg
-      width="22"
-      height="22"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <rect x="3" y="5" width="18" height="14" rx="2" />
       <path d="M3 7l9 6 9-6" />
     </svg>
   );
 }
-
 function ChatIcon() {
   return (
-    <svg
-      width="22"
-      height="22"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
     </svg>
   );
 }
-
 function DocIcon() {
   return (
-    <svg
-      width="22"
-      height="22"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
       <polyline points="14 2 14 8 20 8" />
       <line x1="9" y1="13" x2="15" y2="13" />
@@ -354,19 +347,9 @@ function DocIcon() {
     </svg>
   );
 }
-
 function ClockIcon() {
   return (
-    <svg
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="12" cy="12" r="10" />
       <polyline points="12 6 12 12 16 14" />
     </svg>

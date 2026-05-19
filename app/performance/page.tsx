@@ -158,37 +158,48 @@ function EquityCurve() {
   const area = `${path} L ${w} ${h} L 0 ${h} Z`;
 
   return (
-    <section className="section-padding">
-      <div className="container-x">
+    <section
+      className="relative isolate overflow-hidden border-y border-white/5 section-padding"
+      style={{ background: "var(--ink)" }}
+    >
+      <div className="dot-grid-dark pointer-events-none absolute inset-0" />
+      <div className="container-x relative">
         <div className="mx-auto max-w-3xl text-center">
-          <span className="text-sm font-semibold tracking-[0.18em] text-brand-primary">
-            EQUITY CURVE
+          <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-primary">
+            Equity Curve
           </span>
-          <h2 className="mt-3 section-title">36개월 누적 수익 곡선</h2>
-          <p className="mt-5 section-sub">
-            동일 자본금 100을 기준으로 한 누적 자산 변화. 변동성에도 우상향
-            추세를 유지합니다.
+          <h2 className="mt-4 text-3xl font-extrabold tracking-tightest text-white md:text-5xl">
+            36개월 누적 수익 곡선
+          </h2>
+          <p className="mt-5 text-base text-white/70 md:text-lg">
+            동일 자본금 100 기준 누적 자산 변화. 변동성에도 우상향 추세를
+            유지합니다.
           </p>
         </div>
 
-        <div className="mt-12 overflow-hidden rounded-xl border border-brand-line bg-white p-6 shadow-card md:p-8">
+        <div className="card-dark-elevated mt-12 overflow-hidden p-6 md:p-8">
           <div className="flex flex-wrap items-end justify-between gap-3">
             <div>
-              <div className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-muted">
+              <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-white/45">
                 기간 수익
               </div>
-              <div className="mt-1 text-4xl font-extrabold tracking-tight text-brand-text md:text-5xl">
-                <span className="gradient-text">+137.0%</span>
+              <div className="mt-2 flex items-baseline gap-2">
+                <span className="text-5xl font-extrabold tracking-tightest text-brand-primary tnum md:text-6xl">
+                  +137.0%
+                </span>
+                <span className="inline-flex items-center gap-1 text-sm font-bold text-brand-primary">
+                  ▲ vs 시장 +18.4%
+                </span>
               </div>
             </div>
-            <div className="flex gap-2 text-xs">
+            <div className="flex gap-1.5 text-xs">
               {["1M", "6M", "1Y", "3Y", "ALL"].map((t, i) => (
                 <span
                   key={t}
-                  className={`rounded-md px-3 py-1 font-bold ${
+                  className={`rounded-md px-3 py-1.5 font-bold ${
                     i === 3
                       ? "bg-brand-primary text-white"
-                      : "bg-brand-subtle text-brand-muted"
+                      : "border border-white/10 text-white/55"
                   }`}
                 >
                   {t}
@@ -204,7 +215,7 @@ function EquityCurve() {
             >
               <defs>
                 <linearGradient id="eq-area" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#00B783" stopOpacity="0.32" />
+                  <stop offset="0%" stopColor="#00B783" stopOpacity="0.45" />
                   <stop offset="100%" stopColor="#00B783" stopOpacity="0" />
                 </linearGradient>
               </defs>
@@ -215,20 +226,58 @@ function EquityCurve() {
                   x2={w}
                   y1={h * g}
                   y2={h * g}
-                  stroke="#EEF1F6"
+                  stroke="rgba(255,255,255,0.06)"
                   strokeWidth="1"
                 />
               ))}
               <path d={area} fill="url(#eq-area)" />
-              <path d={path} fill="none" stroke="#00B783" strokeWidth="2.5" />
+              <path
+                d={path}
+                fill="none"
+                stroke="#00B783"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <circle
+                cx={w}
+                cy={h - ((points[points.length - 1] - min) / (max - min)) * (h - 30) - 15}
+                r="5"
+                fill="#00B783"
+              />
+              <circle
+                cx={w}
+                cy={h - ((points[points.length - 1] - min) / (max - min)) * (h - 30) - 15}
+                r="10"
+                fill="#00B783"
+                opacity="0.28"
+              />
             </svg>
           </div>
 
-          <div className="mt-4 flex items-center justify-between text-xs text-brand-muted">
+          <div className="mt-4 flex items-center justify-between text-xs text-white/45">
             <span>2023.05</span>
             <span>2024.05</span>
             <span>2025.05</span>
             <span>2026.05</span>
+          </div>
+
+          <div className="mt-6 grid grid-cols-2 divide-x divide-white/10 border-t border-white/10 pt-5 text-center md:grid-cols-4">
+            {[
+              { l: "최고가", v: "237" },
+              { l: "최저가", v: "99" },
+              { l: "변동성", v: "12.4%" },
+              { l: "체결 건수", v: "12,847" },
+            ].map((s) => (
+              <div key={s.l} className="px-2">
+                <div className="text-[10px] font-bold uppercase tracking-[0.16em] text-white/45">
+                  {s.l}
+                </div>
+                <div className="mt-1.5 text-base font-extrabold text-white tnum">
+                  {s.v}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -244,14 +293,26 @@ function MonthlyTable() {
   const yearTotal = (arr: number[]) =>
     arr.reduce((acc, v) => acc * (1 + v / 100), 1) * 100 - 100;
 
+  const cellBg = (v: number) => {
+    if (v >= 0) {
+      const a = Math.min(0.85, 0.18 + v / 8);
+      return `rgba(0, 183, 131, ${a.toFixed(2)})`;
+    }
+    const a = Math.min(0.7, 0.18 + Math.abs(v) / 6);
+    return `rgba(244, 63, 94, ${a.toFixed(2)})`;
+  };
+
   return (
     <section className="border-y border-brand-line bg-brand-subtle section-padding">
       <div className="container-x">
         <div className="mx-auto max-w-3xl text-center">
-          <span className="text-sm font-semibold tracking-[0.18em] text-brand-accent">
-            MONTHLY RETURNS
+          <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-primary">
+            Monthly Returns
           </span>
-          <h2 className="mt-3 section-title">월별 수익률</h2>
+          <h2 className="mt-4 section-title">월별 수익률 히트맵</h2>
+          <p className="mt-5 section-sub">
+            색이 진할수록 수익률(또는 손실)이 큽니다.
+          </p>
         </div>
 
         <div className="mt-12 overflow-hidden rounded-xl border border-brand-line bg-white shadow-card">
@@ -259,19 +320,19 @@ function MonthlyTable() {
             <table className="w-full min-w-[760px] text-sm">
               <thead>
                 <tr className="bg-brand-subtle text-brand-muted">
-                  <th className="p-4 text-left text-xs font-bold tracking-[0.18em]">
-                    연도
+                  <th className="p-4 text-left text-[11px] font-bold tracking-[0.22em]">
+                    YEAR
                   </th>
                   {months.map((m) => (
                     <th
                       key={m}
-                      className="p-4 text-center text-xs font-bold tracking-[0.1em]"
+                      className="p-4 text-center text-[11px] font-bold tracking-[0.1em]"
                     >
                       {m}
                     </th>
                   ))}
-                  <th className="p-4 text-center text-xs font-bold tracking-[0.18em] text-brand-primary">
-                    연간
+                  <th className="p-4 text-center text-[11px] font-bold tracking-[0.22em] text-brand-primary">
+                    YEAR
                   </th>
                 </tr>
               </thead>
@@ -281,21 +342,22 @@ function MonthlyTable() {
                   { y: "2025", d: data2025 },
                 ].map((row) => (
                   <tr key={row.y} className="border-t border-brand-lineSoft">
-                    <td className="p-4 text-left font-bold text-brand-text">
+                    <td className="p-4 text-left font-extrabold text-brand-text tnum">
                       {row.y}
                     </td>
                     {row.d.map((v, i) => (
-                      <td
-                        key={i}
-                        className={`p-4 text-center font-semibold ${
-                          v >= 0 ? "text-brand-primary" : "text-rose-500"
-                        }`}
-                      >
-                        {v > 0 ? "+" : ""}
-                        {v.toFixed(1)}%
+                      <td key={i} className="p-1.5 text-center">
+                        <div
+                          className="rounded-md py-3 text-xs font-extrabold text-white tnum transition-transform hover:scale-105"
+                          style={{ background: cellBg(v) }}
+                          title={`${v > 0 ? "+" : ""}${v.toFixed(1)}%`}
+                        >
+                          {v > 0 ? "+" : ""}
+                          {v.toFixed(1)}
+                        </div>
                       </td>
                     ))}
-                    <td className="p-4 text-center text-base font-extrabold text-brand-text">
+                    <td className="p-4 text-center text-base font-extrabold text-brand-primary tnum">
                       +{yearTotal(row.d).toFixed(1)}%
                     </td>
                   </tr>

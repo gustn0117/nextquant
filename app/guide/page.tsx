@@ -19,7 +19,8 @@ const STEP_IMG_4 =
 export default function GuidePage() {
   return (
     <>
-      <GuideHero />
+      <Hero />
+      <QuickStrip />
       <StepGuide />
       <RequirementBox />
       <FaqMini />
@@ -28,23 +29,28 @@ export default function GuidePage() {
   );
 }
 
-function GuideHero() {
+/* ─────────── Hero (light + dot grid) ─────────── */
+function Hero() {
   return (
-    <section className="relative overflow-hidden border-b border-brand-line">
-      <div className="absolute inset-0 bg-hero-soft" />
-      <div className="absolute inset-0 bg-grid opacity-60" />
+    <section className="relative overflow-hidden border-b border-brand-line bg-white">
+      <div className="dot-grid-light pointer-events-none absolute inset-0 opacity-90" />
       <div className="container-x relative section-padding pt-24 md:pt-32">
         <div className="mx-auto max-w-3xl text-center">
-          <span className="eyebrow">HOW TO START</span>
-          <h1 className="mt-5 text-4xl font-extrabold tracking-tight md:text-6xl">
-            <span className="gradient-text">5분</span>이면 충분합니다.
+          <div className="fade-up flex items-center justify-center gap-3 text-xs font-bold uppercase tracking-[0.22em] text-brand-primary">
+            <span className="h-px w-8 bg-brand-primary/40" />
+            HOW TO START
+            <span className="h-px w-8 bg-brand-primary/40" />
+          </div>
+          <h1 className="fade-up fade-up-1 mt-5 text-5xl font-extrabold tracking-tightest md:text-7xl">
+            <span className="text-brand-primary">5분</span>이면 충분합니다
+            <span className="text-brand-primary">.</span>
           </h1>
-          <p className="mt-7 section-sub">
+          <p className="fade-up fade-up-2 mt-7 section-sub">
             다운로드부터 첫 자동매매까지, 누구나 따라할 수 있는 단계별 가이드를
             준비했습니다.
           </p>
-          <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <a href="#download" className="btn-primary">
+          <div className="fade-up fade-up-3 mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <a href="#download" className="btn-primary btn-3d">
               지금 다운로드
             </a>
             <a href="#steps" className="btn-ghost">
@@ -57,6 +63,33 @@ function GuideHero() {
   );
 }
 
+/* ─────────── Quick stat strip ─────────── */
+function QuickStrip() {
+  const items = [
+    { v: "1분", l: "설치 시간" },
+    { v: "5분", l: "설정 완료" },
+    { v: "14일", l: "무료 체험" },
+    { v: "24/7", l: "자동 운용" },
+  ];
+  return (
+    <section className="border-b border-brand-line bg-white">
+      <div className="container-x grid grid-cols-2 divide-x divide-brand-line border-y border-brand-line md:grid-cols-4">
+        {items.map((it) => (
+          <div key={it.l} className="p-6 text-center">
+            <div className="text-3xl font-extrabold tracking-tightest text-brand-primary tnum md:text-4xl">
+              {it.v}
+            </div>
+            <div className="mt-2 text-xs font-medium text-brand-muted">
+              {it.l}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ─────────── Step guide (timeline) ─────────── */
 function StepGuide() {
   const steps = [
     {
@@ -69,6 +102,7 @@ function StepGuide() {
         "설치 즉시 데모 계좌로 미리 체험 가능",
       ],
       img: STEP_IMG_1,
+      time: "약 1분",
     },
     {
       n: "02",
@@ -80,6 +114,7 @@ function StepGuide() {
         "출금 권한 OFF · 거래 권한만 ON",
       ],
       img: STEP_IMG_2,
+      time: "약 2분",
     },
     {
       n: "03",
@@ -91,6 +126,7 @@ function StepGuide() {
         "1종목당 최대 사용 금액 직접 설정",
       ],
       img: STEP_IMG_3,
+      time: "약 2분",
     },
     {
       n: "04",
@@ -102,6 +138,7 @@ function StepGuide() {
         "주간 / 월간 리포트 자동 생성",
       ],
       img: STEP_IMG_4,
+      time: "1초",
     },
   ];
 
@@ -109,85 +146,131 @@ function StepGuide() {
     <section id="steps" className="section-padding">
       <div className="container-x">
         <div className="mx-auto max-w-3xl text-center">
-          <span className="text-sm font-semibold tracking-[0.18em] text-brand-primary">
-            STEP-BY-STEP
+          <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-primary">
+            Step-by-Step
           </span>
-          <h2 className="mt-3 section-title">4단계 시작 가이드</h2>
+          <h2 className="mt-4 section-title">4단계 시작 가이드</h2>
+          <p className="mt-5 section-sub">
+            각 단계는 명확합니다. 막힐 일은 없습니다.
+          </p>
         </div>
 
-        <div className="mt-16 space-y-16">
-          {steps.map((s, i) => {
-            const reverse = i % 2 === 1;
-            return (
-              <div
-                key={s.n}
-                className={`grid items-center gap-10 lg:grid-cols-2 lg:gap-16 ${
-                  reverse ? "lg:[&>*:first-child]:order-2" : ""
-                }`}
-              >
-                <div className="relative overflow-hidden rounded-xl border border-brand-line bg-white shadow-card">
-                  <img
-                    src={s.img}
-                    alt={s.title}
-                    className="aspect-[5/4] w-full object-cover"
-                    loading="lazy"
-                  />
-                  <div className="absolute left-5 top-5 rounded-md bg-white px-4 py-1.5 text-xs font-extrabold tracking-[0.18em] text-brand-primary shadow-soft">
-                    STEP {s.n}
+        <div className="relative mt-16">
+          <div className="pointer-events-none absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-brand-line lg:block" />
+          <ol className="space-y-16">
+            {steps.map((s, i) => {
+              const reverse = i % 2 === 1;
+              return (
+                <li
+                  key={s.n}
+                  className={`relative grid items-center gap-10 lg:grid-cols-2 lg:gap-16 ${
+                    reverse ? "lg:[&>*:first-child]:order-2" : ""
+                  }`}
+                >
+                  <div className="pointer-events-none absolute left-1/2 top-1/2 hidden h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-brand-primary bg-white text-base font-extrabold text-brand-primary shadow-card lg:flex">
+                    {parseInt(s.n)}
                   </div>
-                </div>
-                <div>
-                  <h3 className="text-3xl font-extrabold tracking-tight md:text-4xl">
-                    {s.title}
-                  </h3>
-                  <p className="mt-5 text-base text-brand-muted md:text-lg">
-                    {s.desc}
-                  </p>
-                  <ul className="mt-7 space-y-3 text-base text-brand-subText">
-                    {s.bullets.map((b) => (
-                      <li key={b} className="flex items-start gap-3">
-                        <CheckIcon />
-                        <span>{b}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            );
-          })}
+
+                  <div className="img-zoom relative overflow-hidden rounded-xl border border-brand-line bg-white shadow-depth">
+                    <CornerMarker />
+                    <img
+                      src={s.img}
+                      alt={s.title}
+                      className="aspect-[5/4] w-full object-cover"
+                      loading="lazy"
+                    />
+                    <div className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-md bg-white/95 px-3 py-1.5 text-[11px] font-extrabold tracking-[0.22em] text-brand-primary shadow-soft backdrop-blur">
+                      STEP {s.n}
+                    </div>
+                    <div className="absolute bottom-5 right-5 inline-flex items-center gap-1.5 rounded-md bg-brand-text/85 px-2.5 py-1 text-[11px] font-bold text-white backdrop-blur">
+                      ⏱ {s.time}
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="num-display text-[72px] font-black leading-none text-brand-text/10 md:text-[112px]">
+                      {s.n}
+                    </div>
+                    <h3 className="-mt-8 text-3xl font-extrabold tracking-tight md:text-4xl">
+                      {s.title}
+                    </h3>
+                    <p className="mt-5 text-base text-brand-muted md:text-lg">
+                      {s.desc}
+                    </p>
+                    <ul className="mt-7 space-y-3 text-base text-brand-subText">
+                      {s.bullets.map((b) => (
+                        <li key={b} className="flex items-start gap-3">
+                          <CheckBox /> <span>{b}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </li>
+              );
+            })}
+          </ol>
         </div>
       </div>
     </section>
   );
 }
 
+/* ─────────── Requirements ─────────── */
 function RequirementBox() {
   return (
     <section className="border-y border-brand-line bg-brand-subtle section-padding">
       <div className="container-x">
         <div className="mx-auto max-w-3xl text-center">
-          <span className="text-sm font-semibold tracking-[0.18em] text-brand-accent">
-            REQUIREMENTS
+          <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-primary">
+            Requirements
           </span>
-          <h2 className="mt-3 section-title">시스템 요구사항</h2>
+          <h2 className="mt-4 section-title">시스템 요구사항</h2>
         </div>
         <div className="mt-12 grid gap-6 md:grid-cols-2">
-          <div className="card-soft lift p-7">
-            <h3 className="text-lg font-bold text-brand-text">Windows</h3>
-            <ul className="mt-4 space-y-2 text-sm text-brand-subText">
-              <li>· Windows 10 이상 (64-bit)</li>
-              <li>· 메모리 4GB 이상 (권장 8GB)</li>
-              <li>· 안정적인 인터넷 연결 (유선 권장)</li>
-              <li>· 디스크 여유 공간 1GB</li>
+          <div className="lift card-soft p-7">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-brand-primarySoft text-brand-primary">
+                  <WindowsIcon />
+                </div>
+                <h3 className="text-lg font-bold text-brand-text">Windows</h3>
+              </div>
+              <span className="stat-chip">Win 10+</span>
+            </div>
+            <ul className="mt-6 space-y-3 text-sm text-brand-subText">
+              {[
+                "Windows 10 이상 (64-bit)",
+                "메모리 4GB 이상 (권장 8GB)",
+                "안정적인 인터넷 연결 (유선 권장)",
+                "디스크 여유 공간 1GB",
+              ].map((t) => (
+                <li key={t} className="flex items-start gap-3">
+                  <CheckMini /> <span>{t}</span>
+                </li>
+              ))}
             </ul>
           </div>
-          <div className="card-soft lift p-7">
-            <h3 className="text-lg font-bold text-brand-text">macOS</h3>
-            <ul className="mt-4 space-y-2 text-sm text-brand-subText">
-              <li>· macOS 12 (Monterey) 이상</li>
-              <li>· Apple Silicon (M1/M2/M3) 및 Intel 모두 지원</li>
-              <li>· 메모리 4GB 이상</li>
-              <li>· 디스크 여유 공간 1GB</li>
+          <div className="lift card-soft p-7">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-brand-primarySoft text-brand-primary">
+                  <AppleIcon />
+                </div>
+                <h3 className="text-lg font-bold text-brand-text">macOS</h3>
+              </div>
+              <span className="stat-chip">macOS 12+</span>
+            </div>
+            <ul className="mt-6 space-y-3 text-sm text-brand-subText">
+              {[
+                "macOS 12 (Monterey) 이상",
+                "Apple Silicon (M1/M2/M3) 및 Intel 모두 지원",
+                "메모리 4GB 이상",
+                "디스크 여유 공간 1GB",
+              ].map((t) => (
+                <li key={t} className="flex items-start gap-3">
+                  <CheckMini /> <span>{t}</span>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
@@ -196,6 +279,7 @@ function RequirementBox() {
   );
 }
 
+/* ─────────── FAQ mini ─────────── */
 function FaqMini() {
   const faqs = [
     {
@@ -216,32 +300,28 @@ function FaqMini() {
       <div className="container-x">
         <div className="mx-auto max-w-3xl">
           <div className="text-center">
-            <span className="text-sm font-semibold tracking-[0.18em] text-brand-primary">
-              QUICK FAQ
+            <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-primary">
+              Quick FAQ
             </span>
-            <h2 className="mt-3 section-title">자주 묻는 질문</h2>
+            <h2 className="mt-4 section-title">자주 묻는 질문</h2>
           </div>
-          <div className="mt-10 divide-y divide-brand-lineSoft overflow-hidden rounded-lg border border-brand-line bg-white">
+          <div className="mt-10 divide-y divide-brand-lineSoft overflow-hidden rounded-xl border border-brand-line bg-white shadow-soft">
             {faqs.map((f) => (
               <details key={f.q} className="group p-6 open:bg-brand-subtle">
-                <summary className="flex cursor-pointer items-center justify-between text-base font-semibold text-brand-text">
-                  {f.q}
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-semibold text-brand-text">
+                  <span className="flex items-center gap-3">
+                    <span className="inline-flex h-6 w-6 items-center justify-center rounded-md bg-brand-primarySoft text-[11px] font-extrabold text-brand-primary">
+                      Q
+                    </span>
+                    {f.q}
+                  </span>
                   <span className="text-brand-muted transition-transform group-open:rotate-180">
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                       <polyline points="6 9 12 15 18 9" />
                     </svg>
                   </span>
                 </summary>
-                <p className="mt-3 text-sm text-brand-muted">{f.a}</p>
+                <p className="mt-3 pl-9 text-sm text-brand-muted">{f.a}</p>
               </details>
             ))}
           </div>
@@ -259,36 +339,82 @@ function FaqMini() {
   );
 }
 
+/* ─────────── Download (dark) ─────────── */
 function Download() {
   return (
-    <section id="download" className="pb-24">
-      <div className="container-x">
-        <div className="grid gap-8 overflow-hidden rounded-xl border border-brand-line bg-white p-10 shadow-elevated md:p-14 lg:grid-cols-2 lg:items-center">
+    <section
+      id="download"
+      className="relative isolate overflow-hidden border-y border-white/5 section-padding"
+      style={{ background: "var(--ink)" }}
+    >
+      <div className="line-grid-dark pointer-events-none absolute inset-0" />
+      <div className="container-x relative">
+        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
           <div>
-            <h3 className="text-3xl font-extrabold tracking-tight text-brand-text md:text-5xl">
+            <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-primary">
+              Download
+            </span>
+            <h3 className="mt-4 text-4xl font-extrabold tracking-tightest text-white md:text-6xl">
               지금 다운로드,
               <br />
-              <span className="gradient-text">14일 무료체험</span>
+              <span className="text-brand-primary">14일 무료체험</span>
             </h3>
-            <p className="mt-5 text-base text-brand-muted md:text-lg">
+            <p className="mt-5 text-base text-white/70 md:text-lg">
               신용카드 등록 없이 시작. 1분 설치, 5분이면 첫 자동매매를 경험할 수
               있습니다.
             </p>
+            <div className="mt-6 flex flex-wrap gap-2">
+              <span className="stat-chip !bg-white/5 !text-white !border-white/10">
+                ✓ 14일 무료
+              </span>
+              <span className="stat-chip !bg-white/5 !text-white !border-white/10">
+                ✓ 카드 등록 X
+              </span>
+              <span className="stat-chip !bg-white/5 !text-white !border-white/10">
+                ✓ 언제든 해지
+              </span>
+            </div>
           </div>
-          <div className="flex flex-col gap-3 lg:items-end">
+          <div className="flex flex-col gap-3">
             <a
               href="#"
-              className="inline-flex w-full items-center justify-center gap-3 rounded-lg border border-brand-line bg-white px-6 py-4 text-base font-bold text-brand-text shadow-soft transition-all hover:-translate-y-0.5 hover:shadow-card lg:w-80"
+              className="lift-dark card-dark group flex items-center gap-4 p-5 transition-all"
             >
-              <WindowsIcon /> Windows 다운로드
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white text-brand-text">
+                <WindowsIcon />
+              </div>
+              <div className="flex-1">
+                <div className="text-xs font-bold uppercase tracking-[0.18em] text-white/50">
+                  Windows 10+
+                </div>
+                <div className="mt-1 text-base font-extrabold text-white">
+                  Windows 다운로드
+                </div>
+              </div>
+              <span className="text-white/40 transition-transform group-hover:translate-x-1">
+                →
+              </span>
             </a>
             <a
               href="#"
-              className="inline-flex w-full items-center justify-center gap-3 rounded-lg border border-brand-line bg-white px-6 py-4 text-base font-bold text-brand-text shadow-soft transition-all hover:-translate-y-0.5 hover:shadow-card lg:w-80"
+              className="lift-dark card-dark group flex items-center gap-4 p-5 transition-all"
             >
-              <AppleIcon /> macOS 다운로드
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white text-brand-text">
+                <AppleIcon />
+              </div>
+              <div className="flex-1">
+                <div className="text-xs font-bold uppercase tracking-[0.18em] text-white/50">
+                  macOS 12+
+                </div>
+                <div className="mt-1 text-base font-extrabold text-white">
+                  macOS 다운로드
+                </div>
+              </div>
+              <span className="text-white/40 transition-transform group-hover:translate-x-1">
+                →
+              </span>
             </a>
-            <p className="mt-1 text-xs text-brand-muted lg:text-right">
+            <p className="mt-2 text-xs text-white/45">
               v2.4.1 · 32MB · 2026-05-12 업데이트
             </p>
           </div>
@@ -298,36 +424,46 @@ function Download() {
   );
 }
 
-function CheckIcon() {
+/* ─────────── icons ─────────── */
+function CornerMarker() {
+  const C = ({ className }: { className: string }) => (
+    <span className={`absolute z-10 h-3 w-3 border-white/70 ${className}`} />
+  );
   return (
-    <span className="mt-1 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-primarySoft text-brand-primary">
-      <svg
-        width="12"
-        height="12"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="3.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
+    <>
+      <C className="left-3 top-3 border-l border-t" />
+      <C className="right-3 top-3 border-r border-t" />
+      <C className="bottom-3 left-3 border-b border-l" />
+      <C className="bottom-3 right-3 border-b border-r" />
+    </>
+  );
+}
+function CheckBox() {
+  return (
+    <span className="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-brand-primarySoft text-brand-primary">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
         <polyline points="20 6 9 17 4 12" />
       </svg>
     </span>
   );
 }
-
+function CheckMini() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="mt-0.5 shrink-0 text-brand-primary">
+      <polyline points="20 6 9 17 4 12" />
+    </svg>
+  );
+}
 function WindowsIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
       <path d="M3 5.5L10.5 4.5V11.5H3V5.5ZM3 12.5H10.5V19.5L3 18.5V12.5ZM11.5 4.3L21 3V11.5H11.5V4.3ZM11.5 12.5H21V21L11.5 19.7V12.5Z" />
     </svg>
   );
 }
-
 function AppleIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
       <path d="M17.05 12.04c-.03-2.99 2.45-4.43 2.56-4.5-1.4-2.05-3.58-2.33-4.35-2.36-1.85-.19-3.62 1.09-4.56 1.09-.95 0-2.4-1.07-3.95-1.04-2.03.03-3.91 1.18-4.96 3-2.12 3.67-.54 9.1 1.52 12.07 1 1.46 2.19 3.1 3.75 3.04 1.51-.06 2.08-.97 3.91-.97 1.83 0 2.34.97 3.94.94 1.63-.03 2.66-1.48 3.66-2.95 1.15-1.69 1.62-3.34 1.65-3.43-.04-.02-3.17-1.22-3.2-4.83zM14.2 3.97c.84-1.02 1.41-2.43 1.25-3.84-1.21.05-2.67.81-3.54 1.83-.78.91-1.46 2.35-1.28 3.74 1.36.1 2.74-.69 3.57-1.73z" />
     </svg>
   );
