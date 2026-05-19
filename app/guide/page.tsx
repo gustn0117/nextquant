@@ -4,275 +4,337 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "이용 방법 | 넥스트퀀트 NEXT QUANT",
   description:
-    "복잡한 설정 없이 단 3단계, 1분 만에 시작하는 자동 매매. 넥스트퀀트 프로그램을 무료로 다운로드하세요.",
+    "다운로드부터 첫 매매까지 5분이면 충분합니다. 단계별 가이드와 자주 묻는 질문을 확인하세요.",
 };
+
+const STEP_IMG_1 =
+  "https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?auto=format&fit=crop&w=1200&q=80";
+const STEP_IMG_2 =
+  "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&w=1200&q=80";
+const STEP_IMG_3 =
+  "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?auto=format&fit=crop&w=1200&q=80";
+const STEP_IMG_4 =
+  "https://images.unsplash.com/photo-1554260570-9140fd3b7614?auto=format&fit=crop&w=1200&q=80";
 
 export default function GuidePage() {
   return (
     <>
       <GuideHero />
-      <DownloadSection />
-      <StepsPreview />
-      <FaqShort />
+      <StepGuide />
+      <RequirementBox />
+      <FaqMini />
+      <Download />
     </>
   );
 }
 
 function GuideHero() {
   return (
-    <section className="relative overflow-hidden">
-      <div className="absolute inset-0 bg-hero-glow opacity-80" />
-      <div className="absolute inset-0 bg-grid opacity-50" />
+    <section className="relative overflow-hidden border-b border-brand-line">
+      <div className="absolute inset-0 bg-hero-soft" />
+      <div className="absolute inset-0 bg-grid opacity-60" />
       <div className="container-x relative section-padding pt-24 md:pt-32">
-        <div className="mx-auto max-w-4xl text-center">
-          <span className="text-sm font-semibold tracking-[0.18em] text-brand-primary">
-            HOW TO USE
-          </span>
-          <h1 className="mt-4 text-balance text-4xl font-extrabold leading-[1.15] tracking-tight md:text-6xl">
-            복잡한 설정 없이 단 3단계,
-            <br />
-            <span className="gradient-text">1분 만에 시작</span>하는 자동 매매
+        <div className="mx-auto max-w-3xl text-center">
+          <span className="eyebrow">HOW TO START</span>
+          <h1 className="mt-5 text-4xl font-extrabold tracking-tight md:text-6xl">
+            <span className="gradient-text">5분</span>이면 충분합니다.
           </h1>
           <p className="mt-7 section-sub">
-            지금 바로 다운로드하고, 본인 환경에 맞게 설치한 뒤
-            <br className="hidden md:block" />
-            준비된 전략 템플릿으로 시작하세요.
+            다운로드부터 첫 자동매매까지, 누구나 따라할 수 있는 단계별 가이드를
+            준비했습니다.
           </p>
+          <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <a href="#download" className="btn-primary">
+              지금 다운로드
+            </a>
+            <a href="#steps" className="btn-ghost">
+              단계별 가이드 보기
+            </a>
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
-function DownloadSection() {
-  const platforms = [
-    {
-      os: "Windows",
-      sub: "Windows 10 / 11 (64-bit)",
-      size: "약 78 MB",
-      filename: "NextQuant-Setup-x64.exe",
-      icon: (
-        <svg viewBox="0 0 24 24" fill="currentColor" className="h-8 w-8">
-          <path d="M3 5.479 10.176 4.5v6.85H3V5.48Zm0 13.04V12.65h7.176v6.852L3 18.518Zm8.103-14.155L21 3v8.35h-9.897V4.365Zm0 16.27v-7.985H21V21l-9.897-1.365Z" />
-        </svg>
-      ),
-    },
-    {
-      os: "macOS",
-      sub: "macOS 12 Monterey 이상",
-      size: "약 92 MB",
-      filename: "NextQuant-Universal.dmg",
-      icon: (
-        <svg viewBox="0 0 24 24" fill="currentColor" className="h-8 w-8">
-          <path d="M16.365 1.43c0 1.14-.49 2.27-1.28 3.07-.86.86-2.24 1.52-3.36 1.43-.13-1.13.46-2.27 1.21-3.04.85-.87 2.31-1.5 3.43-1.46Zm3.79 17.66c-.62 1.36-.91 1.96-1.7 3.16-1.1 1.66-2.66 3.74-4.59 3.74-1.72 0-2.16-1.11-4.49-1.11-2.33 0-2.82 1.13-4.54 1.11-1.93-.04-3.4-1.91-4.5-3.57C-.99 18.4-2.6 12.1.78 8.5c1.6-1.7 3.83-2.78 6.05-2.78 1.73 0 3.36 1.16 4.43 1.16 1.06 0 3.07-1.42 5.19-1.21.88.04 3.35.36 4.94 2.69-.13.08-2.95 1.72-2.92 5.13.04 4.08 3.58 5.44 3.62 5.46 0 .04-.57 1.94-.94 2.74Z" />
-        </svg>
-      ),
-    },
-  ];
-
-  return (
-    <section className="section-padding">
-      <div className="container-x">
-        <div className="mx-auto max-w-3xl text-center">
-          <h2 className="section-title">
-            <span className="gradient-text">무료체험</span> 다운로드
-          </h2>
-          <p className="mt-5 section-sub">
-            본인 환경에 맞는 설치 파일을 선택하세요.
-            <br />
-            회원가입 후 라이선스 키와 함께 발송됩니다.
-          </p>
-        </div>
-
-        <div className="mx-auto mt-12 grid max-w-4xl gap-5 md:grid-cols-2">
-          {platforms.map((p) => (
-            <div
-              key={p.os}
-              className="group relative overflow-hidden rounded-2xl border border-brand-line bg-brand-card/40 p-8 transition-all hover:-translate-y-1 hover:border-brand-primary/60 hover:shadow-[0_30px_60px_-30px_rgba(0,229,168,0.4)]"
-            >
-              <div className="flex items-start justify-between">
-                <div className="inline-flex h-14 w-14 items-center justify-center rounded-xl bg-brand-primary/10 text-brand-primary ring-1 ring-inset ring-brand-primary/20">
-                  {p.icon}
-                </div>
-                <span className="rounded-full bg-brand-primary/15 px-3 py-1 text-[10px] font-bold tracking-wider text-brand-primary">
-                  FREE TRIAL
-                </span>
-              </div>
-              <h3 className="mt-6 text-2xl font-bold">{p.os}</h3>
-              <p className="mt-1 text-sm text-brand-muted">{p.sub}</p>
-
-              <div className="mt-5 rounded-lg border border-brand-line bg-brand-bg/60 p-3 font-mono text-xs">
-                <div className="flex items-center justify-between">
-                  <span className="truncate text-brand-text">{p.filename}</span>
-                  <span className="ml-3 flex-shrink-0 text-brand-muted">
-                    {p.size}
-                  </span>
-                </div>
-              </div>
-
-              <button
-                type="button"
-                className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand-primary px-6 py-3.5 text-sm font-semibold text-brand-bg transition-all hover:bg-brand-primaryDim hover:shadow-[0_0_30px_rgba(0,229,168,0.45)]"
-                aria-label={`${p.os}용 넥스트퀀트 다운로드`}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                  <polyline points="7 10 12 15 17 10" />
-                  <line x1="12" y1="15" x2="12" y2="3" />
-                </svg>
-                {p.os} 다운로드
-              </button>
-            </div>
-          ))}
-        </div>
-
-        <p className="mx-auto mt-8 max-w-2xl text-center text-xs leading-relaxed text-brand-muted">
-          ※ 다운로드 링크는 회원가입 완료 후 발급된 라이선스로 활성화됩니다.
-          설치 중 보안 경고가 표시될 경우 가이드를 참고해주세요.
-        </p>
-      </div>
-    </section>
-  );
-}
-
-function StepsPreview() {
+function StepGuide() {
   const steps = [
-    { n: "01", t: "회원가입 및 프로그램 다운로드" },
-    { n: "02", t: "거래소 API 연동" },
-    { n: "03", t: "투자 성향 선택 및 구동" },
+    {
+      n: "01",
+      title: "프로그램 다운로드 & 설치",
+      desc: "공식 사이트에서 OS에 맞는 설치파일을 받아 1분이면 설치가 끝납니다. 회원가입은 이메일과 비밀번호만으로 완료됩니다.",
+      bullets: [
+        "Windows 10 이상 · macOS 12 이상 지원",
+        "신용카드 등록 없이 무료체험",
+        "설치 즉시 데모 계좌로 미리 체험 가능",
+      ],
+      img: STEP_IMG_1,
+    },
+    {
+      n: "02",
+      title: "거래소 API 키 발급 & 연결",
+      desc: "이용 중인 거래소에서 API 키를 생성한 뒤 넥스트퀀트에 안전하게 등록합니다. 출금 권한은 절대 부여하지 않아 자산 이체가 불가능합니다.",
+      bullets: [
+        "Binance · Bybit · Upbit · OKX 등 주요 거래소 지원",
+        "IP 화이트리스트 설정 권장",
+        "출금 권한 OFF · 거래 권한만 ON",
+      ],
+      img: STEP_IMG_2,
+    },
+    {
+      n: "03",
+      title: "전략 선택 & 리스크 설정",
+      desc: "기본 제공되는 검증된 전략 프리셋(보수 / 표준 / 공격) 중 본인의 성향에 맞는 것을 고르고, 슬라이더로 MDD와 분할 진입 기준을 조정합니다.",
+      bullets: [
+        "보수 / 표준 / 공격 3가지 프리셋",
+        "MDD · 익절 · 손절 슬라이더 조정",
+        "1종목당 최대 사용 금액 직접 설정",
+      ],
+      img: STEP_IMG_3,
+    },
+    {
+      n: "04",
+      title: "자동매매 ON & 모니터링",
+      desc: "ON 버튼 하나로 봇이 24시간 시장을 모니터링하기 시작합니다. 대시보드에서 활성 포지션, 누적 수익률, MDD를 한눈에 확인할 수 있습니다.",
+      bullets: [
+        "원클릭 ON / OFF",
+        "실시간 푸시 알림 · 카카오 알림",
+        "주간 / 월간 리포트 자동 생성",
+      ],
+      img: STEP_IMG_4,
+    },
   ];
 
   return (
-    <section className="section-padding border-y border-brand-line bg-brand-surface/40">
+    <section id="steps" className="section-padding">
       <div className="container-x">
         <div className="mx-auto max-w-3xl text-center">
           <span className="text-sm font-semibold tracking-[0.18em] text-brand-primary">
-            STEP BY STEP
+            STEP-BY-STEP
           </span>
-          <h2 className="mt-4 section-title">
-            <span className="gradient-text">3단계</span>로 끝나는 시작
-          </h2>
-          <p className="mt-5 section-sub">
-            자세한 단계별 안내 가이드는 곧 공개될 예정입니다.
-          </p>
+          <h2 className="mt-3 section-title">4단계 시작 가이드</h2>
         </div>
 
-        <div className="relative mt-14">
-          <div className="absolute left-0 right-0 top-7 hidden h-px bg-gradient-to-r from-transparent via-brand-line to-transparent md:block" />
-          <div className="grid gap-6 md:grid-cols-3">
-            {steps.map((s) => (
+        <div className="mt-16 space-y-16">
+          {steps.map((s, i) => {
+            const reverse = i % 2 === 1;
+            return (
               <div
                 key={s.n}
-                className="relative rounded-2xl border border-brand-line bg-brand-card/40 p-8 text-center"
+                className={`grid items-center gap-10 lg:grid-cols-2 lg:gap-16 ${
+                  reverse ? "lg:[&>*:first-child]:order-2" : ""
+                }`}
               >
-                <div className="relative z-10 mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-brand-primary/40 bg-brand-bg text-base font-extrabold text-brand-primary">
-                  {s.n}
+                <div className="relative overflow-hidden rounded-3xl border border-brand-line bg-white shadow-card">
+                  <img
+                    src={s.img}
+                    alt={s.title}
+                    className="aspect-[5/4] w-full object-cover"
+                    loading="lazy"
+                  />
+                  <div className="absolute left-5 top-5 rounded-full bg-white px-4 py-1.5 text-xs font-extrabold tracking-[0.18em] text-brand-primary shadow-soft">
+                    STEP {s.n}
+                  </div>
                 </div>
-                <h3 className="mt-5 text-lg font-bold leading-snug">{s.t}</h3>
-                <p className="mt-3 text-sm text-brand-muted">
-                  상세 안내 콘텐츠 준비 중
-                </p>
+                <div>
+                  <h3 className="text-3xl font-extrabold tracking-tight md:text-4xl">
+                    {s.title}
+                  </h3>
+                  <p className="mt-5 text-base text-brand-muted md:text-lg">
+                    {s.desc}
+                  </p>
+                  <ul className="mt-7 space-y-3 text-base text-brand-subText">
+                    {s.bullets.map((b) => (
+                      <li key={b} className="flex items-start gap-3">
+                        <CheckIcon />
+                        <span>{b}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="mx-auto mt-10 flex max-w-xl items-center gap-3 rounded-2xl border border-brand-primary/30 bg-brand-primary/5 p-5">
-          <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-brand-primary/15 text-brand-primary">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="h-5 w-5"
-            >
-              <circle cx="12" cy="12" r="10" />
-              <path d="M12 16v-4M12 8h.01" />
-            </svg>
-          </div>
-          <p className="text-sm leading-relaxed text-brand-text">
-            <span className="font-semibold text-brand-primary">
-              안내 공개 예정 ·
-            </span>{" "}
-            각 단계별 상세 가이드(스크린샷·API 키 등록 보안 가이드 포함)는 추후
-            업데이트됩니다.
-          </p>
+            );
+          })}
         </div>
       </div>
     </section>
   );
 }
 
-function FaqShort() {
+function RequirementBox() {
+  return (
+    <section className="border-y border-brand-line bg-brand-subtle section-padding">
+      <div className="container-x">
+        <div className="mx-auto max-w-3xl text-center">
+          <span className="text-sm font-semibold tracking-[0.18em] text-brand-accent">
+            REQUIREMENTS
+          </span>
+          <h2 className="mt-3 section-title">시스템 요구사항</h2>
+        </div>
+        <div className="mt-12 grid gap-6 md:grid-cols-2">
+          <div className="card-soft p-7">
+            <h3 className="text-lg font-bold text-brand-text">Windows</h3>
+            <ul className="mt-4 space-y-2 text-sm text-brand-subText">
+              <li>· Windows 10 이상 (64-bit)</li>
+              <li>· 메모리 4GB 이상 (권장 8GB)</li>
+              <li>· 안정적인 인터넷 연결 (유선 권장)</li>
+              <li>· 디스크 여유 공간 1GB</li>
+            </ul>
+          </div>
+          <div className="card-soft p-7">
+            <h3 className="text-lg font-bold text-brand-text">macOS</h3>
+            <ul className="mt-4 space-y-2 text-sm text-brand-subText">
+              <li>· macOS 12 (Monterey) 이상</li>
+              <li>· Apple Silicon (M1/M2/M3) 및 Intel 모두 지원</li>
+              <li>· 메모리 4GB 이상</li>
+              <li>· 디스크 여유 공간 1GB</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FaqMini() {
   const faqs = [
     {
-      q: "체험판은 정말 무료인가요?",
-      a: "네, 회원가입만으로 모든 핵심 기능을 무료로 체험할 수 있습니다. 결제 정보 등록은 필요하지 않습니다.",
+      q: "API 키는 안전한가요?",
+      a: "출금 권한을 부여하지 않은 키만 등록 가능합니다. 자산은 항상 거래소에 보관되며, 넥스트퀀트는 매매 신호만 보냅니다.",
     },
     {
-      q: "거래소 API 키는 안전한가요?",
-      a: "출금 권한은 제외하고 조회·매매 권한만 사용하며, AES-256으로 암호화되어 로컬에 저장됩니다. 자세한 보안 가이드는 회원가입 후 안내드립니다.",
+      q: "컴퓨터를 켜두지 않아도 동작하나요?",
+      a: "예. 봇은 클라우드 기반으로 동작하므로 PC를 꺼두어도 24시간 자동매매가 유지됩니다.",
     },
     {
-      q: "어떤 거래소를 지원하나요?",
-      a: "Binance, Bybit, OKX 등 주요 글로벌 거래소를 지원하며, 지속적으로 연동 거래소를 확대하고 있습니다.",
+      q: "체험판은 얼마나 사용할 수 있나요?",
+      a: "기본 14일 무료체험을 제공합니다. 체험 기간 동안 모든 핵심 기능을 제한 없이 사용할 수 있습니다.",
     },
   ];
-
   return (
     <section className="section-padding">
       <div className="container-x">
         <div className="mx-auto max-w-3xl">
           <div className="text-center">
-            <h2 className="section-title">자주 묻는 질문</h2>
+            <span className="text-sm font-semibold tracking-[0.18em] text-brand-primary">
+              QUICK FAQ
+            </span>
+            <h2 className="mt-3 section-title">자주 묻는 질문</h2>
           </div>
-          <div className="mt-10 space-y-3">
+          <div className="mt-10 divide-y divide-brand-lineSoft overflow-hidden rounded-2xl border border-brand-line bg-white">
             {faqs.map((f) => (
-              <details
-                key={f.q}
-                className="group rounded-2xl border border-brand-line bg-brand-card/40 p-5 open:border-brand-primary/40 open:bg-brand-card/70"
-              >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-semibold">
-                  <span>{f.q}</span>
-                  <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full border border-brand-line text-brand-primary transition-transform group-open:rotate-45">
+              <details key={f.q} className="group p-6 open:bg-brand-subtle">
+                <summary className="flex cursor-pointer items-center justify-between text-base font-semibold text-brand-text">
+                  {f.q}
+                  <span className="text-brand-muted transition-transform group-open:rotate-180">
                     <svg
+                      width="18"
+                      height="18"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
                       strokeWidth="2.5"
                       strokeLinecap="round"
-                      className="h-3.5 w-3.5"
+                      strokeLinejoin="round"
                     >
-                      <line x1="12" y1="5" x2="12" y2="19" />
-                      <line x1="5" y1="12" x2="19" y2="12" />
+                      <polyline points="6 9 12 15 18 9" />
                     </svg>
                   </span>
                 </summary>
-                <p className="mt-4 text-sm leading-relaxed text-brand-muted">
-                  {f.a}
-                </p>
+                <p className="mt-3 text-sm text-brand-muted">{f.a}</p>
               </details>
             ))}
           </div>
-          <div className="mt-10 text-center">
-            <Link href="/support" className="btn-ghost">
-              더 많은 질문 보기
+          <div className="mt-6 text-center">
+            <Link
+              href="/support"
+              className="text-sm font-semibold text-brand-primary hover:underline"
+            >
+              모든 FAQ 보기 →
             </Link>
           </div>
         </div>
       </div>
     </section>
+  );
+}
+
+function Download() {
+  return (
+    <section id="download" className="pb-24">
+      <div className="container-x">
+        <div
+          className="grid gap-8 overflow-hidden rounded-3xl border border-brand-line p-10 shadow-elevated md:p-14 lg:grid-cols-2 lg:items-center"
+          style={{
+            background:
+              "linear-gradient(135deg, #FFFFFF 0%, #F0FAF6 60%, #E6F8F2 100%)",
+          }}
+        >
+          <div>
+            <h3 className="text-3xl font-extrabold tracking-tight text-brand-text md:text-5xl">
+              지금 다운로드,
+              <br />
+              <span className="gradient-text">14일 무료체험</span>
+            </h3>
+            <p className="mt-5 text-base text-brand-muted md:text-lg">
+              신용카드 등록 없이 시작. 1분 설치, 5분이면 첫 자동매매를 경험할 수
+              있습니다.
+            </p>
+          </div>
+          <div className="flex flex-col gap-3 lg:items-end">
+            <a
+              href="#"
+              className="inline-flex w-full items-center justify-center gap-3 rounded-2xl border border-brand-line bg-white px-6 py-4 text-base font-bold text-brand-text shadow-soft transition-all hover:-translate-y-0.5 hover:shadow-card lg:w-80"
+            >
+              <WindowsIcon /> Windows 다운로드
+            </a>
+            <a
+              href="#"
+              className="inline-flex w-full items-center justify-center gap-3 rounded-2xl border border-brand-line bg-white px-6 py-4 text-base font-bold text-brand-text shadow-soft transition-all hover:-translate-y-0.5 hover:shadow-card lg:w-80"
+            >
+              <AppleIcon /> macOS 다운로드
+            </a>
+            <p className="mt-1 text-xs text-brand-muted lg:text-right">
+              v2.4.1 · 32MB · 2026-05-12 업데이트
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CheckIcon() {
+  return (
+    <span className="mt-1 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-primarySoft text-brand-primary">
+      <svg
+        width="12"
+        height="12"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="3.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <polyline points="20 6 9 17 4 12" />
+      </svg>
+    </span>
+  );
+}
+
+function WindowsIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M3 5.5L10.5 4.5V11.5H3V5.5ZM3 12.5H10.5V19.5L3 18.5V12.5ZM11.5 4.3L21 3V11.5H11.5V4.3ZM11.5 12.5H21V21L11.5 19.7V12.5Z" />
+    </svg>
+  );
+}
+
+function AppleIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M17.05 12.04c-.03-2.99 2.45-4.43 2.56-4.5-1.4-2.05-3.58-2.33-4.35-2.36-1.85-.19-3.62 1.09-4.56 1.09-.95 0-2.4-1.07-3.95-1.04-2.03.03-3.91 1.18-4.96 3-2.12 3.67-.54 9.1 1.52 12.07 1 1.46 2.19 3.1 3.75 3.04 1.51-.06 2.08-.97 3.91-.97 1.83 0 2.34.97 3.94.94 1.63-.03 2.66-1.48 3.66-2.95 1.15-1.69 1.62-3.34 1.65-3.43-.04-.02-3.17-1.22-3.2-4.83zM14.2 3.97c.84-1.02 1.41-2.43 1.25-3.84-1.21.05-2.67.81-3.54 1.83-.78.91-1.46 2.35-1.28 3.74 1.36.1 2.74-.69 3.57-1.73z" />
+    </svg>
   );
 }

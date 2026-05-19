@@ -7,12 +7,24 @@ export const metadata: Metadata = {
     "백테스팅 데이터로 검증된 강력한 시스템 트레이딩 엔진. 정밀한 마켓 데이터 분석, 철저한 리스크 컨트롤, 직관적인 대시보드를 제공합니다.",
 };
 
+const ENGINE_IMG =
+  "https://images.unsplash.com/photo-1640340434855-6084b1f4901c?auto=format&fit=crop&w=1400&q=80";
+const ORDERBOOK_IMG =
+  "https://images.unsplash.com/photo-1591696205602-2f950c417cb9?auto=format&fit=crop&w=1200&q=80";
+const RISK_IMG =
+  "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?auto=format&fit=crop&w=1200&q=80";
+const DASHBOARD_IMG =
+  "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80";
+const ARCH_IMG =
+  "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&w=1400&q=80";
+
 export default function ProgramPage() {
   return (
     <>
       <ProgramHero />
       <CoreFeatures />
       <Architecture />
+      <CompareTable />
       <CtaBand />
     </>
   );
@@ -20,24 +32,31 @@ export default function ProgramPage() {
 
 function ProgramHero() {
   return (
-    <section className="relative overflow-hidden">
-      <div className="absolute inset-0 bg-hero-glow opacity-80" />
-      <div className="absolute inset-0 bg-grid opacity-50" />
+    <section className="relative overflow-hidden border-b border-brand-line">
+      <div className="absolute inset-0 bg-hero-soft" />
+      <div className="absolute inset-0 bg-grid opacity-60" />
       <div className="container-x relative section-padding pt-24 md:pt-32">
-        <div className="mx-auto max-w-4xl text-center">
-          <span className="text-sm font-semibold tracking-[0.18em] text-brand-primary">
-            ABOUT PROGRAM
-          </span>
-          <h1 className="mt-4 text-balance text-4xl font-extrabold leading-[1.15] tracking-tight md:text-6xl">
-            백테스팅 데이터로 검증된
+        <div className="mx-auto max-w-3xl text-center">
+          <span className="eyebrow">ABOUT PROGRAM</span>
+          <h1 className="mt-5 text-4xl font-extrabold tracking-tight md:text-6xl">
+            백테스팅으로 검증된
             <br />
-            <span className="gradient-text">강력한 시스템 트레이딩 엔진</span>
+            <span className="gradient-text">시스템 트레이딩 엔진</span>
           </h1>
           <p className="mt-7 section-sub">
             수년간 축적된 시장 데이터와 정교한 알고리즘이 결합된
             <br className="hidden md:block" />
             넥스트퀀트만의 트레이딩 엔진을 만나보세요.
           </p>
+        </div>
+
+        <div className="mx-auto mt-14 max-w-5xl overflow-hidden rounded-3xl border border-brand-line bg-white shadow-elevated">
+          <img
+            src={ENGINE_IMG}
+            alt="트레이딩 엔진 시각화"
+            className="aspect-[21/9] w-full object-cover"
+            loading="eager"
+          />
         </div>
       </div>
     </section>
@@ -53,10 +72,10 @@ function CoreFeatures() {
       desc: "호가창의 실시간 매수/매도 잔량과 유동성을 분석하여 진입 포지션을 잡습니다. 시장의 왜곡을 포착하는 넥스트퀀트만의 알고리즘이 탑재되어 있습니다.",
       bullets: [
         "실시간 오더북 잔량 분석",
-        "유동성/슬리피지 사전 점검",
+        "유동성 / 슬리피지 사전 점검",
         "변동성 구간 자동 인식",
       ],
-      visual: <OrderBookVisual />,
+      img: ORDERBOOK_IMG,
     },
     {
       idx: "02",
@@ -68,7 +87,7 @@ function CoreFeatures() {
         "MDD 기준 자동 손절 / 분할 진입",
         "마진 비율 단계별 알림",
       ],
-      visual: <RiskGaugeVisual />,
+      img: RISK_IMG,
     },
     {
       idx: "03",
@@ -78,369 +97,194 @@ function CoreFeatures() {
       bullets: [
         "한 화면에서 모든 포지션 확인",
         "누적 수익률 / 승률 시각화",
-        "원클릭 전략 전환",
+        "전략별 ON/OFF 토글",
       ],
-      visual: <DashboardVisual />,
+      img: DASHBOARD_IMG,
     },
   ];
 
   return (
     <section className="section-padding">
       <div className="container-x">
-        <div className="space-y-24 md:space-y-32">
-          {features.map((f, i) => (
-            <div
-              key={f.idx}
-              className={`grid items-center gap-12 md:grid-cols-2 md:gap-16 ${
-                i % 2 === 1 ? "md:[&>div:first-child]:order-2" : ""
-              }`}
-            >
-              <div>
-                <div className="flex items-center gap-3">
-                  <span className="gradient-text text-5xl font-black leading-none">
-                    {f.idx}
-                  </span>
-                  <span className="text-xs font-bold tracking-[0.2em] text-brand-primary">
-                    {f.label}
-                  </span>
+        <div className="mx-auto max-w-3xl text-center">
+          <span className="text-sm font-semibold tracking-[0.18em] text-brand-primary">
+            CORE FEATURES
+          </span>
+          <h2 className="mt-3 section-title">3가지 핵심 기술</h2>
+          <p className="mt-5 section-sub">
+            데이터 분석, 리스크 컨트롤, 사용자 경험. 트레이딩의 본질에
+            집중했습니다.
+          </p>
+        </div>
+
+        <div className="mt-16 space-y-20">
+          {features.map((f, i) => {
+            const reverse = i % 2 === 1;
+            return (
+              <div
+                key={f.idx}
+                className={`grid items-center gap-10 lg:grid-cols-2 lg:gap-16 ${
+                  reverse ? "lg:[&>*:first-child]:order-2" : ""
+                }`}
+              >
+                <div className="overflow-hidden rounded-3xl border border-brand-line bg-white shadow-card">
+                  <img
+                    src={f.img}
+                    alt={f.title}
+                    className="aspect-[5/4] w-full object-cover"
+                    loading="lazy"
+                  />
                 </div>
-                <h3 className="mt-5 text-3xl font-bold leading-tight md:text-4xl">
-                  {f.title}
-                </h3>
-                <p className="mt-5 text-base leading-relaxed text-brand-muted md:text-lg">
-                  {f.desc}
-                </p>
-                <ul className="mt-7 space-y-3">
-                  {f.bullets.map((b) => (
-                    <li
-                      key={b}
-                      className="flex items-start gap-3 text-sm md:text-base"
-                    >
-                      <span className="mt-1 inline-flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-brand-primary/15 text-brand-primary">
-                        <svg
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="3"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="h-3 w-3"
-                        >
-                          <polyline points="20 6 9 17 4 12" />
-                        </svg>
-                      </span>
-                      <span className="text-brand-text">{b}</span>
-                    </li>
-                  ))}
-                </ul>
+                <div>
+                  <div className="flex items-center gap-3">
+                    <span className="rounded-full bg-brand-primarySoft px-3 py-1 text-xs font-bold tracking-[0.2em] text-brand-primary">
+                      {f.idx}
+                    </span>
+                    <span className="text-sm font-semibold uppercase tracking-[0.18em] text-brand-muted">
+                      {f.label}
+                    </span>
+                  </div>
+                  <h3 className="mt-4 text-3xl font-extrabold tracking-tight md:text-4xl">
+                    {f.title}
+                  </h3>
+                  <p className="mt-5 text-base text-brand-muted md:text-lg">
+                    {f.desc}
+                  </p>
+                  <ul className="mt-7 space-y-3 text-base text-brand-subText">
+                    {f.bullets.map((b) => (
+                      <li key={b} className="flex items-start gap-3">
+                        <CheckIcon />
+                        <span>{b}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-              <div>{f.visual}</div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
   );
 }
 
-function OrderBookVisual() {
-  const asks = [
-    { p: "108,521", v: 0.45, w: 38 },
-    { p: "108,510", v: 0.82, w: 64 },
-    { p: "108,498", v: 0.36, w: 30 },
-    { p: "108,487", v: 1.12, w: 86 },
-    { p: "108,475", v: 0.58, w: 48 },
-  ];
-  const bids = [
-    { p: "108,462", v: 0.92, w: 72 },
-    { p: "108,451", v: 1.34, w: 96 },
-    { p: "108,440", v: 0.41, w: 34 },
-    { p: "108,428", v: 0.67, w: 54 },
-    { p: "108,415", v: 0.28, w: 24 },
-  ];
-
-  return (
-    <div className="glass-card rounded-2xl p-1">
-      <div className="rounded-[14px] bg-brand-bg/80 p-5">
-        <div className="flex items-center justify-between border-b border-brand-line pb-3">
-          <span className="text-xs font-bold tracking-wider text-brand-muted">
-            ORDER BOOK · BTC/USDT
-          </span>
-          <span className="rounded bg-brand-primary/15 px-2 py-0.5 text-[10px] font-bold text-brand-primary">
-            REALTIME
-          </span>
-        </div>
-
-        <div className="mt-4">
-          <div className="grid grid-cols-3 gap-2 px-2 pb-2 text-[10px] font-semibold uppercase tracking-wider text-brand-muted">
-            <span>Price</span>
-            <span className="text-right">Amount</span>
-            <span className="text-right">Total</span>
-          </div>
-
-          <div className="space-y-1">
-            {asks.map((r) => (
-              <div
-                key={r.p}
-                className="relative grid grid-cols-3 gap-2 rounded px-2 py-1 text-xs font-mono"
-              >
-                <div
-                  className="absolute inset-y-0 right-0 rounded bg-red-400/15"
-                  style={{ width: `${r.w}%` }}
-                />
-                <span className="relative text-red-400">{r.p}</span>
-                <span className="relative text-right">{r.v}</span>
-                <span className="relative text-right text-brand-muted">
-                  {(parseFloat(r.p.replace(",", "")) * r.v).toFixed(0)}
-                </span>
-              </div>
-            ))}
-          </div>
-
-          <div className="my-3 flex items-center justify-between rounded-lg border border-brand-primary/40 bg-brand-primary/5 px-3 py-2">
-            <span className="text-sm font-extrabold text-brand-primary">
-              108,468.50
-            </span>
-            <span className="text-[10px] font-semibold text-brand-muted">
-              Spread 0.04%
-            </span>
-          </div>
-
-          <div className="space-y-1">
-            {bids.map((r) => (
-              <div
-                key={r.p}
-                className="relative grid grid-cols-3 gap-2 rounded px-2 py-1 text-xs font-mono"
-              >
-                <div
-                  className="absolute inset-y-0 right-0 rounded bg-brand-primary/15"
-                  style={{ width: `${r.w}%` }}
-                />
-                <span className="relative text-brand-primary">{r.p}</span>
-                <span className="relative text-right">{r.v}</span>
-                <span className="relative text-right text-brand-muted">
-                  {(parseFloat(r.p.replace(",", "")) * r.v).toFixed(0)}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function RiskGaugeVisual() {
-  return (
-    <div className="glass-card rounded-2xl p-1">
-      <div className="rounded-[14px] bg-brand-bg/80 p-6">
-        <div className="flex items-center justify-between border-b border-brand-line pb-3">
-          <span className="text-xs font-bold tracking-wider text-brand-muted">
-            RISK MONITOR
-          </span>
-          <span className="rounded bg-brand-primary/15 px-2 py-0.5 text-[10px] font-bold text-brand-primary">
-            SAFE
-          </span>
-        </div>
-
-        <div className="mt-6 flex flex-col items-center">
-          <div className="relative h-32 w-56">
-            <svg viewBox="0 0 200 110" className="h-full w-full">
-              <defs>
-                <linearGradient id="g1" x1="0" x2="1">
-                  <stop offset="0%" stopColor="#00E5A8" />
-                  <stop offset="60%" stopColor="#3D8BFF" />
-                  <stop offset="100%" stopColor="#ff4d6d" />
-                </linearGradient>
-              </defs>
-              <path
-                d="M10,100 A90,90 0 0 1 190,100"
-                fill="none"
-                stroke="#1F2A44"
-                strokeWidth="14"
-                strokeLinecap="round"
-              />
-              <path
-                d="M10,100 A90,90 0 0 1 190,100"
-                fill="none"
-                stroke="url(#g1)"
-                strokeWidth="14"
-                strokeLinecap="round"
-                strokeDasharray="282.7"
-                strokeDashoffset="120"
-              />
-              <circle cx="78" cy="42" r="6" fill="#fff" />
-            </svg>
-            <div className="absolute inset-x-0 bottom-2 text-center">
-              <div className="text-2xl font-extrabold text-brand-primary">
-                32%
-              </div>
-              <div className="text-[10px] font-semibold text-brand-muted">
-                Margin Usage
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-6 w-full grid grid-cols-3 gap-2">
-            {[
-              { l: "Entry", v: "$108,210", c: "text-brand-muted" },
-              { l: "Mark", v: "$108,468", c: "text-brand-primary" },
-              { l: "MDD", v: "-4.81%", c: "text-brand-text" },
-            ].map((x) => (
-              <div
-                key={x.l}
-                className="rounded-lg border border-brand-line bg-brand-card/50 px-3 py-2.5 text-center"
-              >
-                <div className="text-[10px] font-semibold text-brand-muted">
-                  {x.l}
-                </div>
-                <div className={`mt-1 text-sm font-bold ${x.c}`}>{x.v}</div>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-4 w-full rounded-lg border border-brand-line bg-brand-card/30 p-3">
-            <div className="flex items-center justify-between text-[11px] font-semibold">
-              <span className="text-brand-muted">자동 손절 트리거</span>
-              <span className="text-brand-primary">-5.00% 도달 시</span>
-            </div>
-            <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-brand-line">
-              <div className="h-full w-[62%] rounded-full bg-gradient-to-r from-brand-primary to-brand-accent" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function DashboardVisual() {
-  return (
-    <div className="glass-card rounded-2xl p-1">
-      <div className="rounded-[14px] bg-brand-bg/80 p-5">
-        <div className="flex items-center justify-between border-b border-brand-line pb-3">
-          <span className="text-xs font-bold tracking-wider text-brand-muted">
-            MY DASHBOARD
-          </span>
-          <span className="text-[10px] text-brand-muted">Today · 05.19</span>
-        </div>
-
-        <div className="mt-5 rounded-xl border border-brand-line bg-brand-card/50 p-5">
-          <div className="text-xs text-brand-muted">총 자산</div>
-          <div className="mt-1.5 flex items-end gap-3">
-            <span className="text-3xl font-extrabold">$28,743.92</span>
-            <span className="text-sm font-bold text-brand-primary">
-              +12.4%
-            </span>
-          </div>
-
-          <div className="mt-5 flex h-14 items-end gap-1">
-            {[40, 55, 48, 62, 58, 70, 65, 80, 76, 88, 82, 95, 90].map(
-              (h, i) => (
-                <div
-                  key={i}
-                  className="flex-1 rounded-sm bg-gradient-to-t from-brand-primary/30 to-brand-primary"
-                  style={{ height: `${h}%` }}
-                />
-              ),
-            )}
-          </div>
-        </div>
-
-        <div className="mt-3 grid grid-cols-2 gap-3">
-          <div className="rounded-xl border border-brand-line bg-brand-card/50 p-4">
-            <div className="text-[10px] font-semibold text-brand-muted">
-              승률 (30일)
-            </div>
-            <div className="mt-1 text-xl font-extrabold text-brand-primary">
-              76.2%
-            </div>
-          </div>
-          <div className="rounded-xl border border-brand-line bg-brand-card/50 p-4">
-            <div className="text-[10px] font-semibold text-brand-muted">
-              체결 횟수
-            </div>
-            <div className="mt-1 text-xl font-extrabold">412</div>
-          </div>
-        </div>
-
-        <div className="mt-3 rounded-xl border border-brand-line bg-brand-card/50 p-4">
-          <div className="mb-3 flex items-center justify-between">
-            <span className="text-xs font-semibold text-brand-muted">
-              활성 포지션
-            </span>
-            <span className="text-[10px] font-bold text-brand-primary">
-              2 LIVE
-            </span>
-          </div>
-          {[
-            { s: "BTC/USDT", side: "LONG", pnl: "+$582.10", up: true },
-            { s: "ETH/USDT", side: "SHORT", pnl: "+$214.05", up: true },
-          ].map((p) => (
-            <div
-              key={p.s}
-              className="flex items-center justify-between border-t border-brand-line py-2.5 first:border-0 first:pt-0"
-            >
-              <div className="flex items-center gap-2">
-                <span className="text-sm font-bold">{p.s}</span>
-                <span
-                  className={`rounded px-1.5 py-0.5 text-[10px] font-bold ${
-                    p.side === "LONG"
-                      ? "bg-brand-primary/15 text-brand-primary"
-                      : "bg-red-400/15 text-red-400"
-                  }`}
-                >
-                  {p.side}
-                </span>
-              </div>
-              <span
-                className={`text-sm font-bold ${
-                  p.up ? "text-brand-primary" : "text-red-400"
-                }`}
-              >
-                {p.pnl}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function Architecture() {
-  const tech = [
-    { k: "Engine", v: "C++ / Rust 기반 저지연 매매 엔진" },
-    { k: "Exchange", v: "Binance · Bybit · OKX API 연동" },
-    { k: "Security", v: "출금 권한 분리 · AES-256 키 암호화" },
-    { k: "Backtest", v: "5년치 틱 데이터 검증 시뮬레이션" },
+  const layers = [
+    {
+      tag: "DATA",
+      title: "데이터 수집 레이어",
+      desc: "다중 거래소의 오더북·체결·펀딩비 데이터를 밀리초 단위로 수집하여 정합성 검증 후 저장합니다.",
+    },
+    {
+      tag: "STRATEGY",
+      title: "전략 / 시그널 레이어",
+      desc: "검증된 모멘텀·평균회귀·페어 트레이딩 룰셋을 조합. 백테스팅 → 페이퍼 트레이딩 → 실전 순으로 검증됩니다.",
+    },
+    {
+      tag: "RISK",
+      title: "리스크 매니지먼트 레이어",
+      desc: "포지션 사이즈, MDD, 마진 비율, 슬리피지 한계를 모든 주문 직전에 체크. 한 건이라도 위반 시 즉시 차단.",
+    },
+    {
+      tag: "EXEC",
+      title: "주문 실행 레이어",
+      desc: "분할 진입 / TWAP / 아이스버그 등의 실행 알고리즘으로 시장 충격을 최소화하며 주문을 처리합니다.",
+    },
   ];
-
   return (
-    <section className="section-padding border-y border-brand-line bg-brand-surface/40">
+    <section className="border-y border-brand-line bg-brand-subtle section-padding">
+      <div className="container-x">
+        <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-center lg:gap-16">
+          <div>
+            <span className="text-sm font-semibold tracking-[0.18em] text-brand-accent">
+              ARCHITECTURE
+            </span>
+            <h2 className="mt-3 section-title">
+              4-Layer 트레이딩 아키텍처
+            </h2>
+            <p className="mt-5 section-sub">
+              데이터부터 주문 실행까지, 각 레이어가 독립적으로 검증되고 모니터링됩니다.
+              어느 한 레이어에서 이상이 감지되면 전체 시스템이 안전하게 멈춥니다.
+            </p>
+            <div className="mt-8 overflow-hidden rounded-3xl border border-brand-line bg-white shadow-card">
+              <img
+                src={ARCH_IMG}
+                alt="시스템 아키텍처"
+                className="aspect-[5/3] w-full object-cover"
+                loading="lazy"
+              />
+            </div>
+          </div>
+
+          <ol className="space-y-4">
+            {layers.map((l, i) => (
+              <li
+                key={l.tag}
+                className="card-soft flex gap-5 p-6 transition-all hover:-translate-y-0.5 hover:shadow-card"
+              >
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-primarySoft text-base font-extrabold text-brand-primary">
+                  {String(i + 1).padStart(2, "0")}
+                </div>
+                <div>
+                  <div className="text-xs font-bold tracking-[0.18em] text-brand-primary">
+                    {l.tag}
+                  </div>
+                  <h3 className="mt-1 text-lg font-bold text-brand-text">
+                    {l.title}
+                  </h3>
+                  <p className="mt-2 text-sm text-brand-muted">{l.desc}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CompareTable() {
+  const rows: [string, string, string][] = [
+    ["진입/청산 판단 기준", "감정·뉴스·직감", "백테스팅으로 검증된 룰셋"],
+    ["운용 시간", "깨어 있는 시간만", "24/7 무중단"],
+    ["손절 실행 일관성", "낮음 (지연·회피)", "100% 자동 실행"],
+    ["분할 진입", "수동 계산 필요", "사전 설정 기준으로 자동"],
+    ["감정 비용", "매우 큼", "0"],
+  ];
+  return (
+    <section className="section-padding">
       <div className="container-x">
         <div className="mx-auto max-w-3xl text-center">
           <span className="text-sm font-semibold tracking-[0.18em] text-brand-primary">
-            TECHNOLOGY
+            COMPARISON
           </span>
-          <h2 className="mt-4 section-title">
-            검증된 기술 위에 만든
-            <br />
-            <span className="gradient-text">신뢰할 수 있는 엔진</span>
-          </h2>
+          <h2 className="mt-3 section-title">수동 매매 vs 넥스트퀀트</h2>
         </div>
-        <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          {tech.map((t) => (
+
+        <div className="mt-12 overflow-hidden rounded-3xl border border-brand-line bg-white shadow-card">
+          <div className="grid grid-cols-3 bg-brand-subtle text-center text-sm font-bold text-brand-text">
+            <div className="p-5 text-left">항목</div>
+            <div className="border-l border-brand-line p-5 text-brand-muted">
+              수동 매매
+            </div>
+            <div className="border-l border-brand-line p-5 text-brand-primary">
+              넥스트퀀트
+            </div>
+          </div>
+          {rows.map(([label, a, b], i) => (
             <div
-              key={t.k}
-              className="rounded-2xl border border-brand-line bg-brand-card/50 p-6"
+              key={label}
+              className={`grid grid-cols-3 text-sm ${
+                i !== rows.length - 1 ? "border-b border-brand-lineSoft" : ""
+              }`}
             >
-              <div className="text-xs font-bold tracking-[0.18em] text-brand-primary">
-                {t.k.toUpperCase()}
+              <div className="p-5 font-semibold text-brand-text">{label}</div>
+              <div className="border-l border-brand-lineSoft p-5 text-brand-muted">
+                {a}
               </div>
-              <p className="mt-3 text-sm leading-relaxed text-brand-text">
-                {t.v}
-              </p>
+              <div className="border-l border-brand-lineSoft p-5 font-semibold text-brand-text">
+                {b}
+              </div>
             </div>
           ))}
         </div>
@@ -451,30 +295,44 @@ function Architecture() {
 
 function CtaBand() {
   return (
-    <section className="section-padding">
+    <section className="pb-24">
       <div className="container-x">
-        <div className="relative overflow-hidden rounded-3xl border border-brand-line bg-gradient-to-br from-brand-card to-brand-surface px-8 py-14 md:px-14">
-          <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-brand-primary/20 blur-[100px]" />
-          <div className="relative flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
-            <div>
-              <h3 className="text-2xl font-bold md:text-3xl">
-                지금 무료체험으로 직접 확인하세요.
-              </h3>
-              <p className="mt-2 text-brand-muted">
-                간단한 회원가입 후 바로 다운로드, 단 1분이면 시작입니다.
-              </p>
-            </div>
-            <div className="flex gap-3">
-              <Link href="/guide" className="btn-primary">
-                다운로드
-              </Link>
-              <Link href="/support" className="btn-ghost">
-                문의
-              </Link>
-            </div>
+        <div className="rounded-3xl border border-brand-line bg-white p-10 text-center shadow-card md:p-14">
+          <h3 className="text-3xl font-extrabold tracking-tight md:text-4xl">
+            <span className="gradient-text">지금 바로</span> 시작해보세요.
+          </h3>
+          <p className="mt-4 text-base text-brand-muted md:text-lg">
+            무료체험으로 넥스트퀀트의 엔진을 직접 경험해보세요.
+          </p>
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <Link href="/guide" className="btn-primary">
+              무료체험 다운로드
+            </Link>
+            <Link href="/performance" className="btn-ghost">
+              성과 데이터 보기
+            </Link>
           </div>
         </div>
       </div>
     </section>
+  );
+}
+
+function CheckIcon() {
+  return (
+    <span className="mt-1 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-primarySoft text-brand-primary">
+      <svg
+        width="12"
+        height="12"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="3.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <polyline points="20 6 9 17 4 12" />
+      </svg>
+    </span>
   );
 }

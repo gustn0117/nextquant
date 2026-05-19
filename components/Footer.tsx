@@ -2,27 +2,31 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-brand-line bg-brand-surface/40">
+    <footer className="border-t border-brand-line bg-white">
       <div className="container-x py-14">
         <div className="grid gap-10 md:grid-cols-4">
           <div className="md:col-span-2">
-            <div className="flex items-center gap-2.5">
-              <div className="relative h-9 w-9 overflow-hidden rounded-lg bg-gradient-to-br from-brand-primary to-brand-accent">
-                <div className="absolute inset-[2px] flex items-center justify-center rounded-md bg-brand-bg text-lg font-black text-brand-primary">
-                  N
-                </div>
-              </div>
-              <div>
-                <div className="text-base font-extrabold">NEXT QUANT</div>
-                <div className="text-[11px] tracking-[0.18em] text-brand-muted">
+            <div className="flex items-center gap-3">
+              <img
+                src="/logo-brain.png"
+                alt=""
+                aria-hidden
+                className="h-10 w-auto select-none"
+                draggable={false}
+              />
+              <div className="flex flex-col leading-none">
+                <span className="text-base font-extrabold tracking-[0.04em] text-brand-text">
+                  NEXT QUANT
+                </span>
+                <span className="mt-1 text-[10px] font-medium tracking-[0.22em] text-brand-muted">
                   넥스트퀀트
-                </div>
+                </span>
               </div>
             </div>
-            <p className="mt-5 max-w-md text-sm leading-relaxed text-brand-muted">
+            <p className="mt-5 max-w-md text-sm text-brand-muted">
               감정을 빼고 원칙을 더하다.
               <br />
-              철저한 데이터 분석과 정교한 알고리즘으로
+              데이터 분석과 정교한 알고리즘으로
               <br />
               24시간 멈추지 않는 자동매매를 경험하세요.
             </p>
@@ -37,6 +41,14 @@ export default function Footer() {
                   className="transition-colors hover:text-brand-primary"
                 >
                   프로그램 소개
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/performance"
+                  className="transition-colors hover:text-brand-primary"
+                >
+                  성과
                 </Link>
               </li>
               <li>
@@ -77,7 +89,7 @@ export default function Footer() {
 
         <div className="mt-12 flex flex-col gap-4 border-t border-brand-line pt-6 text-xs text-brand-muted md:flex-row md:items-center md:justify-between">
           <p>© {new Date().getFullYear()} NEXT QUANT. All rights reserved.</p>
-          <p className="leading-relaxed md:text-right">
+          <p className="md:text-right">
             본 서비스는 투자 결정을 보조하는 도구로, 투자에 대한 최종 책임은
             사용자 본인에게 있습니다.
           </p>
