@@ -172,7 +172,7 @@ function RequirementBox() {
           <h2 className="mt-3 section-title">시스템 요구사항</h2>
         </div>
         <div className="mt-12 grid gap-6 md:grid-cols-2">
-          <div className="card-soft p-7">
+          <div className="card-soft lift p-7">
             <h3 className="text-lg font-bold text-brand-text">Windows</h3>
             <ul className="mt-4 space-y-2 text-sm text-brand-subText">
               <li>· Windows 10 이상 (64-bit)</li>
@@ -181,7 +181,7 @@ function RequirementBox() {
               <li>· 디스크 여유 공간 1GB</li>
             </ul>
           </div>
-          <div className="card-soft p-7">
+          <div className="card-soft lift p-7">
             <h3 className="text-lg font-bold text-brand-text">macOS</h3>
             <ul className="mt-4 space-y-2 text-sm text-brand-subText">
               <li>· macOS 12 (Monterey) 이상</li>

@@ -86,7 +86,7 @@ function ChannelCards() {
       <div className="container-x">
         <div className="grid gap-6 md:grid-cols-3">
           {channels.map((c) => (
-            <div key={c.label} className="card-soft p-7">
+            <div key={c.label} className="card-soft lift p-7">
               <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-brand-primarySoft text-brand-primary">
                 {c.icon}
               </div>

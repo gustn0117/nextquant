@@ -25,6 +25,7 @@ const config: Config = {
           subText: "#334155",
           muted: "#64748B",
           mutedSoft: "#94A3B8",
+          ink: "#080F1E",
         },
       },
       fontFamily: {
@@ -49,6 +50,8 @@ const config: Config = {
           "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,183,131,0.10), transparent 60%), radial-gradient(ellipse 60% 50% at 100% 30%, rgba(59,130,246,0.10), transparent 60%)",
         "grid-soft":
           "linear-gradient(rgba(15,23,42,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(15,23,42,0.05) 1px, transparent 1px)",
+        "noise":
+          "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.5'/></svg>\")",
       },
       boxShadow: {
         soft: "0 1px 2px rgba(15,23,42,0.04), 0 8px 24px -8px rgba(15,23,42,0.08)",
@@ -56,19 +59,57 @@ const config: Config = {
         ring: "0 0 0 6px rgba(0,183,131,0.10)",
         elevated:
           "0 1px 0 rgba(15,23,42,0.04), 0 24px 60px -24px rgba(15,23,42,0.18)",
+        glow: "0 20px 60px -20px rgba(0,183,131,0.45)",
+        glowBlue: "0 20px 60px -20px rgba(59,130,246,0.45)",
+        innerSoft: "inset 0 1px 0 rgba(255,255,255,0.6)",
       },
       animation: {
         "fade-up": "fadeUp 0.7s ease-out both",
-        "ticker": "ticker 35s linear infinite",
+        "fade-in": "fadeIn 0.6s ease-out both",
+        ticker: "ticker 35s linear infinite",
+        "ticker-slow": "ticker 60s linear infinite",
+        float: "float 6s ease-in-out infinite",
+        "float-slow": "float 9s ease-in-out infinite",
+        blob: "blob 14s ease-in-out infinite",
+        "gradient-pan": "gradientPan 8s ease-in-out infinite",
+        "spin-slow": "spin 18s linear infinite",
+        shimmer: "shimmer 3s linear infinite",
+        "pulse-glow": "pulseGlow 3s ease-in-out infinite",
+        "marquee-tick": "ticker 45s linear infinite",
       },
       keyframes: {
         fadeUp: {
           "0%": { opacity: "0", transform: "translateY(16px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
+        fadeIn: {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
         ticker: {
           "0%": { transform: "translateX(0)" },
           "100%": { transform: "translateX(-50%)" },
+        },
+        float: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-10px)" },
+        },
+        blob: {
+          "0%, 100%": { transform: "translate(0,0) scale(1)" },
+          "33%": { transform: "translate(20px,-30px) scale(1.08)" },
+          "66%": { transform: "translate(-25px,20px) scale(0.95)" },
+        },
+        gradientPan: {
+          "0%, 100%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+        },
+        shimmer: {
+          "0%": { backgroundPosition: "-200% 0" },
+          "100%": { backgroundPosition: "200% 0" },
+        },
+        pulseGlow: {
+          "0%, 100%": { opacity: "0.5", transform: "scale(1)" },
+          "50%": { opacity: "0.9", transform: "scale(1.05)" },
         },
       },
     },

@@ -220,7 +220,7 @@ function Architecture() {
             {layers.map((l, i) => (
               <li
                 key={l.tag}
-                className="card-soft flex gap-5 p-6 transition-all hover:-translate-y-0.5 hover:shadow-card"
+                className="card-soft lift flex gap-5 p-6 transition-all hover:-translate-y-0.5 hover:shadow-card"
               >
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-primarySoft text-base font-extrabold text-brand-primary">
                   {String(i + 1).padStart(2, "0")}

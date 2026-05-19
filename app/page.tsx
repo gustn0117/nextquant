@@ -1,17 +1,11 @@
 import Link from "next/link";
 
 const HERO_IMG =
-  "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1400&q=80";
+  "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1800&q=80";
 const PROBLEM_IMG =
   "https://images.unsplash.com/photo-1535320903710-d993d3d77d29?auto=format&fit=crop&w=1200&q=80";
 const SOLUTION_IMG =
   "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80";
-const TESTIMONIAL_IMG_1 =
-  "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80";
-const TESTIMONIAL_IMG_2 =
-  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80";
-const TESTIMONIAL_IMG_3 =
-  "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=200&q=80";
 
 export default function HomePage() {
   return (
@@ -35,26 +29,63 @@ function Hero() {
         src={HERO_IMG}
         alt=""
         aria-hidden
-        className="absolute inset-0 -z-10 h-full w-full object-cover"
+        className="absolute inset-0 -z-20 h-full w-full object-cover"
         loading="eager"
       />
       <div
         className="absolute inset-0 -z-10"
         style={{
           background:
-            "linear-gradient(180deg, rgba(8,15,30,0.78) 0%, rgba(8,15,30,0.55) 45%, rgba(8,15,30,0.85) 100%)",
+            "linear-gradient(180deg, rgba(8,15,30,0.86) 0%, rgba(8,15,30,0.62) 45%, rgba(8,15,30,0.92) 100%)",
+        }}
+      />
+      {/* 떠다니는 blob orbs */}
+      <div
+        className="pointer-events-none absolute -left-24 top-24 -z-10 h-80 w-80 rounded-full opacity-70 blur-3xl animate-blob"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(0,183,131,0.55), transparent 70%)",
+        }}
+      />
+      <div
+        className="pointer-events-none absolute -right-32 top-40 -z-10 h-96 w-96 rounded-full opacity-60 blur-3xl animate-blob"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(59,130,246,0.55), transparent 70%)",
+          animationDelay: "2s",
+        }}
+      />
+      <div
+        className="pointer-events-none absolute bottom-0 left-1/2 -z-10 h-80 w-[40rem] -translate-x-1/2 rounded-full opacity-50 blur-3xl animate-blob"
+        style={{
+          background:
+            "radial-gradient(ellipse, rgba(168,85,247,0.40), transparent 70%)",
+          animationDelay: "4s",
+        }}
+      />
+      {/* grid overlay */}
+      <div
+        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.07]"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)",
+          backgroundSize: "60px 60px",
+          maskImage:
+            "radial-gradient(ellipse at center, black 30%, transparent 75%)",
+          WebkitMaskImage:
+            "radial-gradient(ellipse at center, black 30%, transparent 75%)",
         }}
       />
 
-      <div className="container-x relative pb-28 pt-32 text-center md:pb-40 md:pt-44">
+      <div className="container-x relative pb-32 pt-32 text-center md:pb-48 md:pt-44">
         <div className="mx-auto max-w-3xl">
-          <h1 className="text-4xl font-extrabold tracking-tight text-white md:text-6xl lg:text-7xl">
+          <h1 className="text-5xl font-extrabold tracking-tight text-white md:text-7xl lg:text-[88px]">
             감정을 빼고
             <br />
-            원칙을 더하다.
+            <span className="gradient-text-bright">원칙을 더하다.</span>
           </h1>
 
-          <p className="mx-auto mt-7 max-w-2xl text-base text-white/80 md:text-xl">
+          <p className="mx-auto mt-8 max-w-2xl text-base text-white/75 md:text-xl">
             시장의 변동성에 흔들리지 마세요.
             <br className="hidden md:block" />
             데이터와 알고리즘이 당신이 잠든 순간에도
@@ -63,7 +94,7 @@ function Hero() {
           </p>
 
           <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Link href="/guide" className="btn-primary group">
+            <Link href="/guide" className="btn-primary btn-3d group">
               무료체험 다운로드
               <svg
                 width="16"
@@ -86,12 +117,149 @@ function Hero() {
             </Link>
           </div>
 
-          <p className="mt-6 text-xs text-white/60">
+          <p className="mt-6 text-xs text-white/55">
             Windows / macOS 지원 · 신용카드 등록 없이 시작 · 1분 설치
           </p>
         </div>
+
+        {/* Floating dashboard preview */}
+        <FloatingStats />
+      </div>
+
+      {/* Scroll cue */}
+      <div className="pointer-events-none absolute bottom-6 left-1/2 hidden -translate-x-1/2 text-white/40 md:block">
+        <div className="flex flex-col items-center gap-2 text-[10px] uppercase tracking-[0.3em]">
+          Scroll
+          <span className="block h-8 w-px animate-pulse bg-white/40" />
+        </div>
       </div>
     </section>
+  );
+}
+
+function FloatingStats() {
+  return (
+    <div className="relative mx-auto mt-20 hidden max-w-5xl md:block">
+      {/* center card: live equity chart */}
+      <div className="glass-dark relative overflow-hidden rounded-xl p-6 text-left">
+        <div className="flex items-center justify-between">
+          <div>
+            <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/50">
+              누적 수익률
+            </div>
+            <div className="mt-1 flex items-baseline gap-2">
+              <span className="text-4xl font-extrabold text-white md:text-5xl">
+                +37.4
+              </span>
+              <span className="text-xl font-bold text-brand-primary">%</span>
+              <span className="ml-2 inline-flex items-center gap-1.5 rounded-md bg-brand-primary/15 px-2 py-0.5 text-[11px] font-bold text-brand-primary">
+                <span className="live-dot" /> LIVE
+              </span>
+            </div>
+          </div>
+          <div className="hidden gap-1.5 text-[11px] sm:flex">
+            {["1M", "6M", "1Y", "3Y"].map((t, i) => (
+              <span
+                key={t}
+                className={`rounded-md px-2.5 py-1 font-bold ${
+                  i === 3
+                    ? "bg-brand-primary text-white"
+                    : "bg-white/5 text-white/55"
+                }`}
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+        </div>
+        <MiniChart />
+      </div>
+
+      {/* floating mini cards */}
+      <div className="glass-dark absolute -left-10 -top-10 hidden w-56 rounded-lg p-4 animate-float lg:block">
+        <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/55">
+          <span className="live-dot" /> 활성 포지션
+        </div>
+        <ul className="mt-3 space-y-2 text-sm">
+          {[
+            { sym: "BTC/USDT", pnl: "+2.41%", up: true },
+            { sym: "ETH/USDT", pnl: "+1.08%", up: true },
+            { sym: "SOL/USDT", pnl: "-0.32%", up: false },
+          ].map((r) => (
+            <li key={r.sym} className="flex items-center justify-between">
+              <span className="font-medium text-white">{r.sym}</span>
+              <span
+                className={`text-xs font-bold ${
+                  r.up ? "text-brand-primary" : "text-rose-400"
+                }`}
+              >
+                {r.pnl}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div
+        className="glass-dark absolute -right-8 -bottom-12 hidden w-52 rounded-lg p-4 animate-float-slow lg:block"
+        style={{ animationDelay: "1.5s" }}
+      >
+        <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/55">
+          승률 / 평균 보유
+        </div>
+        <div className="mt-2 flex items-end justify-between">
+          <div>
+            <div className="text-3xl font-extrabold text-white">63.1%</div>
+            <div className="text-[11px] text-white/55">최근 30일</div>
+          </div>
+          <div className="text-right">
+            <div className="text-base font-bold text-brand-primary">4.2h</div>
+            <div className="text-[11px] text-white/55">평균 보유</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function MiniChart() {
+  const points = [
+    32, 36, 30, 42, 50, 46, 56, 62, 58, 70, 78, 72, 86, 92, 88, 100, 110, 118,
+  ];
+  const w = 1000;
+  const h = 140;
+  const min = Math.min(...points);
+  const max = Math.max(...points);
+  const path = points
+    .map((p, i) => {
+      const x = (i / (points.length - 1)) * w;
+      const y = h - ((p - min) / (max - min)) * (h - 20) - 10;
+      return `${i === 0 ? "M" : "L"} ${x.toFixed(1)} ${y.toFixed(1)}`;
+    })
+    .join(" ");
+  const area = `${path} L ${w} ${h} L 0 ${h} Z`;
+
+  return (
+    <svg viewBox={`0 0 ${w} ${h}`} className="mt-6 h-32 w-full">
+      <defs>
+        <linearGradient id="hero-chart-area" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#00B783" stopOpacity="0.45" />
+          <stop offset="100%" stopColor="#00B783" stopOpacity="0" />
+        </linearGradient>
+        <linearGradient id="hero-chart-stroke" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor="#6EE7C2" />
+          <stop offset="100%" stopColor="#93C5FD" />
+        </linearGradient>
+      </defs>
+      <path d={area} fill="url(#hero-chart-area)" />
+      <path
+        d={path}
+        fill="none"
+        stroke="url(#hero-chart-stroke)"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+      />
+    </svg>
   );
 }
 
@@ -137,14 +305,17 @@ function ProblemSection() {
     {
       title: "감정에 흔들리는 매매",
       desc: "공포에 손절하고, 욕심에 추격매수합니다. 사람의 감정은 가장 비싼 비용입니다.",
+      icon: <EmotionIcon />,
     },
     {
       title: "잠 못 드는 24시간 시장",
       desc: "암호화폐와 글로벌 시장은 멈추지 않지만, 당신은 잠들어야 합니다. 결정적 순간을 놓칩니다.",
+      icon: <MoonIcon />,
     },
     {
       title: "복잡한 진입/청산 타이밍",
       desc: "수백 개 지표와 차트 패턴, 그러나 일관된 매매 기준 없이는 결국 운에 맡기게 됩니다.",
+      icon: <TargetIcon />,
     },
   ];
   return (
@@ -156,9 +327,29 @@ function ProblemSection() {
               <img
                 src={PROBLEM_IMG}
                 alt="복잡한 시장 차트"
-                className="aspect-[4/3] w-full object-cover"
+                className="aspect-[4/3] w-full object-cover transition-transform duration-700 hover:scale-105"
                 loading="lazy"
               />
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(180deg, transparent 60%, rgba(8,15,30,0.45) 100%)",
+                }}
+              />
+              <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between text-white">
+                <div>
+                  <div className="text-xs font-semibold uppercase tracking-[0.18em] text-white/70">
+                    Market Volatility
+                  </div>
+                  <div className="mt-1 text-lg font-bold">
+                    예측 불가능한 시장
+                  </div>
+                </div>
+                <span className="rounded-md bg-rose-500/90 px-2.5 py-1 text-xs font-bold">
+                  -8.4%
+                </span>
+              </div>
             </div>
           </div>
           <div className="order-1 lg:order-2">
@@ -172,16 +363,21 @@ function ProblemSection() {
                 대부분 ‘사람’이라서입니다.
               </span>
             </h2>
-            <ul className="mt-8 space-y-5">
+            <ul className="mt-8 space-y-4">
               {problems.map((p) => (
                 <li
                   key={p.title}
-                  className="rounded-lg border border-brand-lineSoft bg-white p-5"
+                  className="lift flex gap-4 rounded-lg border border-brand-lineSoft bg-white p-5"
                 >
-                  <h3 className="text-lg font-bold text-brand-text">
-                    {p.title}
-                  </h3>
-                  <p className="mt-2 text-sm text-brand-muted">{p.desc}</p>
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-brand-primarySoft text-brand-primary">
+                    {p.icon}
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-brand-text">
+                      {p.title}
+                    </h3>
+                    <p className="mt-1.5 text-sm text-brand-muted">{p.desc}</p>
+                  </div>
                 </li>
               ))}
             </ul>
@@ -198,21 +394,31 @@ function SolutionSection() {
       tag: "01",
       title: "원칙 기반 시그널",
       desc: "수년간 백테스팅으로 검증된 진입/청산 룰셋. 모든 매매는 사람의 판단이 아닌, 검증된 알고리즘 위에서 일어납니다.",
+      icon: <BoltIcon />,
     },
     {
       tag: "02",
       title: "리스크 컨트롤",
       desc: "MDD 기반 자동 손절, 분할 진입, 마진 비율 단계 알림으로 손실은 최소화하고 수익은 끝까지 따라갑니다.",
+      icon: <ShieldIcon />,
     },
     {
       tag: "03",
       title: "24시간 무중단 실행",
       desc: "당신이 잠든 새벽에도 봇이 시장을 본다. 결정적 순간의 변동성을 놓치지 않습니다.",
+      icon: <ClockGlyphIcon />,
     },
   ];
   return (
-    <section className="bg-brand-subtle section-padding">
-      <div className="container-x">
+    <section className="relative overflow-hidden bg-mesh-light section-padding">
+      <div
+        className="pointer-events-none absolute -top-32 left-1/2 h-72 w-[34rem] -translate-x-1/2 rounded-full opacity-60 blur-3xl"
+        style={{
+          background:
+            "radial-gradient(ellipse, rgba(0,183,131,0.25), transparent 70%)",
+        }}
+      />
+      <div className="container-x relative">
         <div className="mx-auto max-w-3xl text-center">
           <span className="text-sm font-semibold tracking-[0.18em] text-brand-primary">
             SOLUTION
@@ -222,8 +428,8 @@ function SolutionSection() {
             맡깁니다.
           </h2>
           <p className="mt-5 section-sub">
-            철저한 데이터 분석과 정교한 알고리즘이 결합된 넥스트퀀트의
-            트레이딩 엔진을 만나보세요.
+            철저한 데이터 분석과 정교한 알고리즘이 결합된 넥스트퀀트의 트레이딩
+            엔진을 만나보세요.
           </p>
         </div>
 
@@ -231,13 +437,16 @@ function SolutionSection() {
           {cards.map((c) => (
             <div
               key={c.tag}
-              className="group card-soft p-7 transition-all hover:-translate-y-0.5 hover:shadow-card"
+              className="gradient-border lift relative bg-white p-7"
             >
               <div className="flex items-center gap-3">
                 <span className="rounded-md bg-brand-primarySoft px-3 py-1 text-xs font-bold tracking-[0.18em] text-brand-primary">
                   {c.tag}
                 </span>
                 <span className="h-px flex-1 bg-brand-lineSoft" />
+              </div>
+              <div className="mt-5 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-brand-primary to-brand-accent text-white shadow-glow">
+                {c.icon}
               </div>
               <h3 className="mt-5 text-xl font-bold text-brand-text">
                 {c.title}
@@ -247,13 +456,20 @@ function SolutionSection() {
           ))}
         </div>
 
-        <div className="mt-14 grid gap-10 rounded-xl border border-brand-line bg-white p-8 shadow-card lg:grid-cols-[1.1fr_1fr] lg:items-center lg:p-10">
-          <div className="overflow-hidden rounded-lg border border-brand-line">
+        <div className="lift mt-14 grid gap-10 rounded-xl border border-brand-line bg-white p-8 shadow-card lg:grid-cols-[1.1fr_1fr] lg:items-center lg:p-10">
+          <div className="relative overflow-hidden rounded-lg border border-brand-line">
             <img
               src={SOLUTION_IMG}
               alt="대시보드 사용 이미지"
               className="aspect-[16/10] w-full object-cover"
               loading="lazy"
+            />
+            <div
+              className="pointer-events-none absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.25) 100%)",
+              }}
             />
           </div>
           <div>
@@ -297,24 +513,48 @@ function StatSection() {
     { v: "8,200+", label: "누적 사용자" },
   ];
   return (
-    <section className="border-y border-brand-line bg-white section-padding">
-      <div className="container-x">
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+    <section className="relative isolate overflow-hidden border-y border-brand-line bg-mesh-dark section-padding">
+      <div
+        className="pointer-events-none absolute -left-24 top-1/3 h-72 w-72 rounded-full opacity-50 blur-3xl animate-blob"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(0,183,131,0.5), transparent 70%)",
+        }}
+      />
+      <div
+        className="pointer-events-none absolute -right-24 bottom-0 h-72 w-72 rounded-full opacity-50 blur-3xl animate-blob"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(59,130,246,0.55), transparent 70%)",
+          animationDelay: "3s",
+        }}
+      />
+      <div className="container-x relative">
+        <div className="mx-auto max-w-2xl text-center">
+          <span className="text-sm font-semibold tracking-[0.18em] text-brand-primary">
+            BY THE NUMBERS
+          </span>
+          <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-white md:text-5xl">
+            숫자로 보는 <span className="gradient-text-bright">넥스트퀀트</span>
+          </h2>
+        </div>
+
+        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {stats.map((s) => (
             <div
               key={s.label}
-              className="rounded-lg border border-brand-lineSoft bg-white p-7 text-center"
+              className="glass-dark lift rounded-xl p-7 text-center"
             >
-              <div className="text-4xl font-extrabold tracking-tight text-brand-text md:text-5xl">
-                <span className="gradient-text">{s.v}</span>
+              <div className="text-4xl font-extrabold tracking-tight text-white md:text-5xl">
+                <span className="gradient-text-bright">{s.v}</span>
               </div>
-              <div className="mt-3 text-sm font-medium text-brand-muted">
+              <div className="mt-3 text-sm font-medium text-white/65">
                 {s.label}
               </div>
             </div>
           ))}
         </div>
-        <p className="mt-6 text-center text-xs text-brand-muted">
+        <p className="mt-8 text-center text-xs text-white/50">
           * 위 수치는 자체 백테스팅 결과 및 내부 통계 기준이며, 실제 수익률을
           보장하지 않습니다.
         </p>
@@ -329,16 +569,19 @@ function HowItWorks() {
       n: "STEP 01",
       title: "다운로드 & 설치",
       desc: "Windows / macOS 1분 설치. 회원가입 후 즉시 무료체험을 시작할 수 있습니다.",
+      icon: <DownloadGlyphIcon />,
     },
     {
       n: "STEP 02",
       title: "거래소 API 연결",
       desc: "보유 거래소(Binance, Upbit, Bybit 등) API 키를 안전하게 연결합니다. 출금 권한은 절대 부여하지 않습니다.",
+      icon: <LinkIcon />,
     },
     {
       n: "STEP 03",
       title: "전략 선택 & 시작",
       desc: "검증된 프리셋 전략을 선택하거나, 슬라이더로 본인의 리스크 성향에 맞게 조정 후 ON 버튼만 누르세요.",
+      icon: <PowerIcon />,
     },
   ];
   return (
@@ -361,18 +604,32 @@ function HowItWorks() {
           {steps.map((s, i) => (
             <div
               key={s.n}
-              className="relative rounded-lg border border-brand-line bg-white p-7 shadow-soft"
+              className="lift relative overflow-hidden rounded-xl border border-brand-line bg-white p-7 shadow-soft"
             >
-              <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-brand-primary bg-white text-sm font-extrabold text-brand-primary">
-                {i + 1}
+              <div
+                className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full opacity-40 blur-2xl"
+                style={{
+                  background:
+                    i % 2 === 0
+                      ? "radial-gradient(circle, rgba(0,183,131,0.45), transparent 70%)"
+                      : "radial-gradient(circle, rgba(59,130,246,0.45), transparent 70%)",
+                }}
+              />
+              <div className="relative">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-brand-primary bg-white text-sm font-extrabold text-brand-primary">
+                    {i + 1}
+                  </div>
+                  <div className="text-brand-primary">{s.icon}</div>
+                </div>
+                <div className="mt-5 text-xs font-bold tracking-[0.18em] text-brand-primary">
+                  {s.n}
+                </div>
+                <h3 className="mt-2 text-xl font-bold text-brand-text">
+                  {s.title}
+                </h3>
+                <p className="mt-2 text-sm text-brand-muted">{s.desc}</p>
               </div>
-              <div className="mt-5 text-xs font-bold tracking-[0.18em] text-brand-primary">
-                {s.n}
-              </div>
-              <h3 className="mt-2 text-xl font-bold text-brand-text">
-                {s.title}
-              </h3>
-              <p className="mt-2 text-sm text-brand-muted">{s.desc}</p>
             </div>
           ))}
         </div>
@@ -384,21 +641,24 @@ function HowItWorks() {
 function TestimonialSection() {
   const items = [
     {
-      img: TESTIMONIAL_IMG_1,
+      initial: "김",
+      gradient: ["#00B783", "#1FB8AB"] as const,
       name: "김민수",
       role: "직장인 / 35세",
       quote:
         "출근 전에 한 번, 퇴근 후에 한 번 확인만 합니다. 자는 사이에도 봇이 매매를 하니까 마음이 훨씬 편해졌어요.",
     },
     {
-      img: TESTIMONIAL_IMG_2,
+      initial: "이",
+      gradient: ["#3B82F6", "#6366F1"] as const,
       name: "이수진",
       role: "프리랜서 / 29세",
       quote:
         "감정적으로 손절하고 추격매수하던 습관이 사라졌습니다. 룰셋이 정해져 있으니 흔들릴 일이 없어요.",
     },
     {
-      img: TESTIMONIAL_IMG_3,
+      initial: "박",
+      gradient: ["#0F172A", "#334155"] as const,
       name: "박재호",
       role: "자영업자 / 41세",
       quote:
@@ -416,22 +676,30 @@ function TestimonialSection() {
         </div>
 
         <div className="mt-14 grid gap-6 md:grid-cols-3">
-          {items.map((t) => (
-            <div key={t.name} className="card-soft flex h-full flex-col p-7">
+          {items.map((t, i) => (
+            <div
+              key={t.name}
+              className="gradient-border lift relative flex h-full flex-col bg-white p-7"
+            >
               <QuoteIcon />
               <p className="mt-4 text-sm text-brand-subText">{t.quote}</p>
               <div className="mt-6 flex items-center gap-3 border-t border-brand-lineSoft pt-5">
-                <img
-                  src={t.img}
-                  alt={t.name}
-                  className="h-12 w-12 rounded-full object-cover"
-                  loading="lazy"
+                <Avatar
+                  initial={t.initial}
+                  from={t.gradient[0]}
+                  to={t.gradient[1]}
+                  id={i}
                 />
                 <div>
                   <div className="text-sm font-bold text-brand-text">
                     {t.name}
                   </div>
                   <div className="text-xs text-brand-muted">{t.role}</div>
+                </div>
+                <div className="ml-auto flex gap-0.5 text-brand-warn">
+                  {[1, 2, 3, 4, 5].map((s) => (
+                    <StarIcon key={s} />
+                  ))}
                 </div>
               </div>
             </div>
@@ -447,24 +715,35 @@ function CtaSection() {
     <section className="section-padding">
       <div className="container-x">
         <div
-          className="relative overflow-hidden rounded-xl border border-brand-line p-10 md:p-16"
+          className="relative isolate overflow-hidden rounded-xl border border-brand-line p-10 md:p-16"
           style={{
             background:
-              "linear-gradient(135deg, #0F172A 0%, #1E293B 60%, #0B3B2E 100%)",
+              "linear-gradient(135deg, #060B18 0%, #0F1B2E 50%, #0A2A22 100%)",
           }}
         >
           <div
-            className="absolute -right-20 -top-20 h-72 w-72 rounded-full"
+            className="pointer-events-none absolute -right-20 -top-20 h-80 w-80 rounded-full animate-blob"
             style={{
               background:
-                "radial-gradient(circle, rgba(0,183,131,0.45), transparent 60%)",
+                "radial-gradient(circle, rgba(0,183,131,0.55), transparent 70%)",
+              filter: "blur(40px)",
             }}
           />
           <div
-            className="absolute -bottom-24 -left-16 h-72 w-72 rounded-full"
+            className="pointer-events-none absolute -bottom-24 -left-16 h-80 w-80 rounded-full animate-blob"
             style={{
               background:
-                "radial-gradient(circle, rgba(59,130,246,0.35), transparent 60%)",
+                "radial-gradient(circle, rgba(59,130,246,0.45), transparent 70%)",
+              filter: "blur(40px)",
+              animationDelay: "3s",
+            }}
+          />
+          <div
+            className="pointer-events-none absolute inset-0 opacity-[0.06]"
+            style={{
+              backgroundImage:
+                "linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)",
+              backgroundSize: "48px 48px",
             }}
           />
 
@@ -476,18 +755,29 @@ function CtaSection() {
               <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-white md:text-5xl">
                 감정 대신 데이터로,
                 <br />
-                지금 바로 시작하세요.
+                <span className="gradient-text-bright">지금 바로 시작하세요.</span>
               </h2>
               <p className="mt-5 max-w-xl text-base text-white/70 md:text-lg">
                 신용카드 등록 없이 무료체험. 1분 설치로 24시간 자동매매를 바로
                 경험해보세요.
               </p>
+              <div className="mt-6 flex flex-wrap gap-4 text-xs text-white/55">
+                <span className="inline-flex items-center gap-1.5">
+                  <CheckIcon small /> 14일 무료
+                </span>
+                <span className="inline-flex items-center gap-1.5">
+                  <CheckIcon small /> 신용카드 불필요
+                </span>
+                <span className="inline-flex items-center gap-1.5">
+                  <CheckIcon small /> 언제든 해지
+                </span>
+              </div>
             </div>
 
             <div className="flex flex-col gap-3 lg:items-end">
               <Link
                 href="/guide"
-                className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-brand-primary px-8 py-4 text-base font-bold text-white shadow-elevated transition-all hover:bg-brand-primaryDim lg:w-auto"
+                className="btn-3d inline-flex w-full items-center justify-center gap-2 rounded-lg bg-brand-primary px-8 py-4 text-base font-bold text-white shadow-glow transition-all hover:bg-brand-primaryDim lg:w-auto"
               >
                 무료체험 다운로드
               </Link>
@@ -505,7 +795,64 @@ function CtaSection() {
   );
 }
 
-function CheckIcon() {
+/* ---- icons & avatar ---- */
+
+function Avatar({
+  initial,
+  from,
+  to,
+  id,
+}: {
+  initial: string;
+  from: string;
+  to: string;
+  id: number;
+}) {
+  const gid = `avatar-grad-${id}`;
+  return (
+    <svg viewBox="0 0 48 48" className="h-12 w-12 shrink-0" aria-hidden>
+      <defs>
+        <linearGradient id={gid} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor={from} />
+          <stop offset="100%" stopColor={to} />
+        </linearGradient>
+      </defs>
+      <circle cx="24" cy="24" r="24" fill={`url(#${gid})`} />
+      <text
+        x="24"
+        y="24"
+        textAnchor="middle"
+        dominantBaseline="central"
+        fontSize="20"
+        fontWeight="800"
+        fill="#fff"
+        fontFamily="Pretendard, sans-serif"
+        letterSpacing="-0.5"
+      >
+        {initial}
+      </text>
+    </svg>
+  );
+}
+
+function CheckIcon({ small = false }: { small?: boolean }) {
+  if (small) {
+    return (
+      <svg
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="text-brand-primary"
+      >
+        <polyline points="20 6 9 17 4 12" />
+      </svg>
+    );
+  }
   return (
     <span className="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-primarySoft text-brand-primary">
       <svg
@@ -527,16 +874,185 @@ function CheckIcon() {
 function QuoteIcon() {
   return (
     <svg
-      width="28"
-      height="28"
+      width="32"
+      height="32"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className="text-brand-primary/85"
+    >
+      <path d="M9 11H6.5C5.7 11 5 11.7 5 12.5V18c0 .6.4 1 1 1h5c.6 0 1-.4 1-1v-5c0-2.2-1.8-4-4-4V7c0-.6-.4-1-1-1s-1 .4-1 1v2c0 .6.4 1 1 1h2zM20 11h-2.5c-.8 0-1.5.7-1.5 1.5V18c0 .6.4 1 1 1h5c.6 0 1-.4 1-1v-5c0-2.2-1.8-4-4-4V7c0-.6-.4-1-1-1s-1 .4-1 1v2c0 .6.4 1 1 1h2z" />
+    </svg>
+  );
+}
+
+function StarIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+      <polygon points="12 2 15 9 22 9.5 17 14.5 18.5 22 12 18 5.5 22 7 14.5 2 9.5 9 9 12 2" />
+    </svg>
+  );
+}
+
+function EmotionIcon() {
+  return (
+    <svg
+      width="22"
+      height="22"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="1.8"
-      className="text-brand-primary"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     >
-      <path d="M3 21c0-9 4-13 9-14" />
-      <path d="M13 21c0-9 4-13 9-14" />
+      <circle cx="12" cy="12" r="9" />
+      <path d="M8 15s1.5 2 4 2 4-2 4-2" />
+      <line x1="9" y1="9" x2="9.01" y2="9" />
+      <line x1="15" y1="9" x2="15.01" y2="9" />
+    </svg>
+  );
+}
+
+function MoonIcon() {
+  return (
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+    </svg>
+  );
+}
+
+function TargetIcon() {
+  return (
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="12" cy="12" r="9" />
+      <circle cx="12" cy="12" r="5" />
+      <circle cx="12" cy="12" r="1.5" fill="currentColor" />
+    </svg>
+  );
+}
+
+function BoltIcon() {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+    </svg>
+  );
+}
+
+function ShieldIcon() {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      <path d="M9 12l2 2 4-4" />
+    </svg>
+  );
+}
+
+function ClockGlyphIcon() {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="12" cy="12" r="9" />
+      <polyline points="12 7 12 12 15.5 14" />
+    </svg>
+  );
+}
+
+function DownloadGlyphIcon() {
+  return (
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+      <polyline points="7 10 12 15 17 10" />
+      <line x1="12" y1="15" x2="12" y2="3" />
+    </svg>
+  );
+}
+
+function LinkIcon() {
+  return (
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07L11 5" />
+      <path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07L13 19" />
+    </svg>
+  );
+}
+
+function PowerIcon() {
+  return (
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M18.36 6.64A9 9 0 1 1 5.64 6.64" />
+      <line x1="12" y1="2" x2="12" y2="12" />
     </svg>
   );
 }
