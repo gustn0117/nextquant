@@ -8,7 +8,6 @@
   --pri-dim: #008f66;
   --pri-soft: #e6f8f2;
   --acc: #3b82f6;
-  --acc-soft: #eaf2ff;
   --text: #0f172a;
   --sub-text: #334155;
   --muted: #64748b;
@@ -17,6 +16,8 @@
   --bg: #fafafb;
   --surface: #ffffff;
   --subtle: #f4f6fa;
+  --ink: #0b1426;
+  --ink-2: #131e36;
 }
 
 html,
@@ -31,6 +32,13 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "ss01", "cv11", "tnum" off;
+}
+
+/* tabular-nums (숫자 정렬용) */
+.tnum {
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
 }
 
 @font-face {
@@ -63,16 +71,15 @@ body {
   background: #b9c0cc;
 }
 
-/* line-height 안전망: Tailwind 내장 line-height가 어디선가 다시 적용되어도
-   기본 가독성이 깨지지 않도록 모든 heading의 leading을 보장. */
+/* heading safety net */
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  line-height: 1.25 !important;
-  letter-spacing: -0.01em;
+  line-height: 1.18 !important;
+  letter-spacing: -0.02em;
 }
 p,
 li {
@@ -87,6 +94,9 @@ li {
 .gradient-text {
   color: #00b783;
 }
+.gradient-text-bright {
+  color: #ffffff;
+}
 
 .section-padding {
   @apply py-20 md:py-28;
@@ -94,6 +104,10 @@ li {
 
 .eyebrow {
   @apply inline-flex items-center gap-2 rounded-md border border-brand-line bg-white px-3 py-1 text-xs font-semibold tracking-[0.18em] text-brand-primary;
+}
+
+.eyebrow-dark {
+  @apply inline-flex items-center gap-2 rounded-md border border-white/15 bg-white/5 px-3 py-1 text-xs font-semibold tracking-[0.18em] text-brand-primary;
 }
 
 .btn-primary {
@@ -105,7 +119,7 @@ li {
 }
 
 .btn-outline-light {
-  @apply inline-flex items-center justify-center gap-2 rounded-lg border border-white/40 bg-white/10 px-7 py-3.5 text-base font-semibold text-white backdrop-blur transition-all hover:bg-white/20;
+  @apply inline-flex items-center justify-center gap-2 rounded-lg border border-white/30 bg-white/10 px-7 py-3.5 text-base font-semibold text-white backdrop-blur transition-all hover:bg-white/20 hover:border-white/50;
 }
 
 .card-soft {
@@ -124,69 +138,87 @@ li {
   @apply text-base text-brand-muted md:text-lg;
 }
 
-.bg-grid {
-  background-image:
-    linear-gradient(rgba(15, 23, 42, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(15, 23, 42, 0.05) 1px, transparent 1px);
-  background-size: 56px 56px;
-  mask-image: radial-gradient(circle at center, black 30%, transparent 75%);
-  -webkit-mask-image: radial-gradient(
-    circle at center,
-    black 30%,
-    transparent 75%
-  );
-}
-
 .image-fade-mask {
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    black 60%,
-    transparent 100%
-  );
+  -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
   mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
 }
 
-/* ---- 고급 이펙트 ---- */
+/* ────────────────────────────────────────────────────────── */
+/* 디자인 시스템 폴리시 (그라데이션 없이 입체감/임팩트)        */
+/* ────────────────────────────────────────────────────────── */
 
-.bg-mesh-light {
-  background: #ffffff;
+/* 점/선 그리드 패턴 (라이트) */
+.dot-grid-light {
+  background-image: radial-gradient(rgba(15, 23, 42, 0.08) 1px, transparent 1px);
+  background-size: 22px 22px;
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 78%);
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 78%);
 }
 
-.bg-mesh-dark {
-  background: #0b1426;
+/* 점 그리드 패턴 (다크) */
+.dot-grid-dark {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 22px 22px;
 }
 
-/* 글래스 모피즘 */
-.glass {
-  background: rgba(255, 255, 255, 0.55);
-  backdrop-filter: blur(18px) saturate(160%);
-  -webkit-backdrop-filter: blur(18px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.6),
-    0 24px 60px -24px rgba(15, 23, 42, 0.18);
+/* 라인 그리드 (다크) */
+.line-grid-dark {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 78%);
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 78%);
 }
 
-.glass-dark {
-  background: rgba(8, 15, 30, 0.45);
-  backdrop-filter: blur(18px) saturate(160%);
-  -webkit-backdrop-filter: blur(18px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+/* 사선 패턴 */
+.stripes {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent 0 6px,
+    rgba(15, 23, 42, 0.04) 6px 7px
+  );
 }
 
-.gradient-text-bright {
-  color: #ffffff;
+/* 점선 디바이더 */
+.divider-dashed {
+  height: 1px;
+  background-image: linear-gradient(
+    to right,
+    rgba(15, 23, 42, 0.18) 50%,
+    transparent 50%
+  );
+  background-size: 8px 1px;
+  background-repeat: repeat-x;
 }
 
-.gradient-border {
+/* 코너 마커 (Linear / Stripe 스타일) */
+.corner-mark {
   position: relative;
-  border-radius: 12px;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
+}
+.corner-mark::before,
+.corner-mark::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid currentColor;
+  opacity: 0.5;
+}
+.corner-mark::before {
+  top: -1px;
+  left: -1px;
+  border-right: none;
+  border-bottom: none;
+}
+.corner-mark::after {
+  bottom: -1px;
+  right: -1px;
+  border-left: none;
+  border-top: none;
 }
 
-/* 호버 리프트 + 글로우 */
+/* 호버 리프트 + accent 보더 + 그림자 */
 .lift {
   transition:
     transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
@@ -197,39 +229,23 @@ li {
   transform: translateY(-4px);
   box-shadow:
     0 1px 0 rgba(15, 23, 42, 0.04),
-    0 24px 60px -16px rgba(15, 23, 42, 0.18);
-  border-color: rgba(0, 183, 131, 0.4);
+    0 28px 60px -18px rgba(15, 23, 42, 0.18);
+  border-color: rgba(0, 183, 131, 0.42);
 }
 
-.shimmer-text {
-  color: #0f172a;
+/* 카드 강조 보더 톱-라인 */
+.topline {
+  position: relative;
 }
-
-/* 차트 svg에 그라데이션 stroke */
-.stroke-grad {
-  stroke: url(#grad-primary);
-}
-
-/* 노이즈 오버레이 */
-.noise-overlay::after {
+.topline::before {
   content: "";
   position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.55'/></svg>");
-  mix-blend-mode: overlay;
-  opacity: 0.18;
-  pointer-events: none;
-}
-
-/* 섹션 디바이더 (그라데이션 라인) */
-.divider-grad {
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(15, 23, 42, 0.12) 50%,
-    transparent 100%
-  );
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 40px;
+  background: var(--pri);
+  border-top-left-radius: inherit;
 }
 
 /* 라이브 도트 */
@@ -240,44 +256,33 @@ li {
   width: 8px;
   border-radius: 9999px;
   background: #00b783;
+  flex-shrink: 0;
 }
 .live-dot::after {
   content: "";
   position: absolute;
   inset: -4px;
   border-radius: 9999px;
-  background: rgba(0, 183, 131, 0.35);
-  animation: pulseGlow 2.4s ease-in-out infinite;
+  background: rgba(0, 183, 131, 0.32);
+  animation: pulseRing 2.4s ease-out infinite;
 }
-
-@keyframes pulseGlow {
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 0.5;
+@keyframes pulseRing {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.7;
   }
-  50% {
-    transform: scale(1.5);
+  80%,
+  100% {
+    transform: scale(1.8);
     opacity: 0;
   }
 }
 
-/* 입체 버튼 강조 */
+/* 입체 버튼 강조 (shine) */
 .btn-3d {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-}
-.btn-3d::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.22),
-    rgba(255, 255, 255, 0) 50%
-  );
-  pointer-events: none;
 }
 .btn-3d::after {
   content: "";
@@ -289,7 +294,7 @@ li {
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(255, 255, 255, 0.35),
+    rgba(255, 255, 255, 0.28),
     transparent
   );
   transform: skewX(-20deg);
@@ -299,15 +304,194 @@ li {
   left: 130%;
 }
 
-/* number marquee 같은 회전 */
+/* 진입 페이드업 */
+.fade-up {
+  animation: fadeUpIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.fade-up-1 {
+  animation-delay: 0.05s;
+}
+.fade-up-2 {
+  animation-delay: 0.15s;
+}
+.fade-up-3 {
+  animation-delay: 0.25s;
+}
+.fade-up-4 {
+  animation-delay: 0.35s;
+}
+@keyframes fadeUpIn {
+  0% {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 이미지 호버 줌 */
+.img-zoom {
+  overflow: hidden;
+}
+.img-zoom img {
+  transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.img-zoom:hover img {
+  transform: scale(1.05);
+}
+
+/* 이미지 모노톤 -> hover 컬러 (선택적) */
+.img-mono img {
+  filter: saturate(0.5) contrast(1.05);
+  transition: filter 0.6s ease;
+}
+.img-mono:hover img {
+  filter: saturate(1) contrast(1.05);
+}
+
+/* underline accent (이미 헤딩 강조) */
+.accent-underline {
+  position: relative;
+  display: inline-block;
+}
+.accent-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 3px;
+  background: var(--pri);
+  border-radius: 2px;
+}
+
+/* 키 캡 (작은 라벨) */
+.kbd {
+  @apply inline-flex h-6 min-w-[24px] items-center justify-center rounded-md border border-brand-line bg-white px-1.5 text-[11px] font-bold text-brand-subText shadow-soft;
+}
+
+/* 마퀴 — 거래소 로고 띠 */
+.marquee {
+  display: flex;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 8%,
+    black 92%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 8%,
+    black 92%,
+    transparent
+  );
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 32s linear infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* number ornaments */
+.num-display {
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.04em;
+}
+
+/* 다크 카드 (글래스 아님, 솔리드 + 보더) */
+.card-dark {
+  background: #131e36;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+}
+
+.card-dark-elevated {
+  background: #131e36;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 30px 80px -20px rgba(0, 0, 0, 0.6);
+}
+
+/* 부드러운 hover ring (다크) */
+.lift-dark {
+  transition:
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.25s ease;
+}
+.lift-dark:hover {
+  transform: translateY(-3px);
+  border-color: rgba(0, 183, 131, 0.45);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 30px 80px -20px rgba(0, 0, 0, 0.65);
+}
+
+/* 노이즈 오버레이 (선택) */
+.noise-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.55'/></svg>");
+  mix-blend-mode: overlay;
+  opacity: 0.14;
+  pointer-events: none;
+}
+
+/* 작은 stat 칩 */
+.stat-chip {
+  @apply inline-flex items-center gap-2 rounded-md border border-brand-line bg-white px-2.5 py-1 text-xs font-bold text-brand-text;
+}
+
+/* spotlight (정적 vignette) */
+.spotlight {
+  background: radial-gradient(
+    ellipse 60% 50% at 50% 0%,
+    rgba(255, 255, 255, 0.05),
+    transparent 60%
+  );
+}
+
+/* divider with label */
+.divider-with-label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.divider-with-label::before,
+.divider-with-label::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+/* reduce motion */
 @media (prefers-reduced-motion: reduce) {
-  .animate-blob,
-  .animate-float,
-  .animate-float-slow,
-  .animate-gradient-pan,
-  .animate-pulse-glow,
-  .animate-shimmer,
-  .shimmer-text {
+  .fade-up,
+  .marquee-track,
+  .img-zoom img,
+  .img-mono img {
     animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    filter: none !important;
   }
 }

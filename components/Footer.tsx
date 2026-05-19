@@ -1,11 +1,38 @@
 import Link from "next/link";
 
+const NAV_GROUPS = [
+  {
+    title: "프로덕트",
+    items: [
+      { label: "프로그램 소개", href: "/program" },
+      { label: "성과", href: "/performance" },
+      { label: "이용 방법", href: "/guide" },
+    ],
+  },
+  {
+    title: "리소스",
+    items: [
+      { label: "자주 묻는 질문", href: "/support" },
+      { label: "사용 가이드", href: "/guide" },
+      { label: "릴리즈 노트", href: "#" },
+    ],
+  },
+  {
+    title: "회사",
+    items: [
+      { label: "이메일 문의", href: "mailto:contact@nextquant.kr" },
+      { label: "이용약관", href: "#" },
+      { label: "개인정보 처리방침", href: "#" },
+    ],
+  },
+];
+
 export default function Footer() {
   return (
-    <footer className="border-t border-brand-line bg-white">
-      <div className="container-x py-14">
-        <div className="grid gap-10 md:grid-cols-4">
-          <div className="md:col-span-2">
+    <footer className="relative border-t border-brand-line bg-white">
+      <div className="container-x pb-12 pt-16">
+        <div className="grid gap-12 lg:grid-cols-[1.4fr_2fr]">
+          <div>
             <div className="flex items-center gap-3">
               <img
                 src="/logo-brain.png"
@@ -24,74 +51,56 @@ export default function Footer() {
               </div>
             </div>
             <p className="mt-5 max-w-md text-sm text-brand-muted">
-              감정을 빼고 원칙을 더하다.
+              감정을 빼고, 원칙을 더하다.
               <br />
-              데이터 분석과 정교한 알고리즘으로
-              <br />
-              24시간 멈추지 않는 자동매매를 경험하세요.
+              데이터와 알고리즘으로 24시간 멈추지 않는 자동매매를 경험하세요.
             </p>
+            <div className="mt-6 flex items-center gap-2 text-xs text-brand-muted">
+              <span className="live-dot" />
+              <span>
+                <span className="font-bold text-brand-text">8,200+</span>{" "}
+                트레이더가 사용 중
+              </span>
+            </div>
+            <div className="mt-6 flex flex-wrap gap-2">
+              {["Windows 10+", "macOS 12+", "API 화이트리스트"].map((t) => (
+                <span key={t} className="stat-chip">
+                  {t}
+                </span>
+              ))}
+            </div>
           </div>
 
-          <div>
-            <h4 className="text-sm font-semibold text-brand-text">서비스</h4>
-            <ul className="mt-4 space-y-2.5 text-sm text-brand-muted">
-              <li>
-                <Link
-                  href="/program"
-                  className="transition-colors hover:text-brand-primary"
-                >
-                  프로그램 소개
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/performance"
-                  className="transition-colors hover:text-brand-primary"
-                >
-                  성과
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/guide"
-                  className="transition-colors hover:text-brand-primary"
-                >
-                  이용 방법
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/support"
-                  className="transition-colors hover:text-brand-primary"
-                >
-                  고객지원
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-sm font-semibold text-brand-text">고객지원</h4>
-            <ul className="mt-4 space-y-2.5 text-sm text-brand-muted">
-              <li>평일 10:00 - 18:00</li>
-              <li>contact@nextquant.kr</li>
-              <li>
-                <Link
-                  href="/support"
-                  className="transition-colors hover:text-brand-primary"
-                >
-                  자주 묻는 질문
-                </Link>
-              </li>
-            </ul>
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
+            {NAV_GROUPS.map((g) => (
+              <div key={g.title}>
+                <h4 className="text-xs font-bold uppercase tracking-[0.18em] text-brand-muted">
+                  {g.title}
+                </h4>
+                <ul className="mt-4 space-y-3 text-sm">
+                  {g.items.map((it) => (
+                    <li key={it.label}>
+                      <Link
+                        href={it.href}
+                        className="text-brand-subText transition-colors hover:text-brand-primary"
+                      >
+                        {it.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-4 border-t border-brand-line pt-6 text-xs text-brand-muted md:flex-row md:items-center md:justify-between">
+        <div className="mt-14 divider-dashed" />
+
+        <div className="mt-6 flex flex-col gap-3 text-xs text-brand-muted md:flex-row md:items-center md:justify-between">
           <p>© {new Date().getFullYear()} NEXT QUANT. All rights reserved.</p>
           <p className="md:text-right">
-            본 서비스는 투자 결정을 보조하는 도구로, 투자에 대한 최종 책임은
-            사용자 본인에게 있습니다.
+            본 서비스는 투자 결정을 보조하는 도구이며, 투자의 최종 책임은 사용자
+            본인에게 있습니다.
           </p>
         </div>
       </div>

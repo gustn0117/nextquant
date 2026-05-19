@@ -59,9 +59,15 @@ const config: Config = {
         ring: "0 0 0 6px rgba(0,183,131,0.10)",
         elevated:
           "0 1px 0 rgba(15,23,42,0.04), 0 24px 60px -24px rgba(15,23,42,0.18)",
+        depth:
+          "0 1px 0 rgba(15,23,42,0.04), 0 2px 4px rgba(15,23,42,0.04), 0 10px 30px -8px rgba(15,23,42,0.10), 0 30px 60px -16px rgba(15,23,42,0.12)",
         glow: "0 20px 60px -20px rgba(0,183,131,0.45)",
-        glowBlue: "0 20px 60px -20px rgba(59,130,246,0.45)",
         innerSoft: "inset 0 1px 0 rgba(255,255,255,0.6)",
+        darkDepth:
+          "inset 0 1px 0 rgba(255,255,255,0.06), 0 20px 50px -10px rgba(0,0,0,0.55)",
+      },
+      letterSpacing: {
+        tightest: "-0.04em",
       },
       animation: {
         "fade-up": "fadeUp 0.7s ease-out both",

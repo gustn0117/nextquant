@@ -69,16 +69,20 @@ export default function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`relative rounded-md px-4 py-2 text-sm font-semibold transition-colors ${
+                className={`group/nav relative rounded-md px-3.5 py-2 text-sm font-semibold transition-colors lg:px-4 ${
                   active
-                    ? "text-brand-primary"
+                    ? "text-brand-text"
                     : "text-brand-subText hover:text-brand-text"
                 }`}
               >
                 {item.label}
-                {active && (
-                  <span className="absolute inset-x-4 -bottom-px h-[2px] rounded-full bg-brand-primary" />
-                )}
+                <span
+                  className={`pointer-events-none absolute inset-x-3.5 -bottom-[3px] h-[2px] origin-left rounded-full bg-brand-primary transition-transform duration-300 lg:inset-x-4 ${
+                    active
+                      ? "scale-x-100"
+                      : "scale-x-0 group-hover/nav:scale-x-100"
+                  }`}
+                />
               </Link>
             );
           })}
@@ -86,10 +90,29 @@ export default function Header() {
 
         <div className="hidden items-center gap-3 md:flex">
           <Link
+            href="/performance"
+            className="hidden items-center gap-1.5 rounded-md px-3 py-2 text-sm font-semibold text-brand-subText transition-colors hover:text-brand-primary lg:inline-flex"
+          >
+            <span className="live-dot" /> 실시간 성과
+          </Link>
+          <Link
             href="/guide"
-            className="rounded-md bg-brand-primary px-5 py-2.5 text-sm font-semibold text-white shadow-soft transition-all hover:bg-brand-primaryDim hover:shadow-[0_10px_22px_-8px_rgba(0,183,131,0.55)]"
+            className="btn-3d inline-flex items-center gap-1.5 rounded-md bg-brand-primary px-5 py-2.5 text-sm font-semibold text-white shadow-soft transition-all hover:bg-brand-primaryDim hover:shadow-[0_10px_22px_-8px_rgba(0,183,131,0.55)]"
           >
             무료 다운로드
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
           </Link>
         </div>
 

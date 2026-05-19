@@ -27,30 +27,58 @@ export default function PerformancePage() {
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden border-b border-brand-line">
-      <div className="absolute inset-0 bg-hero-soft" />
-      <div className="absolute inset-0 bg-grid opacity-60" />
+    <section className="relative overflow-hidden border-b border-brand-line bg-white">
+      <div className="dot-grid-light pointer-events-none absolute inset-0 opacity-90" />
       <div className="container-x relative section-padding pt-24 md:pt-32">
         <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_1fr]">
           <div>
-            <span className="eyebrow">PERFORMANCE</span>
-            <h1 className="mt-5 text-4xl font-extrabold tracking-tight md:text-6xl">
+            <div className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.22em] text-brand-primary">
+              <span className="h-px w-8 bg-brand-primary/40" />
+              PERFORMANCE
+            </div>
+            <h1 className="mt-5 text-4xl font-extrabold tracking-tightest md:text-6xl">
               데이터로 증명하는
               <br />
-              <span className="gradient-text">투명한 성과</span>
+              <span className="accent-underline">투명한 성과</span>
             </h1>
             <p className="mt-7 section-sub">
               지난 36개월간의 백테스팅 결과와 실전 운용 데이터를 가공 없이
               공개합니다. 모든 지표는 동일한 자본 기준으로 계산되었습니다.
             </p>
+            <div className="mt-8 flex flex-wrap gap-2">
+              <span className="stat-chip">
+                <span className="live-dot" /> LIVE TRACKED
+              </span>
+              <span className="stat-chip">백테스팅 36M</span>
+              <span className="stat-chip">실 운용 18M</span>
+            </div>
           </div>
-          <div className="overflow-hidden rounded-xl border border-brand-line bg-white shadow-elevated">
+          <div className="img-zoom relative overflow-hidden rounded-xl border border-brand-line bg-white shadow-depth">
+            <CornerMarker />
             <img
               src={COVER_IMG}
               alt="성과 차트"
               className="aspect-[5/4] w-full object-cover"
               loading="eager"
             />
+            <div
+              className="pointer-events-none absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.35) 100%)",
+              }}
+            />
+            <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between text-white">
+              <div>
+                <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/70">
+                  Cumulative Return
+                </div>
+                <div className="mt-1 text-3xl font-extrabold tnum">+137.0%</div>
+              </div>
+              <span className="inline-flex items-center gap-2 rounded-md bg-brand-primary px-3 py-1.5 text-xs font-bold">
+                ▲ 36M
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -60,41 +88,53 @@ function Hero() {
 
 function Highlights() {
   const items = [
-    { v: "+37.4%", label: "연 평균 수익률", tone: "primary" },
-    { v: "-12.8%", label: "최대 낙폭(MDD)", tone: "warn" },
-    { v: "63.1%", label: "전략 평균 승률", tone: "accent" },
-    { v: "2.41", label: "샤프 지수", tone: "primary" },
+    { v: "+37.4%", label: "연 평균 수익률", tone: "primary", sub: "vs 시장 +12.1%" },
+    { v: "-12.8%", label: "최대 낙폭 (MDD)", tone: "warn", sub: "한계 -20% 이하" },
+    { v: "63.1%", label: "전략 평균 승률", tone: "accent", sub: "30일 이동평균" },
+    { v: "2.41", label: "샤프 지수", tone: "primary", sub: "리스크 대비 수익" },
   ];
   return (
     <section className="border-b border-brand-line bg-white section-padding">
       <div className="container-x">
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid divide-y divide-brand-line border-y border-brand-line sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4">
           {items.map((s) => (
-            <div
-              key={s.label}
-              className="rounded-lg border border-brand-lineSoft bg-white p-7"
-            >
-              <div className="text-4xl font-extrabold tracking-tight md:text-5xl">
+            <div key={s.label} className="relative p-8">
+              <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-brand-muted">
+                {s.label}
+              </div>
+              <div className="mt-4 text-5xl font-extrabold tracking-tightest tnum md:text-6xl">
                 <span
                   className={
                     s.tone === "warn"
                       ? "text-rose-500"
                       : s.tone === "accent"
                         ? "text-brand-accent"
-                        : "gradient-text"
+                        : "text-brand-primary"
                   }
                 >
                   {s.v}
                 </span>
               </div>
-              <div className="mt-3 text-sm font-medium text-brand-muted">
-                {s.label}
-              </div>
+              <div className="mt-3 text-xs text-brand-muted">{s.sub}</div>
             </div>
           ))}
         </div>
       </div>
     </section>
+  );
+}
+
+function CornerMarker() {
+  const C = ({ className }: { className: string }) => (
+    <span className={`absolute z-10 h-3 w-3 border-white/70 ${className}`} />
+  );
+  return (
+    <>
+      <C className="left-3 top-3 border-l border-t" />
+      <C className="right-3 top-3 border-r border-t" />
+      <C className="bottom-3 left-3 border-b border-l" />
+      <C className="bottom-3 right-3 border-b border-r" />
+    </>
   );
 }
 
