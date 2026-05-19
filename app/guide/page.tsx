@@ -263,13 +263,7 @@ function Download() {
   return (
     <section id="download" className="pb-24">
       <div className="container-x">
-        <div
-          className="grid gap-8 overflow-hidden rounded-xl border border-brand-line p-10 shadow-elevated md:p-14 lg:grid-cols-2 lg:items-center"
-          style={{
-            background:
-              "linear-gradient(135deg, #FFFFFF 0%, #F0FAF6 60%, #E6F8F2 100%)",
-          }}
-        >
+        <div className="grid gap-8 overflow-hidden rounded-xl border border-brand-line bg-white p-10 shadow-elevated md:p-14 lg:grid-cols-2 lg:items-center">
           <div>
             <h3 className="text-3xl font-extrabold tracking-tight text-brand-text md:text-5xl">
               지금 다운로드,

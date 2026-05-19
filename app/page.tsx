@@ -34,41 +34,13 @@ function Hero() {
       />
       <div
         className="absolute inset-0 -z-10"
-        style={{
-          background:
-            "linear-gradient(180deg, rgba(8,15,30,0.86) 0%, rgba(8,15,30,0.62) 45%, rgba(8,15,30,0.92) 100%)",
-        }}
-      />
-      {/* 떠다니는 blob orbs */}
-      <div
-        className="pointer-events-none absolute -left-24 top-24 -z-10 h-80 w-80 rounded-full opacity-70 blur-3xl animate-blob"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(0,183,131,0.55), transparent 70%)",
-        }}
+        style={{ background: "rgba(8,15,30,0.78)" }}
       />
       <div
-        className="pointer-events-none absolute -right-32 top-40 -z-10 h-96 w-96 rounded-full opacity-60 blur-3xl animate-blob"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(59,130,246,0.55), transparent 70%)",
-          animationDelay: "2s",
-        }}
-      />
-      <div
-        className="pointer-events-none absolute bottom-0 left-1/2 -z-10 h-80 w-[40rem] -translate-x-1/2 rounded-full opacity-50 blur-3xl animate-blob"
-        style={{
-          background:
-            "radial-gradient(ellipse, rgba(168,85,247,0.40), transparent 70%)",
-          animationDelay: "4s",
-        }}
-      />
-      {/* grid overlay */}
-      <div
-        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.07]"
+        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.06]"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)",
+            "linear-gradient(rgba(255,255,255,0.7) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.7) 1px, transparent 1px)",
           backgroundSize: "60px 60px",
           maskImage:
             "radial-gradient(ellipse at center, black 30%, transparent 75%)",
@@ -410,14 +382,7 @@ function SolutionSection() {
     },
   ];
   return (
-    <section className="relative overflow-hidden bg-mesh-light section-padding">
-      <div
-        className="pointer-events-none absolute -top-32 left-1/2 h-72 w-[34rem] -translate-x-1/2 rounded-full opacity-60 blur-3xl"
-        style={{
-          background:
-            "radial-gradient(ellipse, rgba(0,183,131,0.25), transparent 70%)",
-        }}
-      />
+    <section className="relative overflow-hidden bg-white section-padding">
       <div className="container-x relative">
         <div className="mx-auto max-w-3xl text-center">
           <span className="text-sm font-semibold tracking-[0.18em] text-brand-primary">
@@ -445,7 +410,7 @@ function SolutionSection() {
                 </span>
                 <span className="h-px flex-1 bg-brand-lineSoft" />
               </div>
-              <div className="mt-5 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-brand-primary to-brand-accent text-white shadow-glow">
+              <div className="mt-5 flex h-12 w-12 items-center justify-center rounded-lg bg-brand-primary text-white shadow-soft">
                 {c.icon}
               </div>
               <h3 className="mt-5 text-xl font-bold text-brand-text">
@@ -513,29 +478,17 @@ function StatSection() {
     { v: "8,200+", label: "누적 사용자" },
   ];
   return (
-    <section className="relative isolate overflow-hidden border-y border-brand-line bg-mesh-dark section-padding">
-      <div
-        className="pointer-events-none absolute -left-24 top-1/3 h-72 w-72 rounded-full opacity-50 blur-3xl animate-blob"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(0,183,131,0.5), transparent 70%)",
-        }}
-      />
-      <div
-        className="pointer-events-none absolute -right-24 bottom-0 h-72 w-72 rounded-full opacity-50 blur-3xl animate-blob"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(59,130,246,0.55), transparent 70%)",
-          animationDelay: "3s",
-        }}
-      />
+    <section
+      className="relative isolate overflow-hidden border-y border-brand-line section-padding"
+      style={{ background: "#0b1426" }}
+    >
       <div className="container-x relative">
         <div className="mx-auto max-w-2xl text-center">
           <span className="text-sm font-semibold tracking-[0.18em] text-brand-primary">
             BY THE NUMBERS
           </span>
           <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-white md:text-5xl">
-            숫자로 보는 <span className="gradient-text-bright">넥스트퀀트</span>
+            숫자로 보는 <span className="text-brand-primary">넥스트퀀트</span>
           </h2>
         </div>
 
@@ -546,7 +499,7 @@ function StatSection() {
               className="glass-dark lift rounded-xl p-7 text-center"
             >
               <div className="text-4xl font-extrabold tracking-tight text-white md:text-5xl">
-                <span className="gradient-text-bright">{s.v}</span>
+                {s.v}
               </div>
               <div className="mt-3 text-sm font-medium text-white/65">
                 {s.label}
@@ -606,15 +559,6 @@ function HowItWorks() {
               key={s.n}
               className="lift relative overflow-hidden rounded-xl border border-brand-line bg-white p-7 shadow-soft"
             >
-              <div
-                className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full opacity-40 blur-2xl"
-                style={{
-                  background:
-                    i % 2 === 0
-                      ? "radial-gradient(circle, rgba(0,183,131,0.45), transparent 70%)"
-                      : "radial-gradient(circle, rgba(59,130,246,0.45), transparent 70%)",
-                }}
-              />
               <div className="relative">
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-brand-primary bg-white text-sm font-extrabold text-brand-primary">
@@ -716,30 +660,10 @@ function CtaSection() {
       <div className="container-x">
         <div
           className="relative isolate overflow-hidden rounded-xl border border-brand-line p-10 md:p-16"
-          style={{
-            background:
-              "linear-gradient(135deg, #060B18 0%, #0F1B2E 50%, #0A2A22 100%)",
-          }}
+          style={{ background: "#0b1426" }}
         >
           <div
-            className="pointer-events-none absolute -right-20 -top-20 h-80 w-80 rounded-full animate-blob"
-            style={{
-              background:
-                "radial-gradient(circle, rgba(0,183,131,0.55), transparent 70%)",
-              filter: "blur(40px)",
-            }}
-          />
-          <div
-            className="pointer-events-none absolute -bottom-24 -left-16 h-80 w-80 rounded-full animate-blob"
-            style={{
-              background:
-                "radial-gradient(circle, rgba(59,130,246,0.45), transparent 70%)",
-              filter: "blur(40px)",
-              animationDelay: "3s",
-            }}
-          />
-          <div
-            className="pointer-events-none absolute inset-0 opacity-[0.06]"
+            className="pointer-events-none absolute inset-0 opacity-[0.05]"
             style={{
               backgroundImage:
                 "linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)",
@@ -755,7 +679,7 @@ function CtaSection() {
               <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-white md:text-5xl">
                 감정 대신 데이터로,
                 <br />
-                <span className="gradient-text-bright">지금 바로 시작하세요.</span>
+                <span className="text-brand-primary">지금 바로 시작하세요.</span>
               </h2>
               <p className="mt-5 max-w-xl text-base text-white/70 md:text-lg">
                 신용카드 등록 없이 무료체험. 1분 설치로 24시간 자동매매를 바로

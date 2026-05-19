@@ -33,7 +33,7 @@ export default function Header() {
       className={`fixed top-0 z-50 w-full transition-all duration-500 ${
         scrolled
           ? "border-b border-brand-line/80 bg-white/80 shadow-soft backdrop-blur-xl"
-          : "border-b border-transparent bg-gradient-to-b from-white/55 to-white/0 backdrop-blur-md"
+          : "border-b border-transparent bg-white/50 backdrop-blur-md"
       }`}
     >
       <div className="container-x flex h-16 items-center justify-between">
