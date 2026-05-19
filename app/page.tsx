@@ -30,143 +30,76 @@ export default function HomePage() {
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden border-b border-brand-line">
-      <div className="absolute inset-0 bg-hero-soft" />
-      <div className="absolute inset-0 bg-grid opacity-70" />
+    <section className="relative isolate overflow-hidden border-b border-brand-line">
+      <img
+        src={HERO_IMG}
+        alt=""
+        aria-hidden
+        className="absolute inset-0 -z-10 h-full w-full object-cover"
+        loading="eager"
+      />
+      <div
+        className="absolute inset-0 -z-10"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(8,15,30,0.78) 0%, rgba(8,15,30,0.55) 45%, rgba(8,15,30,0.85) 100%)",
+        }}
+      />
 
-      <div className="container-x relative section-padding pt-24 md:pt-32">
-        <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
-          <div>
-            <div className="eyebrow">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-primary opacity-60" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-primary" />
-              </span>
-              24시간 실시간 자동매매 가동 중
-            </div>
-
-            <h1 className="mt-6 text-4xl font-extrabold tracking-tight md:text-6xl">
-              감정을 빼고
-              <br />
-              <span className="gradient-text">원칙을 더하다.</span>
-            </h1>
-
-            <p className="mt-7 text-lg text-brand-subText md:text-xl">
-              시장의 변동성에 흔들리지 마세요.
-              <br className="hidden md:block" />
-              데이터와 알고리즘이 당신이 잠든 순간에도
-              <br className="hidden md:block" />
-              완벽한 타이밍에 기계적으로 진입하고 청산합니다.
-            </p>
-
-            <div className="mt-9 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
-              <Link href="/guide" className="btn-primary group">
-                무료체험 다운로드
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="transition-transform group-hover:translate-y-0.5"
-                >
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                  <polyline points="7 10 12 15 17 10" />
-                  <line x1="12" y1="15" x2="12" y2="3" />
-                </svg>
-              </Link>
-              <Link href="/program" className="btn-ghost">
-                프로그램 자세히 보기
-              </Link>
-            </div>
-
-            <p className="mt-5 text-xs text-brand-muted">
-              Windows / macOS 지원 · 신용카드 등록 없이 시작 · 1분 설치
-            </p>
+      <div className="container-x relative pb-28 pt-32 text-center md:pb-40 md:pt-44">
+        <div className="mx-auto max-w-3xl">
+          <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs font-semibold tracking-[0.18em] text-white backdrop-blur">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-primary opacity-70" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-primary" />
+            </span>
+            24시간 실시간 자동매매 가동 중
           </div>
 
-          <HeroVisual />
+          <h1 className="mt-7 text-4xl font-extrabold tracking-tight text-white md:text-6xl lg:text-7xl">
+            감정을 빼고
+            <br />
+            원칙을 더하다.
+          </h1>
+
+          <p className="mx-auto mt-7 max-w-2xl text-base text-white/80 md:text-xl">
+            시장의 변동성에 흔들리지 마세요.
+            <br className="hidden md:block" />
+            데이터와 알고리즘이 당신이 잠든 순간에도
+            <br className="hidden md:block" />
+            완벽한 타이밍에 기계적으로 진입하고 청산합니다.
+          </p>
+
+          <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <Link href="/guide" className="btn-primary group">
+              무료체험 다운로드
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="transition-transform group-hover:translate-y-0.5"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+            </Link>
+            <Link href="/program" className="btn-outline-light">
+              프로그램 자세히 보기
+            </Link>
+          </div>
+
+          <p className="mt-6 text-xs text-white/60">
+            Windows / macOS 지원 · 신용카드 등록 없이 시작 · 1분 설치
+          </p>
         </div>
       </div>
     </section>
-  );
-}
-
-function HeroVisual() {
-  return (
-    <div className="relative">
-      <div className="relative overflow-hidden rounded-3xl border border-brand-line bg-white shadow-elevated">
-        <img
-          src={HERO_IMG}
-          alt="실시간 트레이딩 차트 화면"
-          className="aspect-[5/4] w-full object-cover"
-          loading="eager"
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(180deg, rgba(255,255,255,0) 40%, rgba(255,255,255,0.55) 100%)",
-          }}
-        />
-      </div>
-
-      <div className="absolute -left-6 top-10 hidden w-56 rounded-2xl border border-brand-line bg-white p-4 shadow-card sm:block">
-        <div className="flex items-center justify-between">
-          <span className="text-xs font-semibold text-brand-muted">
-            누적 수익률
-          </span>
-          <span className="inline-flex items-center gap-1 rounded-full bg-brand-primarySoft px-2 py-0.5 text-[11px] font-bold text-brand-primary">
-            ▲ LIVE
-          </span>
-        </div>
-        <div className="mt-2 text-3xl font-extrabold tracking-tight text-brand-text">
-          +37.4<span className="text-xl text-brand-primary">%</span>
-        </div>
-        <div className="mt-3 flex items-end gap-1">
-          {[18, 28, 22, 36, 42, 50, 64].map((h, i) => (
-            <div
-              key={i}
-              className="w-3 rounded-sm"
-              style={{
-                height: `${h}px`,
-                background: i === 6 ? "#00B783" : "#CFEDE3",
-              }}
-            />
-          ))}
-        </div>
-      </div>
-
-      <div className="absolute -right-4 bottom-8 hidden w-60 rounded-2xl border border-brand-line bg-white p-4 shadow-card sm:block">
-        <div className="flex items-center gap-2">
-          <span className="inline-flex h-2 w-2 rounded-full bg-brand-primary" />
-          <span className="text-xs font-semibold text-brand-muted">
-            활성 포지션
-          </span>
-        </div>
-        <ul className="mt-3 space-y-2 text-sm">
-          {[
-            { sym: "BTC/USDT", pnl: "+2.41%", up: true },
-            { sym: "ETH/USDT", pnl: "+1.08%", up: true },
-            { sym: "SOL/USDT", pnl: "-0.32%", up: false },
-          ].map((r) => (
-            <li key={r.sym} className="flex items-center justify-between">
-              <span className="font-medium text-brand-text">{r.sym}</span>
-              <span
-                className={`text-xs font-bold ${
-                  r.up ? "text-brand-primary" : "text-rose-500"
-                }`}
-              >
-                {r.pnl}
-              </span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
   );
 }
 
