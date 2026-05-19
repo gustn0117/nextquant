@@ -69,7 +69,7 @@ export default function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`relative rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
+                className={`relative rounded-md px-4 py-2 text-sm font-semibold transition-colors ${
                   active
                     ? "text-brand-primary"
                     : "text-brand-subText hover:text-brand-text"
@@ -87,7 +87,7 @@ export default function Header() {
         <div className="hidden items-center gap-3 md:flex">
           <Link
             href="/guide"
-            className="rounded-full bg-brand-primary px-5 py-2.5 text-sm font-semibold text-white shadow-soft transition-all hover:bg-brand-primaryDim hover:shadow-[0_10px_22px_-8px_rgba(0,183,131,0.55)]"
+            className="rounded-md bg-brand-primary px-5 py-2.5 text-sm font-semibold text-white shadow-soft transition-all hover:bg-brand-primaryDim hover:shadow-[0_10px_22px_-8px_rgba(0,183,131,0.55)]"
           >
             무료 다운로드
           </Link>
@@ -143,7 +143,7 @@ export default function Header() {
             })}
             <Link
               href="/guide"
-              className="mt-2 rounded-full bg-brand-primary px-5 py-3 text-center text-sm font-semibold text-white"
+              className="mt-2 rounded-md bg-brand-primary px-5 py-3 text-center text-sm font-semibold text-white"
             >
               무료 다운로드
             </Link>

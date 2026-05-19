@@ -50,7 +50,7 @@ function ProgramHero() {
           </p>
         </div>
 
-        <div className="mx-auto mt-14 max-w-5xl overflow-hidden rounded-3xl border border-brand-line bg-white shadow-elevated">
+        <div className="mx-auto mt-14 max-w-5xl overflow-hidden rounded-xl border border-brand-line bg-white shadow-elevated">
           <img
             src={ENGINE_IMG}
             alt="트레이딩 엔진 시각화"
@@ -127,7 +127,7 @@ function CoreFeatures() {
                   reverse ? "lg:[&>*:first-child]:order-2" : ""
                 }`}
               >
-                <div className="overflow-hidden rounded-3xl border border-brand-line bg-white shadow-card">
+                <div className="overflow-hidden rounded-xl border border-brand-line bg-white shadow-card">
                   <img
                     src={f.img}
                     alt={f.title}
@@ -137,7 +137,7 @@ function CoreFeatures() {
                 </div>
                 <div>
                   <div className="flex items-center gap-3">
-                    <span className="rounded-full bg-brand-primarySoft px-3 py-1 text-xs font-bold tracking-[0.2em] text-brand-primary">
+                    <span className="rounded-md bg-brand-primarySoft px-3 py-1 text-xs font-bold tracking-[0.2em] text-brand-primary">
                       {f.idx}
                     </span>
                     <span className="text-sm font-semibold uppercase tracking-[0.18em] text-brand-muted">
@@ -206,7 +206,7 @@ function Architecture() {
               데이터부터 주문 실행까지, 각 레이어가 독립적으로 검증되고 모니터링됩니다.
               어느 한 레이어에서 이상이 감지되면 전체 시스템이 안전하게 멈춥니다.
             </p>
-            <div className="mt-8 overflow-hidden rounded-3xl border border-brand-line bg-white shadow-card">
+            <div className="mt-8 overflow-hidden rounded-xl border border-brand-line bg-white shadow-card">
               <img
                 src={ARCH_IMG}
                 alt="시스템 아키텍처"
@@ -261,7 +261,7 @@ function CompareTable() {
           <h2 className="mt-3 section-title">수동 매매 vs 넥스트퀀트</h2>
         </div>
 
-        <div className="mt-12 overflow-hidden rounded-3xl border border-brand-line bg-white shadow-card">
+        <div className="mt-12 overflow-hidden rounded-xl border border-brand-line bg-white shadow-card">
           <div className="grid grid-cols-3 bg-brand-subtle text-center text-sm font-bold text-brand-text">
             <div className="p-5 text-left">항목</div>
             <div className="border-l border-brand-line p-5 text-brand-muted">
@@ -297,7 +297,7 @@ function CtaBand() {
   return (
     <section className="pb-24">
       <div className="container-x">
-        <div className="rounded-3xl border border-brand-line bg-white p-10 text-center shadow-card md:p-14">
+        <div className="rounded-xl border border-brand-line bg-white p-10 text-center shadow-card md:p-14">
           <h3 className="text-3xl font-extrabold tracking-tight md:text-4xl">
             <span className="gradient-text">지금 바로</span> 시작해보세요.
           </h3>

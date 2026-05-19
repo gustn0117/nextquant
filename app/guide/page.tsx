@@ -125,14 +125,14 @@ function StepGuide() {
                   reverse ? "lg:[&>*:first-child]:order-2" : ""
                 }`}
               >
-                <div className="relative overflow-hidden rounded-3xl border border-brand-line bg-white shadow-card">
+                <div className="relative overflow-hidden rounded-xl border border-brand-line bg-white shadow-card">
                   <img
                     src={s.img}
                     alt={s.title}
                     className="aspect-[5/4] w-full object-cover"
                     loading="lazy"
                   />
-                  <div className="absolute left-5 top-5 rounded-full bg-white px-4 py-1.5 text-xs font-extrabold tracking-[0.18em] text-brand-primary shadow-soft">
+                  <div className="absolute left-5 top-5 rounded-md bg-white px-4 py-1.5 text-xs font-extrabold tracking-[0.18em] text-brand-primary shadow-soft">
                     STEP {s.n}
                   </div>
                 </div>
@@ -221,7 +221,7 @@ function FaqMini() {
             </span>
             <h2 className="mt-3 section-title">자주 묻는 질문</h2>
           </div>
-          <div className="mt-10 divide-y divide-brand-lineSoft overflow-hidden rounded-2xl border border-brand-line bg-white">
+          <div className="mt-10 divide-y divide-brand-lineSoft overflow-hidden rounded-lg border border-brand-line bg-white">
             {faqs.map((f) => (
               <details key={f.q} className="group p-6 open:bg-brand-subtle">
                 <summary className="flex cursor-pointer items-center justify-between text-base font-semibold text-brand-text">
@@ -264,7 +264,7 @@ function Download() {
     <section id="download" className="pb-24">
       <div className="container-x">
         <div
-          className="grid gap-8 overflow-hidden rounded-3xl border border-brand-line p-10 shadow-elevated md:p-14 lg:grid-cols-2 lg:items-center"
+          className="grid gap-8 overflow-hidden rounded-xl border border-brand-line p-10 shadow-elevated md:p-14 lg:grid-cols-2 lg:items-center"
           style={{
             background:
               "linear-gradient(135deg, #FFFFFF 0%, #F0FAF6 60%, #E6F8F2 100%)",
@@ -284,13 +284,13 @@ function Download() {
           <div className="flex flex-col gap-3 lg:items-end">
             <a
               href="#"
-              className="inline-flex w-full items-center justify-center gap-3 rounded-2xl border border-brand-line bg-white px-6 py-4 text-base font-bold text-brand-text shadow-soft transition-all hover:-translate-y-0.5 hover:shadow-card lg:w-80"
+              className="inline-flex w-full items-center justify-center gap-3 rounded-lg border border-brand-line bg-white px-6 py-4 text-base font-bold text-brand-text shadow-soft transition-all hover:-translate-y-0.5 hover:shadow-card lg:w-80"
             >
               <WindowsIcon /> Windows 다운로드
             </a>
             <a
               href="#"
-              className="inline-flex w-full items-center justify-center gap-3 rounded-2xl border border-brand-line bg-white px-6 py-4 text-base font-bold text-brand-text shadow-soft transition-all hover:-translate-y-0.5 hover:shadow-card lg:w-80"
+              className="inline-flex w-full items-center justify-center gap-3 rounded-lg border border-brand-line bg-white px-6 py-4 text-base font-bold text-brand-text shadow-soft transition-all hover:-translate-y-0.5 hover:shadow-card lg:w-80"
             >
               <AppleIcon /> macOS 다운로드
             </a>

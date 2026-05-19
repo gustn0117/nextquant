@@ -46,7 +46,7 @@ function SupportHero() {
               </a>
             </div>
           </div>
-          <div className="overflow-hidden rounded-3xl border border-brand-line bg-white shadow-elevated">
+          <div className="overflow-hidden rounded-xl border border-brand-line bg-white shadow-elevated">
             <img
               src={SUPPORT_IMG}
               alt="고객지원 이미지"
@@ -87,7 +87,7 @@ function ChannelCards() {
         <div className="grid gap-6 md:grid-cols-3">
           {channels.map((c) => (
             <div key={c.label} className="card-soft p-7">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-primarySoft text-brand-primary">
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-brand-primarySoft text-brand-primary">
                 {c.icon}
               </div>
               <div className="mt-5 text-sm font-semibold tracking-[0.18em] text-brand-muted">
@@ -177,12 +177,12 @@ function FaqFull() {
           {groups.map((g) => (
             <div key={g.tag}>
               <div className="mb-4 flex items-center gap-3">
-                <span className="rounded-full bg-brand-primarySoft px-3 py-1 text-xs font-bold tracking-[0.18em] text-brand-primary">
+                <span className="rounded-md bg-brand-primarySoft px-3 py-1 text-xs font-bold tracking-[0.18em] text-brand-primary">
                   {g.tag}
                 </span>
                 <span className="h-px flex-1 bg-brand-line" />
               </div>
-              <div className="divide-y divide-brand-lineSoft overflow-hidden rounded-2xl border border-brand-line bg-white">
+              <div className="divide-y divide-brand-lineSoft overflow-hidden rounded-lg border border-brand-line bg-white">
                 {g.items.map((f) => (
                   <details
                     key={f.q}
@@ -221,7 +221,7 @@ function ContactForm() {
   return (
     <section className="section-padding">
       <div className="container-x">
-        <div className="mx-auto grid max-w-5xl gap-10 rounded-3xl border border-brand-line bg-white p-8 shadow-card md:p-12 lg:grid-cols-[1fr_1.2fr]">
+        <div className="mx-auto grid max-w-5xl gap-10 rounded-xl border border-brand-line bg-white p-8 shadow-card md:p-12 lg:grid-cols-[1fr_1.2fr]">
           <div>
             <span className="text-sm font-semibold tracking-[0.18em] text-brand-accent">
               CONTACT
@@ -264,7 +264,7 @@ function ContactForm() {
             </label>
             <button
               type="button"
-              className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand-primary px-6 py-3.5 text-base font-bold text-white shadow-soft transition-all hover:bg-brand-primaryDim hover:shadow-[0_10px_28px_-10px_rgba(0,183,131,0.55)]"
+              className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-md bg-brand-primary px-6 py-3.5 text-base font-bold text-white shadow-soft transition-all hover:bg-brand-primaryDim hover:shadow-[0_10px_28px_-10px_rgba(0,183,131,0.55)]"
             >
               문의 보내기
             </button>

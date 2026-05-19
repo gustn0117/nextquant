@@ -44,7 +44,7 @@ function Hero() {
               공개합니다. 모든 지표는 동일한 자본 기준으로 계산되었습니다.
             </p>
           </div>
-          <div className="overflow-hidden rounded-3xl border border-brand-line bg-white shadow-elevated">
+          <div className="overflow-hidden rounded-xl border border-brand-line bg-white shadow-elevated">
             <img
               src={COVER_IMG}
               alt="성과 차트"
@@ -72,7 +72,7 @@ function Highlights() {
           {items.map((s) => (
             <div
               key={s.label}
-              className="rounded-2xl border border-brand-lineSoft bg-white p-7"
+              className="rounded-lg border border-brand-lineSoft bg-white p-7"
             >
               <div className="text-4xl font-extrabold tracking-tight md:text-5xl">
                 <span
@@ -131,7 +131,7 @@ function EquityCurve() {
           </p>
         </div>
 
-        <div className="mt-12 overflow-hidden rounded-3xl border border-brand-line bg-white p-6 shadow-card md:p-8">
+        <div className="mt-12 overflow-hidden rounded-xl border border-brand-line bg-white p-6 shadow-card md:p-8">
           <div className="flex flex-wrap items-end justify-between gap-3">
             <div>
               <div className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-muted">
@@ -145,7 +145,7 @@ function EquityCurve() {
               {["1M", "6M", "1Y", "3Y", "ALL"].map((t, i) => (
                 <span
                   key={t}
-                  className={`rounded-full px-3 py-1 font-bold ${
+                  className={`rounded-md px-3 py-1 font-bold ${
                     i === 3
                       ? "bg-brand-primary text-white"
                       : "bg-brand-subtle text-brand-muted"
@@ -214,7 +214,7 @@ function MonthlyTable() {
           <h2 className="mt-3 section-title">월별 수익률</h2>
         </div>
 
-        <div className="mt-12 overflow-hidden rounded-3xl border border-brand-line bg-white shadow-card">
+        <div className="mt-12 overflow-hidden rounded-xl border border-brand-line bg-white shadow-card">
           <div className="overflow-x-auto">
             <table className="w-full min-w-[760px] text-sm">
               <thead>
@@ -317,7 +317,7 @@ function StrategyBreakdown() {
               서로 다른 시장 국면에서 작동하는 4가지 전략을 분산 배분하여,
               어떤 시장 상황에서도 안정적인 수익을 추구합니다.
             </p>
-            <div className="mt-8 overflow-hidden rounded-3xl border border-brand-line bg-white shadow-card">
+            <div className="mt-8 overflow-hidden rounded-xl border border-brand-line bg-white shadow-card">
               <img
                 src={TEAM_IMG}
                 alt="전략 운용팀"
@@ -327,7 +327,7 @@ function StrategyBreakdown() {
             </div>
           </div>
 
-          <div className="overflow-hidden rounded-3xl border border-brand-line bg-white shadow-card">
+          <div className="overflow-hidden rounded-xl border border-brand-line bg-white shadow-card">
             <div className="grid grid-cols-[1.4fr_1fr_1fr_1fr] bg-brand-subtle text-xs font-bold tracking-[0.1em] text-brand-muted">
               <div className="p-4">전략</div>
               <div className="p-4 text-right text-brand-primary">3Y 수익</div>
@@ -369,7 +369,7 @@ function Disclaimer() {
   return (
     <section className="pb-24">
       <div className="container-x">
-        <div className="mx-auto max-w-4xl rounded-3xl border border-brand-line bg-brand-subtle p-7 text-sm text-brand-muted md:p-10">
+        <div className="mx-auto max-w-4xl rounded-xl border border-brand-line bg-brand-subtle p-7 text-sm text-brand-muted md:p-10">
           <p className="font-bold text-brand-text">⚠ 투자 유의 안내</p>
           <p className="mt-3">
             본 페이지에 표기된 수익률, MDD, 승률은 자체 백테스팅 및 실전 운용

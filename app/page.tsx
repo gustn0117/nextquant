@@ -48,15 +48,7 @@ function Hero() {
 
       <div className="container-x relative pb-28 pt-32 text-center md:pb-40 md:pt-44">
         <div className="mx-auto max-w-3xl">
-          <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs font-semibold tracking-[0.18em] text-white backdrop-blur">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-primary opacity-70" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-brand-primary" />
-            </span>
-            24시간 실시간 자동매매 가동 중
-          </div>
-
-          <h1 className="mt-7 text-4xl font-extrabold tracking-tight text-white md:text-6xl lg:text-7xl">
+          <h1 className="text-4xl font-extrabold tracking-tight text-white md:text-6xl lg:text-7xl">
             감정을 빼고
             <br />
             원칙을 더하다.
@@ -160,7 +152,7 @@ function ProblemSection() {
       <div className="container-x">
         <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-16">
           <div className="order-2 lg:order-1">
-            <div className="relative overflow-hidden rounded-3xl border border-brand-line bg-white shadow-card">
+            <div className="relative overflow-hidden rounded-xl border border-brand-line bg-white shadow-card">
               <img
                 src={PROBLEM_IMG}
                 alt="복잡한 시장 차트"
@@ -184,7 +176,7 @@ function ProblemSection() {
               {problems.map((p) => (
                 <li
                   key={p.title}
-                  className="rounded-2xl border border-brand-lineSoft bg-white p-5"
+                  className="rounded-lg border border-brand-lineSoft bg-white p-5"
                 >
                   <h3 className="text-lg font-bold text-brand-text">
                     {p.title}
@@ -242,7 +234,7 @@ function SolutionSection() {
               className="group card-soft p-7 transition-all hover:-translate-y-0.5 hover:shadow-card"
             >
               <div className="flex items-center gap-3">
-                <span className="rounded-full bg-brand-primarySoft px-3 py-1 text-xs font-bold tracking-[0.18em] text-brand-primary">
+                <span className="rounded-md bg-brand-primarySoft px-3 py-1 text-xs font-bold tracking-[0.18em] text-brand-primary">
                   {c.tag}
                 </span>
                 <span className="h-px flex-1 bg-brand-lineSoft" />
@@ -255,8 +247,8 @@ function SolutionSection() {
           ))}
         </div>
 
-        <div className="mt-14 grid gap-10 rounded-3xl border border-brand-line bg-white p-8 shadow-card lg:grid-cols-[1.1fr_1fr] lg:items-center lg:p-10">
-          <div className="overflow-hidden rounded-2xl border border-brand-line">
+        <div className="mt-14 grid gap-10 rounded-xl border border-brand-line bg-white p-8 shadow-card lg:grid-cols-[1.1fr_1fr] lg:items-center lg:p-10">
+          <div className="overflow-hidden rounded-lg border border-brand-line">
             <img
               src={SOLUTION_IMG}
               alt="대시보드 사용 이미지"
@@ -311,7 +303,7 @@ function StatSection() {
           {stats.map((s) => (
             <div
               key={s.label}
-              className="rounded-2xl border border-brand-lineSoft bg-white p-7 text-center"
+              className="rounded-lg border border-brand-lineSoft bg-white p-7 text-center"
             >
               <div className="text-4xl font-extrabold tracking-tight text-brand-text md:text-5xl">
                 <span className="gradient-text">{s.v}</span>
@@ -369,7 +361,7 @@ function HowItWorks() {
           {steps.map((s, i) => (
             <div
               key={s.n}
-              className="relative rounded-2xl border border-brand-line bg-white p-7 shadow-soft"
+              className="relative rounded-lg border border-brand-line bg-white p-7 shadow-soft"
             >
               <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-brand-primary bg-white text-sm font-extrabold text-brand-primary">
                 {i + 1}
@@ -455,7 +447,7 @@ function CtaSection() {
     <section className="section-padding">
       <div className="container-x">
         <div
-          className="relative overflow-hidden rounded-3xl border border-brand-line p-10 md:p-16"
+          className="relative overflow-hidden rounded-xl border border-brand-line p-10 md:p-16"
           style={{
             background:
               "linear-gradient(135deg, #0F172A 0%, #1E293B 60%, #0B3B2E 100%)",
@@ -495,7 +487,7 @@ function CtaSection() {
             <div className="flex flex-col gap-3 lg:items-end">
               <Link
                 href="/guide"
-                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand-primary px-8 py-4 text-base font-bold text-white shadow-elevated transition-all hover:bg-brand-primaryDim lg:w-auto"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-brand-primary px-8 py-4 text-base font-bold text-white shadow-elevated transition-all hover:bg-brand-primaryDim lg:w-auto"
               >
                 무료체험 다운로드
               </Link>

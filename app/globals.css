@@ -96,27 +96,27 @@ li {
 }
 
 .eyebrow {
-  @apply inline-flex items-center gap-2 rounded-full border border-brand-line bg-white px-3 py-1 text-xs font-semibold tracking-[0.18em] text-brand-primary;
+  @apply inline-flex items-center gap-2 rounded-md border border-brand-line bg-white px-3 py-1 text-xs font-semibold tracking-[0.18em] text-brand-primary;
 }
 
 .btn-primary {
-  @apply inline-flex items-center justify-center gap-2 rounded-full bg-brand-primary px-7 py-3.5 text-base font-semibold text-white shadow-soft transition-all duration-200 hover:bg-brand-primaryDim hover:shadow-[0_10px_28px_-10px_rgba(0,183,131,0.55)];
+  @apply inline-flex items-center justify-center gap-2 rounded-lg bg-brand-primary px-7 py-3.5 text-base font-semibold text-white shadow-soft transition-all duration-200 hover:bg-brand-primaryDim hover:shadow-[0_10px_28px_-10px_rgba(0,183,131,0.55)];
 }
 
 .btn-ghost {
-  @apply inline-flex items-center justify-center gap-2 rounded-full border border-brand-line bg-white px-7 py-3.5 text-base font-semibold text-brand-text transition-all duration-200 hover:border-brand-primary hover:text-brand-primary;
+  @apply inline-flex items-center justify-center gap-2 rounded-lg border border-brand-line bg-white px-7 py-3.5 text-base font-semibold text-brand-text transition-all duration-200 hover:border-brand-primary hover:text-brand-primary;
 }
 
 .btn-outline-light {
-  @apply inline-flex items-center justify-center gap-2 rounded-full border border-white/40 bg-white/10 px-7 py-3.5 text-base font-semibold text-white backdrop-blur transition-all hover:bg-white/20;
+  @apply inline-flex items-center justify-center gap-2 rounded-lg border border-white/40 bg-white/10 px-7 py-3.5 text-base font-semibold text-white backdrop-blur transition-all hover:bg-white/20;
 }
 
 .card-soft {
-  @apply rounded-2xl border border-brand-line bg-white shadow-soft;
+  @apply rounded-lg border border-brand-line bg-white shadow-soft;
 }
 
 .card-flat {
-  @apply rounded-2xl border border-brand-lineSoft bg-white;
+  @apply rounded-lg border border-brand-lineSoft bg-white;
 }
 
 .section-title {
