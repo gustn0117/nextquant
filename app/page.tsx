@@ -75,7 +75,7 @@ function Hero() {
             <span className="text-brand-primary">.</span>
           </h1>
 
-          <p className="fade-up fade-up-2 mx-auto mt-7 max-w-2xl text-base text-white/72 md:text-xl">
+          <p className="fade-up fade-up-2 mx-auto mt-7 max-w-2xl text-base font-medium text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.55)] md:text-xl">
             시장의 변동성에 흔들리지 마세요. 데이터와 알고리즘이
             <br className="hidden md:block" />
             당신이 잠든 순간에도 정확한 타이밍에 진입하고 청산합니다.

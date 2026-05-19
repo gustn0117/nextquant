@@ -359,7 +359,7 @@ function Download() {
               <br />
               <span className="text-brand-primary">14일 무료체험</span>
             </h3>
-            <p className="mt-5 text-base text-white/70 md:text-lg">
+            <p className="mt-5 text-base text-white/85 md:text-lg">
               신용카드 등록 없이 시작. 1분 설치, 5분이면 첫 자동매매를 경험할 수
               있습니다.
             </p>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import ContactForm from "./ContactForm";
 
 export const metadata: Metadata = {
   title: "고객지원 | 넥스트퀀트 NEXT QUANT",
@@ -12,7 +13,7 @@ export default function SupportPage() {
       <Hero />
       <ChannelCards />
       <FaqFull />
-      <ContactForm />
+      <ContactSection />
     </>
   );
 }
@@ -44,7 +45,7 @@ function Hero() {
           <br />
           <span className="text-brand-primary">바로 답변드립니다.</span>
         </h1>
-        <p className="fade-up fade-up-2 mx-auto mt-7 max-w-2xl text-base text-white/70 md:text-xl">
+        <p className="fade-up fade-up-2 mx-auto mt-7 max-w-2xl text-base font-medium text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.55)] md:text-xl">
           FAQ에서 답을 찾지 못했다면 이메일·채팅으로
           <br className="hidden md:block" />
           평일 10:00–18:00 안에 신속하게 답변드립니다.
@@ -233,8 +234,8 @@ function FaqFull() {
   );
 }
 
-/* ─────────── Contact form ─────────── */
-function ContactForm() {
+/* ─────────── Contact section ─────────── */
+function ContactSection() {
   return (
     <section className="section-padding">
       <div className="container-x">
@@ -266,59 +267,10 @@ function ContactForm() {
             </div>
           </div>
 
-          <form className="grid gap-4">
-            <div className="grid gap-4 sm:grid-cols-2">
-              <Field label="이름" placeholder="홍길동" />
-              <Field
-                label="이메일"
-                type="email"
-                placeholder="you@example.com"
-              />
-            </div>
-            <Field label="제목" placeholder="문의 제목을 입력해주세요" />
-            <label className="flex flex-col gap-2 text-sm font-semibold text-brand-text">
-              내용
-              <textarea
-                rows={6}
-                placeholder="문의 내용을 입력해주세요"
-                className="rounded-lg border border-brand-line bg-white px-4 py-3 text-base font-normal text-brand-text placeholder:text-brand-mutedSoft focus:border-brand-primary focus:outline-none focus:ring-4 focus:ring-brand-primarySoft"
-              />
-            </label>
-            <button
-              type="button"
-              className="btn-3d mt-2 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-brand-primary px-6 py-3.5 text-base font-bold text-white shadow-soft transition-all hover:bg-brand-primaryDim hover:shadow-[0_10px_28px_-10px_rgba(0,183,131,0.55)]"
-            >
-              문의 보내기
-            </button>
-            <p className="text-xs text-brand-muted">
-              · 작성하신 정보는 문의 처리 목적으로만 사용되며, 처리 완료 후
-              안전하게 폐기됩니다.
-            </p>
-          </form>
+          <ContactForm />
         </div>
       </div>
     </section>
-  );
-}
-
-function Field({
-  label,
-  type = "text",
-  placeholder,
-}: {
-  label: string;
-  type?: string;
-  placeholder?: string;
-}) {
-  return (
-    <label className="flex flex-col gap-2 text-sm font-semibold text-brand-text">
-      {label}
-      <input
-        type={type}
-        placeholder={placeholder}
-        className="rounded-lg border border-brand-line bg-white px-4 py-3 text-base font-normal text-brand-text placeholder:text-brand-mutedSoft focus:border-brand-primary focus:outline-none focus:ring-4 focus:ring-brand-primarySoft"
-      />
-    </label>
   );
 }
 

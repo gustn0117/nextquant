@@ -66,7 +66,7 @@ function Hero() {
           <span className="text-brand-primary">시스템 트레이딩 엔진</span>
         </h1>
 
-        <p className="fade-up fade-up-2 mx-auto mt-7 max-w-2xl text-base text-white/72 md:text-xl">
+        <p className="fade-up fade-up-2 mx-auto mt-7 max-w-2xl text-base font-medium text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.55)] md:text-xl">
           수년간 축적된 시장 데이터와 정교한 알고리즘이 결합된
           <br className="hidden md:block" />
           넥스트퀀트만의 트레이딩 엔진을 만나보세요.
@@ -273,7 +273,7 @@ function Architecture() {
               <br />
               트레이딩 아키텍처
             </h2>
-            <p className="mt-5 text-base text-white/70 md:text-lg">
+            <p className="mt-5 text-base text-white/85 md:text-lg">
               데이터부터 주문 실행까지, 각 레이어가 독립적으로 검증되고
               모니터링됩니다. 어느 한 레이어에서 이상이 감지되면 전체 시스템이
               안전하게 멈춥니다.

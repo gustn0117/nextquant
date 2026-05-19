@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Shell from "./Shell";
 
 export const metadata: Metadata = {
   title: "넥스트퀀트 NEXT QUANT | 감정을 빼고 원칙을 더하다",
@@ -31,9 +32,9 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className="min-h-screen bg-brand-bg text-brand-text antialiased">
-        <Header />
-        <main className="pt-16">{children}</main>
-        <Footer />
+        <Shell header={<Header />} footer={<Footer />}>
+          {children}
+        </Shell>
       </body>
     </html>
   );
