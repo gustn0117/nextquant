@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { isAuthorized } from "@/lib/admin-auth";
 import LoginForm from "./LoginForm";
-import Dashboard from "./Dashboard";
-import { supabaseAdmin } from "@/lib/supabase";
+import AdminShell from "./AdminShell";
+import { supabaseAdmin, rowsToSettings } from "@/lib/supabase";
 
 export const metadata: Metadata = {
   title: "어드민 | 넥스트퀀트",
@@ -16,10 +16,23 @@ export default async function AdminPage() {
     return <LoginForm />;
   }
 
-  const { data } = await supabaseAdmin
-    .from("inquiries")
-    .select("*")
-    .order("created_at", { ascending: false });
+  const [inquiriesRes, tradesRes, settingsRes] = await Promise.all([
+    supabaseAdmin
+      .from("inquiries")
+      .select("*")
+      .order("created_at", { ascending: false }),
+    supabaseAdmin
+      .from("trades")
+      .select("*")
+      .order("traded_at", { ascending: false }),
+    supabaseAdmin.from("settings").select("key, value"),
+  ]);
 
-  return <Dashboard initialItems={data ?? []} />;
+  return (
+    <AdminShell
+      inquiries={inquiriesRes.data ?? []}
+      trades={tradesRes.data ?? []}
+      settings={rowsToSettings(settingsRes.data)}
+    />
+  );
 }

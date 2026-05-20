@@ -28,3 +28,40 @@ export type Inquiry = {
   created_at: string;
   updated_at: string;
 };
+
+export type Trade = {
+  id: string;
+  pair: string;
+  side: "long" | "short";
+  entry_price: number | null;
+  exit_price: number | null;
+  pnl_percent: number;
+  traded_at: string;
+  note: string | null;
+  created_at: string;
+};
+
+export type SiteSettings = {
+  download_windows: string;
+  download_macos: string;
+  download_version: string;
+};
+
+export const DEFAULT_SETTINGS: SiteSettings = {
+  download_windows: "",
+  download_macos: "",
+  download_version: "v2.4.1",
+};
+
+// settings 행 배열 → 객체로 변환
+export function rowsToSettings(
+  rows: { key: string; value: string }[] | null | undefined,
+): SiteSettings {
+  const s: SiteSettings = { ...DEFAULT_SETTINGS };
+  (rows ?? []).forEach((r) => {
+    if (r.key in s) {
+      s[r.key as keyof SiteSettings] = r.value;
+    }
+  });
+  return s;
+}

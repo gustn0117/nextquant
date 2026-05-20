@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { supabaseAdmin, type Trade } from "@/lib/supabase";
 
 export const metadata: Metadata = {
   title: "성과 | 넥스트퀀트 NEXT QUANT",
@@ -7,21 +8,168 @@ export const metadata: Metadata = {
     "백테스팅 데이터와 실전 운용 결과 기반의 누적 수익률 · MDD · 승률 등 핵심 지표를 공개합니다.",
 };
 
+export const dynamic = "force-dynamic";
+
 const COVER_IMG =
   "https://images.unsplash.com/photo-1554260570-9140fd3b7614?auto=format&fit=crop&w=1400&q=80";
 const TEAM_IMG =
   "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1200&q=80";
 
-export default function PerformancePage() {
+export default async function PerformancePage() {
+  let trades: Trade[] = [];
+  try {
+    const { data } = await supabaseAdmin
+      .from("trades")
+      .select("*")
+      .order("traded_at", { ascending: false })
+      .limit(50);
+    trades = data ?? [];
+  } catch {
+    trades = [];
+  }
+
   return (
     <>
       <Hero />
       <Highlights />
       <EquityCurve />
+      <TradeLog trades={trades} />
       <MonthlyTable />
       <StrategyBreakdown />
       <Disclaimer />
     </>
+  );
+}
+
+function fmtTradeDate(d: string) {
+  const dt = new Date(d);
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `${dt.getFullYear()}.${pad(dt.getMonth() + 1)}.${pad(dt.getDate())}`;
+}
+
+function TradeLog({ trades }: { trades: Trade[] }) {
+  if (trades.length === 0) return null;
+
+  const wins = trades.filter((t) => t.pnl_percent > 0).length;
+  const winRate = Math.round((wins / trades.length) * 100);
+  const avg =
+    trades.reduce((a, t) => a + t.pnl_percent, 0) / trades.length;
+
+  return (
+    <section className="border-y border-brand-line bg-white section-padding">
+      <div className="container-x">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-2xl">
+            <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-primary">
+              Trade Log
+            </span>
+            <h2 className="mt-4 section-title">실제 매매 내역</h2>
+            <p className="mt-5 section-sub">
+              넥스트퀀트 엔진이 체결한 최근 매매 내역입니다. 가공 없이
+              공개합니다.
+            </p>
+          </div>
+          <div className="flex gap-3">
+            <MiniStat label="최근 매매" value={`${trades.length}건`} />
+            <MiniStat label="승률" value={`${winRate}%`} />
+            <MiniStat
+              label="평균"
+              value={`${avg > 0 ? "+" : ""}${avg.toFixed(2)}%`}
+              tone={avg >= 0 ? "up" : "down"}
+            />
+          </div>
+        </div>
+
+        <div className="mt-10 overflow-hidden rounded-xl border border-brand-line shadow-card">
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[640px] text-sm">
+              <thead>
+                <tr className="bg-brand-subtle text-[11px] font-bold uppercase tracking-[0.12em] text-brand-muted">
+                  <th className="p-4 text-left">매매일</th>
+                  <th className="p-4 text-left">종목</th>
+                  <th className="p-4 text-center">방향</th>
+                  <th className="p-4 text-right">진입가</th>
+                  <th className="p-4 text-right">청산가</th>
+                  <th className="p-4 text-right">수익률</th>
+                </tr>
+              </thead>
+              <tbody>
+                {trades.map((t) => (
+                  <tr
+                    key={t.id}
+                    className="border-t border-brand-lineSoft transition-colors hover:bg-brand-subtle/40"
+                  >
+                    <td className="p-4 text-brand-muted tnum">
+                      {fmtTradeDate(t.traded_at)}
+                    </td>
+                    <td className="p-4 font-bold text-brand-text">{t.pair}</td>
+                    <td className="p-4 text-center">
+                      <span
+                        className={`rounded-md px-2 py-1 text-[11px] font-extrabold ${
+                          t.side === "long"
+                            ? "bg-brand-primary/15 text-brand-primary"
+                            : "bg-rose-500/15 text-rose-500"
+                        }`}
+                      >
+                        {t.side === "long" ? "롱" : "숏"}
+                      </span>
+                    </td>
+                    <td className="p-4 text-right text-brand-subText tnum">
+                      {t.entry_price ?? "—"}
+                    </td>
+                    <td className="p-4 text-right text-brand-subText tnum">
+                      {t.exit_price ?? "—"}
+                    </td>
+                    <td
+                      className={`p-4 text-right font-extrabold tnum ${
+                        t.pnl_percent >= 0
+                          ? "text-brand-primary"
+                          : "text-rose-500"
+                      }`}
+                    >
+                      {t.pnl_percent > 0 ? "+" : ""}
+                      {t.pnl_percent}%
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p className="mt-4 text-xs text-brand-muted">
+          * 과거의 매매 성과가 미래 수익을 보장하지 않습니다.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+function MiniStat({
+  label,
+  value,
+  tone,
+}: {
+  label: string;
+  value: string;
+  tone?: "up" | "down";
+}) {
+  return (
+    <div className="rounded-lg border border-brand-line bg-white px-4 py-3 text-center">
+      <div className="text-[10px] font-bold uppercase tracking-[0.16em] text-brand-muted">
+        {label}
+      </div>
+      <div
+        className={`mt-1 text-lg font-extrabold tnum ${
+          tone === "up"
+            ? "text-brand-primary"
+            : tone === "down"
+              ? "text-rose-500"
+              : "text-brand-text"
+        }`}
+      >
+        {value}
+      </div>
+    </div>
   );
 }
 

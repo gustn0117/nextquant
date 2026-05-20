@@ -1,11 +1,14 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { supabaseAdmin, rowsToSettings, type SiteSettings } from "@/lib/supabase";
 
 export const metadata: Metadata = {
   title: "이용 방법 | 넥스트퀀트 NEXT QUANT",
   description:
     "다운로드부터 첫 매매까지 5분이면 충분합니다. 단계별 가이드와 자주 묻는 질문을 확인하세요.",
 };
+
+export const dynamic = "force-dynamic";
 
 const STEP_IMG_1 =
   "https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?auto=format&fit=crop&w=1200&q=80";
@@ -16,7 +19,15 @@ const STEP_IMG_3 =
 const STEP_IMG_4 =
   "https://images.unsplash.com/photo-1554260570-9140fd3b7614?auto=format&fit=crop&w=1200&q=80";
 
-export default function GuidePage() {
+export default async function GuidePage() {
+  let settings: SiteSettings;
+  try {
+    const { data } = await supabaseAdmin.from("settings").select("key, value");
+    settings = rowsToSettings(data);
+  } catch {
+    settings = rowsToSettings(null);
+  }
+
   return (
     <>
       <Hero />
@@ -24,7 +35,7 @@ export default function GuidePage() {
       <StepGuide />
       <RequirementBox />
       <FaqMini />
-      <Download />
+      <Download settings={settings} />
     </>
   );
 }
@@ -340,7 +351,8 @@ function FaqMini() {
 }
 
 /* ─────────── Download (dark) ─────────── */
-function Download() {
+function Download({ settings }: { settings: SiteSettings }) {
+  const version = settings.download_version || "v2.4.1";
   return (
     <section
       id="download"
@@ -376,51 +388,82 @@ function Download() {
             </div>
           </div>
           <div className="flex flex-col gap-3">
-            <a
-              href="#"
-              className="lift-dark card-dark group flex items-center gap-4 p-5 transition-all"
-            >
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white text-brand-text">
-                <WindowsIcon />
-              </div>
-              <div className="flex-1">
-                <div className="text-xs font-bold uppercase tracking-[0.18em] text-white/50">
-                  Windows 10+
-                </div>
-                <div className="mt-1 text-base font-extrabold text-white">
-                  Windows 다운로드
-                </div>
-              </div>
-              <span className="text-white/40 transition-transform group-hover:translate-x-1">
-                →
-              </span>
-            </a>
-            <a
-              href="#"
-              className="lift-dark card-dark group flex items-center gap-4 p-5 transition-all"
-            >
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white text-brand-text">
-                <AppleIcon />
-              </div>
-              <div className="flex-1">
-                <div className="text-xs font-bold uppercase tracking-[0.18em] text-white/50">
-                  macOS 12+
-                </div>
-                <div className="mt-1 text-base font-extrabold text-white">
-                  macOS 다운로드
-                </div>
-              </div>
-              <span className="text-white/40 transition-transform group-hover:translate-x-1">
-                →
-              </span>
-            </a>
+            <DownloadButton
+              os="Windows 10+"
+              label="Windows 다운로드"
+              href={settings.download_windows}
+              icon={<WindowsIcon />}
+            />
+            <DownloadButton
+              os="macOS 12+"
+              label="macOS 다운로드"
+              href={settings.download_macos}
+              icon={<AppleIcon />}
+            />
             <p className="mt-2 text-xs text-white/45">
-              v2.4.1 · 32MB · 2026-05-12 업데이트
+              {version} · 최신 안정 버전
             </p>
           </div>
         </div>
       </div>
     </section>
+  );
+}
+
+function DownloadButton({
+  os,
+  label,
+  href,
+  icon,
+}: {
+  os: string;
+  label: string;
+  href: string;
+  icon: React.ReactNode;
+}) {
+  const ready = !!href && /^https?:\/\//.test(href);
+
+  if (!ready) {
+    return (
+      <div className="card-dark flex cursor-not-allowed items-center gap-4 p-5 opacity-60">
+        <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white/80 text-brand-text">
+          {icon}
+        </div>
+        <div className="flex-1">
+          <div className="text-xs font-bold uppercase tracking-[0.18em] text-white/50">
+            {os}
+          </div>
+          <div className="mt-1 text-base font-extrabold text-white">
+            {label}
+          </div>
+        </div>
+        <span className="rounded-md border border-white/15 px-2 py-1 text-[10px] font-bold text-white/60">
+          준비 중
+        </span>
+      </div>
+    );
+  }
+
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="lift-dark card-dark group flex items-center gap-4 p-5 transition-all"
+    >
+      <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white text-brand-text">
+        {icon}
+      </div>
+      <div className="flex-1">
+        <div className="text-xs font-bold uppercase tracking-[0.18em] text-white/50">
+          {os}
+        </div>
+        <div className="mt-1 text-base font-extrabold text-white">{label}</div>
+      </div>
+      <span className="text-white/40 transition-transform group-hover:translate-x-1">
+        →
+      </span>
+    </a>
   );
 }
 
