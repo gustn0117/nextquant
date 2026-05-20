@@ -8,7 +8,7 @@ const NAV = [
   { href: "/", label: "메인" },
   { href: "/program", label: "프로그램 소개" },
   { href: "/live", label: "실시간 성과" },
-  { href: "/performance", label: "성과" },
+  { href: "/performance", label: "수익인증" },
   { href: "/guide", label: "이용 방법" },
   { href: "/support", label: "고객지원" },
 ];

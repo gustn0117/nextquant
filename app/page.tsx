@@ -2,9 +2,7 @@ import Link from "next/link";
 
 const HERO_BG =
   "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1800&q=80";
-// TODO: 별도 전달 예정인 프로그램 메인 화면 스크린샷으로 교체
-const APP_SCREENSHOT =
-  "https://images.unsplash.com/photo-1642790551116-18e150f248e3?auto=format&fit=crop&w=1600&q=80";
+const APP_SCREENSHOT = "/program-screen.png";
 const SOLUTION_IMG =
   "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1400&q=80";
 

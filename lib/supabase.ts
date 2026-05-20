@@ -53,15 +53,13 @@ export type PerformancePost = {
 
 export type SiteSettings = {
   download_windows: string;
-  download_macos: string;
   download_version: string;
   youtube_live_url: string;
 };
 
 export const DEFAULT_SETTINGS: SiteSettings = {
   download_windows: "",
-  download_macos: "",
-  download_version: "v2.4.1",
+  download_version: "v2.0.0",
   youtube_live_url: "",
 };
 

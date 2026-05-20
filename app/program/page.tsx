@@ -77,7 +77,7 @@ function Hero() {
             무료체험 다운로드
           </Link>
           <Link href="/performance" className="btn-outline-light">
-            성과 데이터 보기
+            수익 인증 보기
           </Link>
         </div>
       </div>
@@ -471,7 +471,7 @@ function CtaBand() {
                 무료체험 다운로드
               </Link>
               <Link href="/performance" className="btn-ghost">
-                성과 데이터 보기
+                수익 인증 보기
               </Link>
             </div>
           </div>

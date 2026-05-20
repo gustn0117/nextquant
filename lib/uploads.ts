@@ -12,7 +12,11 @@ export const ALLOWED_IMAGE_TYPES: Record<string, string> = {
   "image/gif": "gif",
 };
 
-export const MAX_UPLOAD_BYTES = 10 * 1024 * 1024; // 10MB
+export const MAX_UPLOAD_BYTES = 10 * 1024 * 1024; // 이미지 10MB
+
+// 설치 파일 업로드
+export const ALLOWED_INSTALLER_EXT = new Set(["exe", "msi", "zip"]);
+export const MAX_INSTALLER_BYTES = 50 * 1024 * 1024; // 50MB
 
 const EXT_CONTENT_TYPE: Record<string, string> = {
   png: "image/png",
@@ -20,7 +24,13 @@ const EXT_CONTENT_TYPE: Record<string, string> = {
   jpeg: "image/jpeg",
   webp: "image/webp",
   gif: "image/gif",
+  exe: "application/vnd.microsoft.portable-executable",
+  msi: "application/x-msi",
+  zip: "application/zip",
 };
+
+// 다운로드 첨부로 내려줄 확장자
+export const DOWNLOAD_EXT = new Set(["exe", "msi", "zip"]);
 
 export function contentTypeForFile(name: string): string {
   const ext = name.split(".").pop()?.toLowerCase() ?? "";

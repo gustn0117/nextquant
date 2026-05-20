@@ -7,6 +7,8 @@ import {
   UPLOAD_DIR,
   ALLOWED_IMAGE_TYPES,
   MAX_UPLOAD_BYTES,
+  ALLOWED_INSTALLER_EXT,
+  MAX_INSTALLER_BYTES,
 } from "@/lib/uploads";
 
 export const runtime = "nodejs";
@@ -29,24 +31,43 @@ export async function POST(req: Request) {
 
   const file = form.get("file");
   if (!(file instanceof File)) {
-    return NextResponse.json(
-      { error: "파일이 없습니다." },
-      { status: 400 },
-    );
+    return NextResponse.json({ error: "파일이 없습니다." }, { status: 400 });
   }
 
-  const ext = ALLOWED_IMAGE_TYPES[file.type];
-  if (!ext) {
-    return NextResponse.json(
-      { error: "이미지 파일(PNG, JPG, WEBP, GIF)만 업로드할 수 있습니다." },
-      { status: 400 },
-    );
-  }
-  if (file.size > MAX_UPLOAD_BYTES) {
-    return NextResponse.json(
-      { error: "파일 크기는 10MB 이하만 가능합니다." },
-      { status: 400 },
-    );
+  const kind = form.get("kind");
+  let ext: string;
+
+  if (kind === "installer") {
+    // 설치 파일: 확장자 검증 + 50MB
+    ext = file.name.split(".").pop()?.toLowerCase() ?? "";
+    if (!ALLOWED_INSTALLER_EXT.has(ext)) {
+      return NextResponse.json(
+        { error: "설치 파일(EXE, MSI, ZIP)만 업로드할 수 있습니다." },
+        { status: 400 },
+      );
+    }
+    if (file.size > MAX_INSTALLER_BYTES) {
+      return NextResponse.json(
+        { error: "파일 크기는 50MB 이하만 가능합니다." },
+        { status: 400 },
+      );
+    }
+  } else {
+    // 이미지: MIME 검증 + 10MB
+    const imgExt = ALLOWED_IMAGE_TYPES[file.type];
+    if (!imgExt) {
+      return NextResponse.json(
+        { error: "이미지 파일(PNG, JPG, WEBP, GIF)만 업로드할 수 있습니다." },
+        { status: 400 },
+      );
+    }
+    if (file.size > MAX_UPLOAD_BYTES) {
+      return NextResponse.json(
+        { error: "파일 크기는 10MB 이하만 가능합니다." },
+        { status: 400 },
+      );
+    }
+    ext = imgExt;
   }
 
   const buffer = Buffer.from(await file.arrayBuffer());
@@ -62,5 +83,9 @@ export async function POST(req: Request) {
     );
   }
 
-  return NextResponse.json({ url: `/api/uploads/${filename}` });
+  return NextResponse.json({
+    url: `/api/uploads/${filename}`,
+    name: file.name,
+    size: file.size,
+  });
 }

@@ -104,7 +104,7 @@ export default async function LivePage() {
 
         <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <Link href="/performance" className="btn-primary btn-3d">
-            매매 내역 보기
+            수익 인증 보기
           </Link>
           <Link href="/guide" className="btn-outline-light">
             무료체험 다운로드
