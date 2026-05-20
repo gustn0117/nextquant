@@ -32,9 +32,20 @@ export default async function PerformancePage() {
         .select("*")
         .order("posted_at", { ascending: false }),
     ]);
+    if (tradesRes.error)
+      console.error("[perf] trades error:", JSON.stringify(tradesRes.error));
+    if (postsRes.error)
+      console.error("[perf] posts error:", JSON.stringify(postsRes.error));
+    console.error(
+      "[perf] counts trades=",
+      tradesRes.data?.length,
+      "posts=",
+      postsRes.data?.length,
+    );
     trades = tradesRes.data ?? [];
     posts = postsRes.data ?? [];
-  } catch {
+  } catch (e) {
+    console.error("[perf] throw:", e);
     trades = [];
     posts = [];
   }
