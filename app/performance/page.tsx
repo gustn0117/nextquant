@@ -1,6 +1,10 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { supabaseAdmin, type Trade } from "@/lib/supabase";
+import {
+  supabaseAdmin,
+  type Trade,
+  type PerformancePost,
+} from "@/lib/supabase";
 
 export const metadata: Metadata = {
   title: "성과 | 넥스트퀀트 NEXT QUANT",
@@ -15,23 +19,120 @@ const COVER_IMG =
 
 export default async function PerformancePage() {
   let trades: Trade[] = [];
+  let posts: PerformancePost[] = [];
   try {
-    const { data } = await supabaseAdmin
-      .from("trades")
-      .select("*")
-      .order("traded_at", { ascending: false })
-      .limit(100);
-    trades = data ?? [];
+    const [tradesRes, postsRes] = await Promise.all([
+      supabaseAdmin
+        .from("trades")
+        .select("*")
+        .order("traded_at", { ascending: false })
+        .limit(100),
+      supabaseAdmin
+        .from("performance_posts")
+        .select("*")
+        .order("posted_at", { ascending: false }),
+    ]);
+    trades = tradesRes.data ?? [];
+    posts = postsRes.data ?? [];
   } catch {
     trades = [];
+    posts = [];
   }
 
   return (
     <>
-      <Hero hasTrades={trades.length > 0} />
+      <Hero hasContent={trades.length > 0 || posts.length > 0} />
+      <PostsGallery posts={posts} />
       <TradeLog trades={trades} />
       <Disclaimer />
     </>
+  );
+}
+
+function fmtPostDate(d: string) {
+  const dt = new Date(d);
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `${dt.getFullYear()}.${pad(dt.getMonth() + 1)}.${pad(dt.getDate())}`;
+}
+
+/* ─────────── 성과 게시물 갤러리 ─────────── */
+function PostsGallery({ posts }: { posts: PerformancePost[] }) {
+  if (posts.length === 0) return null;
+
+  return (
+    <section className="border-b border-brand-line bg-white section-padding">
+      <div className="container-x">
+        <div className="max-w-2xl">
+          <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-primary">
+            Result Log
+          </span>
+          <h2 className="mt-4 section-title">매매 결과 게시물</h2>
+          <p className="mt-5 section-sub">
+            프로그램 매매 내역과 실제 바이낸스 매매 내역을 함께 게시합니다.
+          </p>
+        </div>
+
+        <div className="mt-10 space-y-8">
+          {posts.map((p) => (
+            <article
+              key={p.id}
+              className="overflow-hidden rounded-xl border border-brand-line bg-white shadow-card"
+            >
+              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-brand-lineSoft px-6 py-4">
+                <h3 className="text-lg font-extrabold text-brand-text">
+                  {p.title}
+                </h3>
+                <span className="stat-chip">{fmtPostDate(p.posted_at)}</span>
+              </div>
+
+              <div className="grid gap-px bg-brand-line md:grid-cols-2">
+                <PostFigure label="프로그램 매매 내역" src={p.program_image} />
+                <PostFigure
+                  label="실제 바이낸스 매매 내역"
+                  src={p.binance_image}
+                />
+              </div>
+
+              {p.note && (
+                <p className="px-6 py-4 text-sm text-brand-muted">{p.note}</p>
+              )}
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function PostFigure({
+  label,
+  src,
+}: {
+  label: string;
+  src: string | null;
+}) {
+  if (!src) {
+    return (
+      <figure className="flex aspect-[16/10] items-center justify-center bg-brand-subtle">
+        <figcaption className="text-xs text-brand-mutedSoft">
+          {label} — 이미지 없음
+        </figcaption>
+      </figure>
+    );
+  }
+  return (
+    <figure className="relative bg-brand-subtle">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={src}
+        alt={label}
+        className="aspect-[16/10] w-full object-contain"
+        loading="lazy"
+      />
+      <figcaption className="absolute left-4 top-4 rounded-md bg-brand-text/80 px-2.5 py-1 text-[11px] font-bold text-white backdrop-blur">
+        {label}
+      </figcaption>
+    </figure>
   );
 }
 
@@ -42,7 +143,7 @@ function fmtTradeDate(d: string) {
 }
 
 /* ─────────── Hero ─────────── */
-function Hero({ hasTrades }: { hasTrades: boolean }) {
+function Hero({ hasContent }: { hasContent: boolean }) {
   return (
     <section className="relative overflow-hidden border-b border-brand-line bg-white">
       <div className="dot-grid-light pointer-events-none absolute inset-0 opacity-90" />
@@ -65,7 +166,7 @@ function Hero({ hasTrades }: { hasTrades: boolean }) {
             <div className="mt-8 flex flex-wrap gap-2">
               <span className="stat-chip">바이낸스 선물 기준</span>
               <span className="stat-chip">
-                {hasTrades ? "매매 내역 공개 중" : "데이터 준비 중"}
+                {hasContent ? "매매 내역 공개 중" : "데이터 준비 중"}
               </span>
             </div>
           </div>

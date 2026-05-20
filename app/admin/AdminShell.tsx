@@ -1,20 +1,28 @@
 "use client";
 
 import { useState } from "react";
-import type { Inquiry, Trade, SiteSettings } from "@/lib/supabase";
+import type {
+  Inquiry,
+  Trade,
+  SiteSettings,
+  PerformancePost,
+} from "@/lib/supabase";
 import InquiriesTab from "./InquiriesTab";
 import TradesTab from "./TradesTab";
+import PostsTab from "./PostsTab";
 import SettingsTab from "./SettingsTab";
 
-type Tab = "inquiries" | "trades" | "settings";
+type Tab = "inquiries" | "trades" | "posts" | "settings";
 
 export default function AdminShell({
   inquiries,
   trades,
+  posts,
   settings,
 }: {
   inquiries: Inquiry[];
   trades: Trade[];
+  posts: PerformancePost[];
   settings: SiteSettings;
 }) {
   const [tab, setTab] = useState<Tab>("inquiries");
@@ -24,6 +32,7 @@ export default function AdminShell({
   const tabs: { key: Tab; label: string; badge?: number }[] = [
     { key: "inquiries", label: "문의 내역", badge: newCount || undefined },
     { key: "trades", label: "매매 내역" },
+    { key: "posts", label: "성과 게시물" },
     { key: "settings", label: "다운로드 설정" },
   ];
 
@@ -102,6 +111,7 @@ export default function AdminShell({
       <main className="container-x py-10">
         {tab === "inquiries" && <InquiriesTab initialItems={inquiries} />}
         {tab === "trades" && <TradesTab initialItems={trades} />}
+        {tab === "posts" && <PostsTab initialItems={posts} />}
         {tab === "settings" && <SettingsTab initial={settings} />}
       </main>
     </div>

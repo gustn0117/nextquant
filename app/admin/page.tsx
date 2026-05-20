@@ -16,7 +16,7 @@ export default async function AdminPage() {
     return <LoginForm />;
   }
 
-  const [inquiriesRes, tradesRes, settingsRes] = await Promise.all([
+  const [inquiriesRes, tradesRes, postsRes, settingsRes] = await Promise.all([
     supabaseAdmin
       .from("inquiries")
       .select("*")
@@ -25,6 +25,10 @@ export default async function AdminPage() {
       .from("trades")
       .select("*")
       .order("traded_at", { ascending: false }),
+    supabaseAdmin
+      .from("performance_posts")
+      .select("*")
+      .order("posted_at", { ascending: false }),
     supabaseAdmin.from("settings").select("key, value"),
   ]);
 
@@ -32,6 +36,7 @@ export default async function AdminPage() {
     <AdminShell
       inquiries={inquiriesRes.data ?? []}
       trades={tradesRes.data ?? []}
+      posts={postsRes.data ?? []}
       settings={rowsToSettings(settingsRes.data)}
     />
   );

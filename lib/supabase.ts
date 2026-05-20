@@ -41,6 +41,16 @@ export type Trade = {
   created_at: string;
 };
 
+export type PerformancePost = {
+  id: string;
+  title: string;
+  posted_at: string;
+  program_image: string | null;
+  binance_image: string | null;
+  note: string | null;
+  created_at: string;
+};
+
 export type SiteSettings = {
   download_windows: string;
   download_macos: string;
