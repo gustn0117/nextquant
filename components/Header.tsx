@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 const NAV = [
   { href: "/", label: "메인" },
   { href: "/program", label: "프로그램 소개" },
+  { href: "/live", label: "실시간 성과" },
   { href: "/performance", label: "성과" },
   { href: "/guide", label: "이용 방법" },
   { href: "/support", label: "고객지원" },
@@ -59,7 +60,7 @@ export default function Header() {
           </div>
         </Link>
 
-        <nav className="hidden items-center gap-1 md:flex">
+        <nav className="hidden items-center gap-1 lg:flex">
           {NAV.map((item) => {
             const active =
               item.href === "/"
@@ -88,7 +89,7 @@ export default function Header() {
           })}
         </nav>
 
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden items-center gap-3 lg:flex">
           <Link
             href="/guide"
             className="btn-3d inline-flex items-center gap-1.5 rounded-md bg-brand-primary px-5 py-2.5 text-sm font-semibold text-white shadow-soft transition-all hover:bg-brand-primaryDim hover:shadow-[0_10px_22px_-8px_rgba(0,183,131,0.55)]"
@@ -112,7 +113,7 @@ export default function Header() {
 
         <button
           type="button"
-          className="flex h-10 w-10 items-center justify-center rounded-lg border border-brand-line bg-white md:hidden"
+          className="flex h-10 w-10 items-center justify-center rounded-lg border border-brand-line bg-white lg:hidden"
           aria-label="메뉴 열기"
           onClick={() => setOpen((v) => !v)}
         >
@@ -137,7 +138,7 @@ export default function Header() {
       </div>
 
       {open && (
-        <div className="border-t border-brand-line bg-white md:hidden">
+        <div className="border-t border-brand-line bg-white lg:hidden">
           <div className="container-x flex flex-col gap-1 py-4">
             {NAV.map((item) => {
               const active =

@@ -45,12 +45,14 @@ export type SiteSettings = {
   download_windows: string;
   download_macos: string;
   download_version: string;
+  youtube_live_url: string;
 };
 
 export const DEFAULT_SETTINGS: SiteSettings = {
   download_windows: "",
   download_macos: "",
   download_version: "v2.4.1",
+  youtube_live_url: "",
 };
 
 // settings 행 배열 → 객체로 변환

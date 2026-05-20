@@ -80,6 +80,31 @@ export default function SettingsTab({
           </label>
         </div>
 
+        <div className="mt-8 border-t border-brand-lineSoft pt-6">
+          <h3 className="text-lg font-extrabold text-brand-text">
+            실시간 성과 (유튜브 라이브)
+          </h3>
+          <p className="mt-1.5 text-sm text-brand-muted">
+            여기에 유튜브 라이브 URL을 입력하면 ‘실시간 성과’ 페이지에 영상이
+            바로 임베드됩니다. 비워두면 ‘준비 중’으로 표시됩니다.
+          </p>
+          <label className="mt-5 flex flex-col gap-2">
+            <span className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.16em] text-brand-muted">
+              <span className="text-[#FF0000]">
+                <YoutubeIcon />
+              </span>
+              유튜브 라이브 URL
+            </span>
+            <input
+              type="url"
+              value={form.youtube_live_url}
+              onChange={(e) => set("youtube_live_url", e.target.value)}
+              placeholder="https://www.youtube.com/watch?v=..."
+              className="w-full rounded-md border border-brand-line bg-white px-3 py-2.5 text-sm text-brand-text placeholder:text-brand-mutedSoft focus:border-brand-primary focus:outline-none focus:ring-4 focus:ring-brand-primarySoft"
+            />
+          </label>
+        </div>
+
         {msg && (
           <div
             className={`mt-5 rounded-md border px-3 py-2.5 text-sm font-semibold ${
@@ -150,6 +175,13 @@ function AppleIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
       <path d="M17.05 12.04c-.03-2.99 2.45-4.43 2.56-4.5-1.4-2.05-3.58-2.33-4.35-2.36-1.85-.19-3.62 1.09-4.56 1.09-.95 0-2.4-1.07-3.95-1.04-2.03.03-3.91 1.18-4.96 3-2.12 3.67-.54 9.1 1.52 12.07 1 1.46 2.19 3.1 3.75 3.04 1.51-.06 2.08-.97 3.91-.97 1.83 0 2.34.97 3.94.94 1.63-.03 2.66-1.48 3.66-2.95 1.15-1.69 1.62-3.34 1.65-3.43-.04-.02-3.17-1.22-3.2-4.83zM14.2 3.97c.84-1.02 1.41-2.43 1.25-3.84-1.21.05-2.67.81-3.54 1.83-.78.91-1.46 2.35-1.28 3.74 1.36.1 2.74-.69 3.57-1.73z" />
+    </svg>
+  );
+}
+function YoutubeIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z" />
     </svg>
   );
 }
