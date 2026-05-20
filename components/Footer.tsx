@@ -14,7 +14,6 @@ const NAV_GROUPS = [
     items: [
       { label: "자주 묻는 질문", href: "/support" },
       { label: "사용 가이드", href: "/guide" },
-      { label: "릴리즈 노트", href: "#" },
     ],
   },
   {
@@ -55,15 +54,8 @@ export default function Footer() {
               <br />
               데이터와 알고리즘으로 24시간 멈추지 않는 자동매매를 경험하세요.
             </p>
-            <div className="mt-6 flex items-center gap-2 text-xs text-brand-muted">
-              <span className="live-dot" />
-              <span>
-                <span className="font-bold text-brand-text">8,200+</span>{" "}
-                트레이더가 사용 중
-              </span>
-            </div>
             <div className="mt-6 flex flex-wrap gap-2">
-              {["Windows 10+", "macOS 12+", "API 화이트리스트"].map((t) => (
+              {["Windows 10+", "API 화이트리스트"].map((t) => (
                 <span key={t} className="stat-chip">
                   {t}
                 </span>

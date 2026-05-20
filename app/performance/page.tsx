@@ -5,15 +5,13 @@ import { supabaseAdmin, type Trade } from "@/lib/supabase";
 export const metadata: Metadata = {
   title: "성과 | 넥스트퀀트 NEXT QUANT",
   description:
-    "백테스팅 데이터와 실전 운용 결과 기반의 누적 수익률 · MDD · 승률 등 핵심 지표를 공개합니다.",
+    "넥스트퀀트 엔진이 체결한 실제 매매 내역을 가공 없이 공개합니다.",
 };
 
 export const dynamic = "force-dynamic";
 
 const COVER_IMG =
   "https://images.unsplash.com/photo-1554260570-9140fd3b7614?auto=format&fit=crop&w=1400&q=80";
-const TEAM_IMG =
-  "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1200&q=80";
 
 export default async function PerformancePage() {
   let trades: Trade[] = [];
@@ -22,7 +20,7 @@ export default async function PerformancePage() {
       .from("trades")
       .select("*")
       .order("traded_at", { ascending: false })
-      .limit(50);
+      .limit(100);
     trades = data ?? [];
   } catch {
     trades = [];
@@ -30,12 +28,8 @@ export default async function PerformancePage() {
 
   return (
     <>
-      <Hero />
-      <Highlights />
-      <EquityCurve />
+      <Hero hasTrades={trades.length > 0} />
       <TradeLog trades={trades} />
-      <MonthlyTable />
-      <StrategyBreakdown />
       <Disclaimer />
     </>
   );
@@ -47,95 +41,193 @@ function fmtTradeDate(d: string) {
   return `${dt.getFullYear()}.${pad(dt.getMonth() + 1)}.${pad(dt.getDate())}`;
 }
 
-function TradeLog({ trades }: { trades: Trade[] }) {
-  if (trades.length === 0) return null;
+/* ─────────── Hero ─────────── */
+function Hero({ hasTrades }: { hasTrades: boolean }) {
+  return (
+    <section className="relative overflow-hidden border-b border-brand-line bg-white">
+      <div className="dot-grid-light pointer-events-none absolute inset-0 opacity-90" />
+      <div className="container-x relative section-padding pt-24 md:pt-32">
+        <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_1fr]">
+          <div>
+            <div className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.22em] text-brand-primary">
+              <span className="h-px w-8 bg-brand-primary/40" />
+              PERFORMANCE
+            </div>
+            <h1 className="mt-5 text-4xl font-extrabold tracking-tightest md:text-6xl">
+              엔진이 체결한
+              <br />
+              <span className="accent-underline">실제 매매 내역</span>
+            </h1>
+            <p className="mt-7 section-sub">
+              넥스트퀀트 엔진이 실제로 체결한 매매 내역을 가공 없이 공개합니다.
+              모든 기록은 관리자가 직접 검수한 데이터입니다.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-2">
+              <span className="stat-chip">바이낸스 선물 기준</span>
+              <span className="stat-chip">
+                {hasTrades ? "매매 내역 공개 중" : "데이터 준비 중"}
+              </span>
+            </div>
+          </div>
+          <div className="img-zoom relative overflow-hidden rounded-xl border border-brand-line bg-white shadow-depth">
+            <CornerMarker />
+            <img
+              src={COVER_IMG}
+              alt="매매 기록"
+              className="aspect-[5/4] w-full object-cover"
+              loading="eager"
+            />
+            <div
+              className="pointer-events-none absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(180deg, transparent 65%, rgba(0,0,0,0.3) 100%)",
+              }}
+            />
+            <div className="absolute bottom-5 left-5 inline-flex items-center gap-2 rounded-md bg-white/95 px-3 py-1.5 text-xs font-bold text-brand-text backdrop-blur">
+              Trade Log
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
 
+function CornerMarker() {
+  const C = ({ className }: { className: string }) => (
+    <span className={`absolute z-10 h-3 w-3 border-white/70 ${className}`} />
+  );
+  return (
+    <>
+      <C className="left-3 top-3 border-l border-t" />
+      <C className="right-3 top-3 border-r border-t" />
+      <C className="bottom-3 left-3 border-b border-l" />
+      <C className="bottom-3 right-3 border-b border-r" />
+    </>
+  );
+}
+
+/* ─────────── Trade Log ─────────── */
+function TradeLog({ trades }: { trades: Trade[] }) {
+  const hasTrades = trades.length > 0;
   const wins = trades.filter((t) => t.pnl_percent > 0).length;
-  const winRate = Math.round((wins / trades.length) * 100);
-  const avg =
-    trades.reduce((a, t) => a + t.pnl_percent, 0) / trades.length;
+  const winRate = hasTrades ? Math.round((wins / trades.length) * 100) : 0;
+  const avg = hasTrades
+    ? trades.reduce((a, t) => a + t.pnl_percent, 0) / trades.length
+    : 0;
 
   return (
-    <section className="border-y border-brand-line bg-white section-padding">
+    <section className="section-padding">
       <div className="container-x">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl">
             <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-primary">
               Trade Log
             </span>
-            <h2 className="mt-4 section-title">실제 매매 내역</h2>
+            <h2 className="mt-4 section-title">매매 내역</h2>
             <p className="mt-5 section-sub">
-              넥스트퀀트 엔진이 체결한 최근 매매 내역입니다. 가공 없이
-              공개합니다.
+              최근 체결된 매매 기록입니다. 가공 없이 공개합니다.
             </p>
           </div>
-          <div className="flex gap-3">
-            <MiniStat label="최근 매매" value={`${trades.length}건`} />
-            <MiniStat label="승률" value={`${winRate}%`} />
-            <MiniStat
-              label="평균"
-              value={`${avg > 0 ? "+" : ""}${avg.toFixed(2)}%`}
-              tone={avg >= 0 ? "up" : "down"}
-            />
-          </div>
+          {hasTrades && (
+            <div className="flex gap-3">
+              <MiniStat label="공개 매매" value={`${trades.length}건`} />
+              <MiniStat label="승률" value={`${winRate}%`} />
+              <MiniStat
+                label="평균"
+                value={`${avg > 0 ? "+" : ""}${avg.toFixed(2)}%`}
+                tone={avg >= 0 ? "up" : "down"}
+              />
+            </div>
+          )}
         </div>
 
-        <div className="mt-10 overflow-hidden rounded-xl border border-brand-line shadow-card">
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[640px] text-sm">
-              <thead>
-                <tr className="bg-brand-subtle text-[11px] font-bold uppercase tracking-[0.12em] text-brand-muted">
-                  <th className="p-4 text-left">매매일</th>
-                  <th className="p-4 text-left">종목</th>
-                  <th className="p-4 text-center">방향</th>
-                  <th className="p-4 text-right">진입가</th>
-                  <th className="p-4 text-right">청산가</th>
-                  <th className="p-4 text-right">수익률</th>
-                </tr>
-              </thead>
-              <tbody>
-                {trades.map((t) => (
-                  <tr
-                    key={t.id}
-                    className="border-t border-brand-lineSoft transition-colors hover:bg-brand-subtle/40"
-                  >
-                    <td className="p-4 text-brand-muted tnum">
-                      {fmtTradeDate(t.traded_at)}
-                    </td>
-                    <td className="p-4 font-bold text-brand-text">{t.pair}</td>
-                    <td className="p-4 text-center">
-                      <span
-                        className={`rounded-md px-2 py-1 text-[11px] font-extrabold ${
-                          t.side === "long"
-                            ? "bg-brand-primary/15 text-brand-primary"
-                            : "bg-rose-500/15 text-rose-500"
+        {hasTrades ? (
+          <div className="mt-10 overflow-hidden rounded-xl border border-brand-line shadow-card">
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[640px] text-sm">
+                <thead>
+                  <tr className="bg-brand-subtle text-[11px] font-bold uppercase tracking-[0.12em] text-brand-muted">
+                    <th className="p-4 text-left">매매일</th>
+                    <th className="p-4 text-left">종목</th>
+                    <th className="p-4 text-center">방향</th>
+                    <th className="p-4 text-right">진입가</th>
+                    <th className="p-4 text-right">청산가</th>
+                    <th className="p-4 text-right">수익률</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {trades.map((t) => (
+                    <tr
+                      key={t.id}
+                      className="border-t border-brand-lineSoft transition-colors hover:bg-brand-subtle/40"
+                    >
+                      <td className="p-4 text-brand-muted tnum">
+                        {fmtTradeDate(t.traded_at)}
+                      </td>
+                      <td className="p-4 font-bold text-brand-text">
+                        {t.pair}
+                      </td>
+                      <td className="p-4 text-center">
+                        <span
+                          className={`rounded-md px-2 py-1 text-[11px] font-extrabold ${
+                            t.side === "long"
+                              ? "bg-brand-primary/15 text-brand-primary"
+                              : "bg-rose-500/15 text-rose-500"
+                          }`}
+                        >
+                          {t.side === "long" ? "롱" : "숏"}
+                        </span>
+                      </td>
+                      <td className="p-4 text-right text-brand-subText tnum">
+                        {t.entry_price ?? "—"}
+                      </td>
+                      <td className="p-4 text-right text-brand-subText tnum">
+                        {t.exit_price ?? "—"}
+                      </td>
+                      <td
+                        className={`p-4 text-right font-extrabold tnum ${
+                          t.pnl_percent >= 0
+                            ? "text-brand-primary"
+                            : "text-rose-500"
                         }`}
                       >
-                        {t.side === "long" ? "롱" : "숏"}
-                      </span>
-                    </td>
-                    <td className="p-4 text-right text-brand-subText tnum">
-                      {t.entry_price ?? "—"}
-                    </td>
-                    <td className="p-4 text-right text-brand-subText tnum">
-                      {t.exit_price ?? "—"}
-                    </td>
-                    <td
-                      className={`p-4 text-right font-extrabold tnum ${
-                        t.pnl_percent >= 0
-                          ? "text-brand-primary"
-                          : "text-rose-500"
-                      }`}
-                    >
-                      {t.pnl_percent > 0 ? "+" : ""}
-                      {t.pnl_percent}%
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                        {t.pnl_percent > 0 ? "+" : ""}
+                        {t.pnl_percent}%
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="mt-10 rounded-xl border border-brand-line bg-white p-16 text-center shadow-soft">
+            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-brand-subtle text-brand-muted">
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M3 3v18h18" />
+                <path d="M7 14l4-4 4 4 5-6" />
+              </svg>
+            </div>
+            <h3 className="mt-4 text-base font-bold text-brand-text">
+              아직 공개된 매매 내역이 없습니다
+            </h3>
+            <p className="mt-1 text-sm text-brand-muted">
+              매매 내역이 등록되면 이곳에 표시됩니다.
+            </p>
+          </div>
+        )}
+
         <p className="mt-4 text-xs text-brand-muted">
           * 과거의 매매 성과가 미래 수익을 보장하지 않습니다.
         </p>
@@ -173,448 +265,7 @@ function MiniStat({
   );
 }
 
-function Hero() {
-  return (
-    <section className="relative overflow-hidden border-b border-brand-line bg-white">
-      <div className="dot-grid-light pointer-events-none absolute inset-0 opacity-90" />
-      <div className="container-x relative section-padding pt-24 md:pt-32">
-        <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_1fr]">
-          <div>
-            <div className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.22em] text-brand-primary">
-              <span className="h-px w-8 bg-brand-primary/40" />
-              PERFORMANCE
-            </div>
-            <h1 className="mt-5 text-4xl font-extrabold tracking-tightest md:text-6xl">
-              데이터로 증명하는
-              <br />
-              <span className="accent-underline">투명한 성과</span>
-            </h1>
-            <p className="mt-7 section-sub">
-              지난 36개월간의 백테스팅 결과와 실전 운용 데이터를 가공 없이
-              공개합니다. 모든 지표는 동일한 자본 기준으로 계산되었습니다.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-2">
-              <span className="stat-chip">
-                <span className="live-dot" /> LIVE TRACKED
-              </span>
-              <span className="stat-chip">백테스팅 36M</span>
-              <span className="stat-chip">실 운용 18M</span>
-            </div>
-          </div>
-          <div className="img-zoom relative overflow-hidden rounded-xl border border-brand-line bg-white shadow-depth">
-            <CornerMarker />
-            <img
-              src={COVER_IMG}
-              alt="성과 차트"
-              className="aspect-[5/4] w-full object-cover"
-              loading="eager"
-            />
-            <div
-              className="pointer-events-none absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.35) 100%)",
-              }}
-            />
-            <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between text-white">
-              <div>
-                <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/70">
-                  Cumulative Return
-                </div>
-                <div className="mt-1 text-3xl font-extrabold tnum">+137.0%</div>
-              </div>
-              <span className="inline-flex items-center gap-2 rounded-md bg-brand-primary px-3 py-1.5 text-xs font-bold">
-                ▲ 36M
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Highlights() {
-  const items = [
-    { v: "+37.4%", label: "연 평균 수익률", tone: "primary", sub: "vs 시장 +12.1%" },
-    { v: "-12.8%", label: "최대 낙폭 (MDD)", tone: "warn", sub: "한계 -20% 이하" },
-    { v: "63.1%", label: "전략 평균 승률", tone: "accent", sub: "30일 이동평균" },
-    { v: "2.41", label: "샤프 지수", tone: "primary", sub: "리스크 대비 수익" },
-  ];
-  return (
-    <section className="border-b border-brand-line bg-white section-padding">
-      <div className="container-x">
-        <div className="grid divide-y divide-brand-line border-y border-brand-line sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4">
-          {items.map((s) => (
-            <div key={s.label} className="relative p-8">
-              <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-brand-muted">
-                {s.label}
-              </div>
-              <div className="mt-4 text-5xl font-extrabold tracking-tightest tnum md:text-6xl">
-                <span
-                  className={
-                    s.tone === "warn"
-                      ? "text-rose-500"
-                      : s.tone === "accent"
-                        ? "text-brand-accent"
-                        : "text-brand-primary"
-                  }
-                >
-                  {s.v}
-                </span>
-              </div>
-              <div className="mt-3 text-xs text-brand-muted">{s.sub}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function CornerMarker() {
-  const C = ({ className }: { className: string }) => (
-    <span className={`absolute z-10 h-3 w-3 border-white/70 ${className}`} />
-  );
-  return (
-    <>
-      <C className="left-3 top-3 border-l border-t" />
-      <C className="right-3 top-3 border-r border-t" />
-      <C className="bottom-3 left-3 border-b border-l" />
-      <C className="bottom-3 right-3 border-b border-r" />
-    </>
-  );
-}
-
-function EquityCurve() {
-  const points = [
-    100, 102, 99, 104, 108, 111, 117, 121, 119, 126, 132, 130, 138, 142, 145,
-    149, 155, 152, 160, 165, 168, 172, 176, 174, 181, 188, 193, 199, 203, 209,
-    214, 219, 224, 229, 233, 237,
-  ];
-  const w = 1100;
-  const h = 320;
-  const min = Math.min(...points);
-  const max = Math.max(...points);
-  const path = points
-    .map((p, i) => {
-      const x = (i / (points.length - 1)) * w;
-      const y = h - ((p - min) / (max - min)) * (h - 30) - 15;
-      return `${i === 0 ? "M" : "L"} ${x.toFixed(1)} ${y.toFixed(1)}`;
-    })
-    .join(" ");
-  const area = `${path} L ${w} ${h} L 0 ${h} Z`;
-
-  return (
-    <section
-      className="relative isolate overflow-hidden border-y border-white/5 section-padding"
-      style={{ background: "var(--ink)" }}
-    >
-      <div className="dot-grid-dark pointer-events-none absolute inset-0" />
-      <div className="container-x relative">
-        <div className="mx-auto max-w-3xl text-center">
-          <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-primary">
-            Equity Curve
-          </span>
-          <h2 className="mt-4 text-3xl font-extrabold tracking-tightest text-white md:text-5xl">
-            36개월 누적 수익 곡선
-          </h2>
-          <p className="mt-5 text-base text-white/70 md:text-lg">
-            동일 자본금 100 기준 누적 자산 변화. 변동성에도 우상향 추세를
-            유지합니다.
-          </p>
-        </div>
-
-        <div className="card-dark-elevated mt-12 overflow-hidden p-6 md:p-8">
-          <div className="flex flex-wrap items-end justify-between gap-3">
-            <div>
-              <div className="text-[11px] font-bold uppercase tracking-[0.22em] text-white/45">
-                기간 수익
-              </div>
-              <div className="mt-2 flex items-baseline gap-2">
-                <span className="text-5xl font-extrabold tracking-tightest text-brand-primary tnum md:text-6xl">
-                  +137.0%
-                </span>
-                <span className="inline-flex items-center gap-1 text-sm font-bold text-brand-primary">
-                  ▲ vs 시장 +18.4%
-                </span>
-              </div>
-            </div>
-            <div className="flex gap-1.5 text-xs">
-              {["1M", "6M", "1Y", "3Y", "ALL"].map((t, i) => (
-                <span
-                  key={t}
-                  className={`rounded-md px-3 py-1.5 font-bold ${
-                    i === 3
-                      ? "bg-brand-primary text-white"
-                      : "border border-white/10 text-white/55"
-                  }`}
-                >
-                  {t}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-6 overflow-x-auto">
-            <svg
-              viewBox={`0 0 ${w} ${h}`}
-              className="h-auto w-full min-w-[640px]"
-            >
-              <defs>
-                <linearGradient id="eq-area" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#00B783" stopOpacity="0.45" />
-                  <stop offset="100%" stopColor="#00B783" stopOpacity="0" />
-                </linearGradient>
-              </defs>
-              {[0.25, 0.5, 0.75].map((g) => (
-                <line
-                  key={g}
-                  x1="0"
-                  x2={w}
-                  y1={h * g}
-                  y2={h * g}
-                  stroke="rgba(255,255,255,0.06)"
-                  strokeWidth="1"
-                />
-              ))}
-              <path d={area} fill="url(#eq-area)" />
-              <path
-                d={path}
-                fill="none"
-                stroke="#00B783"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <circle
-                cx={w}
-                cy={h - ((points[points.length - 1] - min) / (max - min)) * (h - 30) - 15}
-                r="5"
-                fill="#00B783"
-              />
-              <circle
-                cx={w}
-                cy={h - ((points[points.length - 1] - min) / (max - min)) * (h - 30) - 15}
-                r="10"
-                fill="#00B783"
-                opacity="0.28"
-              />
-            </svg>
-          </div>
-
-          <div className="mt-4 flex items-center justify-between text-xs text-white/45">
-            <span>2023.05</span>
-            <span>2024.05</span>
-            <span>2025.05</span>
-            <span>2026.05</span>
-          </div>
-
-          <div className="mt-6 grid grid-cols-2 divide-x divide-white/10 border-t border-white/10 pt-5 text-center md:grid-cols-4">
-            {[
-              { l: "최고가", v: "237" },
-              { l: "최저가", v: "99" },
-              { l: "변동성", v: "12.4%" },
-              { l: "체결 건수", v: "12,847" },
-            ].map((s) => (
-              <div key={s.l} className="px-2">
-                <div className="text-[10px] font-bold uppercase tracking-[0.16em] text-white/45">
-                  {s.l}
-                </div>
-                <div className="mt-1.5 text-base font-extrabold text-white tnum">
-                  {s.v}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function MonthlyTable() {
-  const months = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"];
-  const data2024 = [2.3, -1.1, 3.4, 4.2, 2.8, -0.6, 5.1, 3.0, 2.2, 4.5, 1.8, 3.7];
-  const data2025 = [3.1, 2.4, -0.9, 5.6, 4.0, 3.2, 1.8, 4.4, 2.1, -1.2, 3.6, 4.9];
-
-  const yearTotal = (arr: number[]) =>
-    arr.reduce((acc, v) => acc * (1 + v / 100), 1) * 100 - 100;
-
-  const cellBg = (v: number) => {
-    if (v >= 0) {
-      const a = Math.min(0.85, 0.18 + v / 8);
-      return `rgba(0, 183, 131, ${a.toFixed(2)})`;
-    }
-    const a = Math.min(0.7, 0.18 + Math.abs(v) / 6);
-    return `rgba(244, 63, 94, ${a.toFixed(2)})`;
-  };
-
-  return (
-    <section className="border-y border-brand-line bg-brand-subtle section-padding">
-      <div className="container-x">
-        <div className="mx-auto max-w-3xl text-center">
-          <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-primary">
-            Monthly Returns
-          </span>
-          <h2 className="mt-4 section-title">월별 수익률 히트맵</h2>
-          <p className="mt-5 section-sub">
-            색이 진할수록 수익률(또는 손실)이 큽니다.
-          </p>
-        </div>
-
-        <div className="mt-12 overflow-hidden rounded-xl border border-brand-line bg-white shadow-card">
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[760px] text-sm">
-              <thead>
-                <tr className="bg-brand-subtle text-brand-muted">
-                  <th className="p-4 text-left text-[11px] font-bold tracking-[0.22em]">
-                    YEAR
-                  </th>
-                  {months.map((m) => (
-                    <th
-                      key={m}
-                      className="p-4 text-center text-[11px] font-bold tracking-[0.1em]"
-                    >
-                      {m}
-                    </th>
-                  ))}
-                  <th className="p-4 text-center text-[11px] font-bold tracking-[0.22em] text-brand-primary">
-                    YEAR
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {[
-                  { y: "2024", d: data2024 },
-                  { y: "2025", d: data2025 },
-                ].map((row) => (
-                  <tr key={row.y} className="border-t border-brand-lineSoft">
-                    <td className="p-4 text-left font-extrabold text-brand-text tnum">
-                      {row.y}
-                    </td>
-                    {row.d.map((v, i) => (
-                      <td key={i} className="p-1.5 text-center">
-                        <div
-                          className="rounded-md py-3 text-xs font-extrabold text-white tnum transition-transform hover:scale-105"
-                          style={{ background: cellBg(v) }}
-                          title={`${v > 0 ? "+" : ""}${v.toFixed(1)}%`}
-                        >
-                          {v > 0 ? "+" : ""}
-                          {v.toFixed(1)}
-                        </div>
-                      </td>
-                    ))}
-                    <td className="p-4 text-center text-base font-extrabold text-brand-primary tnum">
-                      +{yearTotal(row.d).toFixed(1)}%
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function StrategyBreakdown() {
-  const strategies = [
-    {
-      name: "Momentum Pro",
-      type: "추세 추종",
-      ret: "+42.1%",
-      mdd: "-14.2%",
-      win: "61%",
-    },
-    {
-      name: "Mean Reversion",
-      type: "평균 회귀",
-      ret: "+29.6%",
-      mdd: "-9.4%",
-      win: "68%",
-    },
-    {
-      name: "Pair Trading",
-      type: "페어 / 헷지",
-      ret: "+33.8%",
-      mdd: "-7.8%",
-      win: "64%",
-    },
-    {
-      name: "Volatility Edge",
-      type: "변동성 활용",
-      ret: "+38.4%",
-      mdd: "-15.1%",
-      win: "59%",
-    },
-  ];
-
-  return (
-    <section className="section-padding">
-      <div className="container-x">
-        <div className="grid gap-12 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-16">
-          <div>
-            <span className="text-sm font-semibold tracking-[0.18em] text-brand-primary">
-              STRATEGY MIX
-            </span>
-            <h2 className="mt-3 section-title">
-              4가지 전략의 <br />
-              상관관계가 낮은 조합
-            </h2>
-            <p className="mt-5 section-sub">
-              서로 다른 시장 국면에서 작동하는 4가지 전략을 분산 배분하여,
-              어떤 시장 상황에서도 안정적인 수익을 추구합니다.
-            </p>
-            <div className="mt-8 overflow-hidden rounded-xl border border-brand-line bg-white shadow-card">
-              <img
-                src={TEAM_IMG}
-                alt="전략 운용팀"
-                className="aspect-[5/3] w-full object-cover"
-                loading="lazy"
-              />
-            </div>
-          </div>
-
-          <div className="overflow-hidden rounded-xl border border-brand-line bg-white shadow-card">
-            <div className="grid grid-cols-[1.4fr_1fr_1fr_1fr] bg-brand-subtle text-xs font-bold tracking-[0.1em] text-brand-muted">
-              <div className="p-4">전략</div>
-              <div className="p-4 text-right text-brand-primary">3Y 수익</div>
-              <div className="p-4 text-right">MDD</div>
-              <div className="p-4 text-right">승률</div>
-            </div>
-            {strategies.map((s, i) => (
-              <div
-                key={s.name}
-                className={`grid grid-cols-[1.4fr_1fr_1fr_1fr] items-center text-sm ${
-                  i !== strategies.length - 1
-                    ? "border-b border-brand-lineSoft"
-                    : ""
-                }`}
-              >
-                <div className="p-4">
-                  <div className="font-bold text-brand-text">{s.name}</div>
-                  <div className="mt-1 text-xs text-brand-muted">{s.type}</div>
-                </div>
-                <div className="p-4 text-right font-extrabold text-brand-primary">
-                  {s.ret}
-                </div>
-                <div className="p-4 text-right font-semibold text-rose-500">
-                  {s.mdd}
-                </div>
-                <div className="p-4 text-right font-semibold text-brand-text">
-                  {s.win}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
+/* ─────────── Disclaimer ─────────── */
 function Disclaimer() {
   return (
     <section className="pb-24">
@@ -622,10 +273,9 @@ function Disclaimer() {
         <div className="mx-auto max-w-4xl rounded-xl border border-brand-line bg-brand-subtle p-7 text-sm text-brand-muted md:p-10">
           <p className="font-bold text-brand-text">⚠ 투자 유의 안내</p>
           <p className="mt-3">
-            본 페이지에 표기된 수익률, MDD, 승률은 자체 백테스팅 및 실전 운용
-            데이터에 기반한 결과로, 동일한 성과가 미래에도 재현됨을 보장하지
-            않습니다. 모든 투자 결정의 책임은 사용자 본인에게 있으며,
-            넥스트퀀트는 매매 신호 제공 도구로서의 역할만 수행합니다.
+            본 페이지의 매매 내역은 실제 운용 기록이나, 과거의 성과가 미래의
+            수익을 보장하지 않습니다. 모든 투자 결정의 책임은 사용자 본인에게
+            있으며, 넥스트퀀트는 매매를 보조하는 도구로서의 역할만 수행합니다.
           </p>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
             <Link href="/guide" className="btn-primary">

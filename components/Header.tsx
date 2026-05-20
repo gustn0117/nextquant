@@ -90,12 +90,6 @@ export default function Header() {
 
         <div className="hidden items-center gap-3 md:flex">
           <Link
-            href="/performance"
-            className="hidden items-center gap-1.5 rounded-md px-3 py-2 text-sm font-semibold text-brand-subText transition-colors hover:text-brand-primary lg:inline-flex"
-          >
-            <span className="live-dot" /> 실시간 성과
-          </Link>
-          <Link
             href="/guide"
             className="btn-3d inline-flex items-center gap-1.5 rounded-md bg-brand-primary px-5 py-2.5 text-sm font-semibold text-white shadow-soft transition-all hover:bg-brand-primaryDim hover:shadow-[0_10px_22px_-8px_rgba(0,183,131,0.55)]"
           >
