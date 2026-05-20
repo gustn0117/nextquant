@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const HERO_BG =
   "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1800&q=80";
-const APP_SCREENSHOT = "/program-screen.png";
+const APP_SCREENSHOT = "/program-dashboard.png";
 const SOLUTION_IMG =
   "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1400&q=80";
 
