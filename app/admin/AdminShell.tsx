@@ -108,11 +108,20 @@ export default function AdminShell({
         </div>
       </header>
 
+      {/* 탭별 컨텐츠는 언마운트하지 않고 숨김 처리해 작성 중 입력을 보존 */}
       <main className="container-x py-10">
-        {tab === "inquiries" && <InquiriesTab initialItems={inquiries} />}
-        {tab === "trades" && <TradesTab initialItems={trades} />}
-        {tab === "posts" && <PostsTab initialItems={posts} />}
-        {tab === "settings" && <SettingsTab initial={settings} />}
+        <div className={tab === "inquiries" ? "" : "hidden"}>
+          <InquiriesTab initialItems={inquiries} />
+        </div>
+        <div className={tab === "trades" ? "" : "hidden"}>
+          <TradesTab initialItems={trades} />
+        </div>
+        <div className={tab === "posts" ? "" : "hidden"}>
+          <PostsTab initialItems={posts} />
+        </div>
+        <div className={tab === "settings" ? "" : "hidden"}>
+          <SettingsTab initial={settings} />
+        </div>
       </main>
     </div>
   );

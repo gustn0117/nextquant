@@ -49,12 +49,6 @@ export default async function PerformancePage() {
   );
 }
 
-function fmtPostDate(d: string) {
-  const dt = new Date(d);
-  const pad = (n: number) => String(n).padStart(2, "0");
-  return `${dt.getFullYear()}.${pad(dt.getMonth() + 1)}.${pad(dt.getDate())}`;
-}
-
 /* ─────────── 성과 게시물 갤러리 ─────────── */
 function PostsGallery({ posts }: { posts: PerformancePost[] }) {
   if (posts.length === 0) return null;
@@ -78,11 +72,11 @@ function PostsGallery({ posts }: { posts: PerformancePost[] }) {
               key={p.id}
               className="overflow-hidden rounded-xl border border-brand-line bg-white shadow-card"
             >
-              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-brand-lineSoft px-6 py-4">
+              <div className="flex flex-wrap items-center gap-2.5 border-b border-brand-lineSoft px-6 py-4">
+                <span className="inline-flex h-2 w-2 rounded-full bg-brand-primary" />
                 <h3 className="text-lg font-extrabold text-brand-text">
                   {p.title}
                 </h3>
-                <span className="stat-chip">{fmtPostDate(p.posted_at)}</span>
               </div>
 
               <div className="grid gap-px bg-brand-line md:grid-cols-2">
