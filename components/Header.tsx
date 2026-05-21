@@ -91,7 +91,7 @@ export default function Header() {
         <div className="hidden items-center gap-3 lg:flex">
           <Link
             href="/guide"
-            className="group inline-flex items-center gap-1.5 rounded-full border border-brand-text/25 px-5 py-2.5 text-sm font-bold text-brand-text transition-all hover:border-brand-primary hover:bg-brand-primary hover:text-white"
+            className="group inline-flex items-center gap-1.5 border border-brand-text/25 px-5 py-2.5 text-sm font-bold text-brand-text transition-all hover:border-brand-primary hover:bg-brand-primary hover:text-white"
           >
             무료체험 다운로드
             <svg

@@ -75,6 +75,18 @@ const config: Config = {
       letterSpacing: {
         tightest: "-0.03em",
       },
+      // 둥근 모서리 최소화 — 각진 디자인 (원형 full만 유지)
+      borderRadius: {
+        none: "0px",
+        sm: "2px",
+        DEFAULT: "2px",
+        md: "2px",
+        lg: "3px",
+        xl: "4px",
+        "2xl": "5px",
+        "3xl": "6px",
+        full: "9999px",
+      },
       animation: {
         "fade-up": "fadeUp 0.7s ease-out both",
         "fade-in": "fadeIn 0.6s ease-out both",

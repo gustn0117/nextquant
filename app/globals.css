@@ -150,13 +150,13 @@ li {
   @apply inline-flex items-center justify-center gap-2 bg-brand-primary px-8 py-4 text-base font-extrabold text-white transition-all duration-200 hover:bg-brand-primaryDim;
 }
 
-/* 아웃라인 버튼 — 알약형 (오르다 스타일) */
+/* 아웃라인 버튼 — 각진 사각형 */
 .btn-ghost {
-  @apply inline-flex items-center justify-center gap-2 rounded-full border border-brand-text/25 bg-transparent px-8 py-4 text-base font-bold text-brand-text transition-all duration-200 hover:border-brand-primary hover:text-brand-primary;
+  @apply inline-flex items-center justify-center gap-2 border border-brand-text/25 bg-transparent px-8 py-4 text-base font-bold text-brand-text transition-all duration-200 hover:border-brand-primary hover:text-brand-primary;
 }
 
 .btn-outline-light {
-  @apply inline-flex items-center justify-center gap-2 rounded-full border border-white/35 bg-transparent px-8 py-4 text-base font-bold text-white transition-all duration-200 hover:bg-white hover:text-brand-text hover:border-white;
+  @apply inline-flex items-center justify-center gap-2 border border-white/35 bg-transparent px-8 py-4 text-base font-bold text-white transition-all duration-200 hover:bg-white hover:text-brand-text hover:border-white;
 }
 
 .card-soft {
