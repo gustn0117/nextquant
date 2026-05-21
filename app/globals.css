@@ -483,12 +483,119 @@ li {
   background: var(--line);
 }
 
+/* 카드 sheen — 호버 시 빛이 스쳐 지나감 */
+.sheen {
+  position: relative;
+  overflow: hidden;
+}
+.sheen::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -130%;
+  width: 65%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
+  transform: skewX(-20deg);
+  transition: left 0.85s ease;
+  pointer-events: none;
+  z-index: 5;
+}
+.sheen:hover::after {
+  left: 150%;
+}
+
+/* accent 글로우 펄스 */
+@keyframes glowPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 183, 131, 0);
+  }
+  50% {
+    box-shadow: 0 0 32px 2px rgba(0, 183, 131, 0.4);
+  }
+}
+.animate-glow {
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+/* 윤곽선 텍스트 (대형 장식 숫자/단어) */
+.text-stroke {
+  -webkit-text-stroke: 1.5px rgba(15, 23, 42, 0.16);
+  color: transparent;
+}
+.text-stroke-light {
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.18);
+  color: transparent;
+}
+
+/* 회전 보더 (conic, accent 단색 계열) */
+@keyframes spinBorder {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.ring-spin {
+  position: relative;
+  isolation: isolate;
+}
+.ring-spin::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(0, 183, 131, 0.7) 60deg,
+    transparent 140deg
+  );
+  animation: spinBorder 4s linear infinite;
+  z-index: -1;
+}
+
+/* 펄스 링 (라이브 강조) */
+@keyframes pingSoft {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+/* 부드러운 등장 */
+@keyframes floatY {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+/* tilt 카드 내부 글레어 부드럽게 */
+.tilt-glare {
+  transition: background 0.2s ease;
+}
+
 /* reduce motion */
 @media (prefers-reduced-motion: reduce) {
   .fade-up,
   .marquee-track,
   .img-zoom img,
-  .img-mono img {
+  .img-mono img,
+  .animate-glow,
+  .ring-spin::before,
+  .sheen::after {
     animation: none !important;
     transition: none !important;
     transform: none !important;

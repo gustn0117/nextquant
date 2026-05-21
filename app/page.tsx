@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { supabaseAdmin, rowsToSettings } from "@/lib/supabase";
 import { toYoutubeEmbed } from "@/lib/youtube";
+import { Reveal, Tilt, Magnetic, NetworkCanvas } from "@/components/Fx";
 
 export const dynamic = "force-dynamic";
 
@@ -50,6 +51,8 @@ function Hero({ videoEmbed }: { videoEmbed: string | null }) {
         style={{ background: "rgba(8,15,30,0.84)" }}
       />
       <div className="dot-grid-dark pointer-events-none absolute inset-0 -z-10" />
+      {/* 네트워크 파티클 캔버스 */}
+      <NetworkCanvas className="absolute inset-0 -z-10 opacity-70" />
       {/* 은은한 글로우 오브 (장식) */}
       <div
         className="pointer-events-none absolute -left-32 top-10 -z-10 h-80 w-80 rounded-full opacity-50 blur-3xl animate-float"
@@ -93,33 +96,35 @@ function Hero({ videoEmbed }: { videoEmbed: string | null }) {
             당신이 잠든 순간에도 정확한 타이밍에 진입하고 청산합니다.
           </p>
 
-          {/* 무료 다운로드 — 단일 강조 버튼 */}
+          {/* 무료 다운로드 — 단일 강조 버튼 (자석 + 글로우 펄스) */}
           <div className="fade-up fade-up-3 mt-11 flex justify-center">
-            <Link
-              href="/guide"
-              className="btn-3d group relative inline-flex items-center gap-2.5 rounded-xl bg-brand-primary px-10 py-5 text-lg font-extrabold text-white shadow-glow transition-all hover:bg-brand-primaryDim hover:shadow-[0_24px_60px_-16px_rgba(0,183,131,0.7)]"
-            >
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white/70" />
-                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-white" />
-              </span>
-              무료 다운로드
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="transition-transform group-hover:translate-y-0.5"
+            <Magnetic strength={0.4}>
+              <Link
+                href="/guide"
+                className="btn-3d animate-glow group relative inline-flex items-center gap-2.5 rounded-xl bg-brand-primary px-10 py-5 text-lg font-extrabold text-white shadow-glow transition-all hover:bg-brand-primaryDim hover:shadow-[0_24px_60px_-16px_rgba(0,183,131,0.7)]"
               >
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                <polyline points="7 10 12 15 17 10" />
-                <line x1="12" y1="15" x2="12" y2="3" />
-              </svg>
-            </Link>
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white/70" />
+                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-white" />
+                </span>
+                무료 다운로드
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="transition-transform group-hover:translate-y-0.5"
+                >
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+              </Link>
+            </Magnetic>
           </div>
         </div>
 
@@ -177,37 +182,45 @@ function ExchangeSection() {
   return (
     <section className="border-b border-brand-line bg-white section-padding">
       <div className="container-x">
-        <div className="mx-auto flex max-w-md flex-col items-center text-center">
+        <Reveal className="mx-auto flex max-w-md flex-col items-center text-center">
           <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-primary">
             Exchange
           </span>
           <h2 className="mt-3 text-2xl font-extrabold tracking-tight text-brand-text md:text-3xl">
             연동 거래소
           </h2>
+        </Reveal>
 
-          <div className="lift mt-8 w-full rounded-xl border border-brand-line bg-white p-8 shadow-card">
-            <div className="flex flex-col items-center">
-              <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-[#0B0E11]">
-                <BinanceLogo />
+        <Reveal
+          variant="scale"
+          delay={120}
+          className="mx-auto mt-8 max-w-md"
+        >
+          <Tilt max={11} glare className="rounded-xl">
+            <div className="sheen w-full rounded-xl border border-brand-line bg-white p-8 shadow-card">
+              <div className="flex flex-col items-center">
+                <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-[#0B0E11]">
+                  <BinanceLogo />
+                </div>
+                <div className="mt-4 text-xl font-extrabold tracking-tight text-brand-text">
+                  Binance Futures
+                </div>
+                <div className="mt-1 text-sm font-semibold text-brand-muted">
+                  바이낸스 선물
+                </div>
               </div>
-              <div className="mt-4 text-xl font-extrabold tracking-tight text-brand-text">
-                Binance Futures
-              </div>
-              <div className="mt-1 text-sm font-semibold text-brand-muted">
-                바이낸스 선물
+
+              <div className="mt-6 space-y-2 border-t border-brand-lineSoft pt-5 text-sm">
+                <p className="flex items-center justify-center gap-2 text-brand-subText">
+                  <CheckMiniGreen /> 바이낸스 선물 API Key 한 번 등록
+                </p>
+                <p className="flex items-center justify-center gap-2 text-brand-subText">
+                  <CheckMiniGreen /> 출금 권한은 절대 부여하지 않습니다
+                </p>
               </div>
             </div>
-
-            <div className="mt-6 space-y-2 border-t border-brand-lineSoft pt-5 text-sm">
-              <p className="flex items-center justify-center gap-2 text-brand-subText">
-                <CheckMiniGreen /> 바이낸스 선물 API Key 한 번 등록
-              </p>
-              <p className="flex items-center justify-center gap-2 text-brand-subText">
-                <CheckMiniGreen /> 출금 권한은 절대 부여하지 않습니다
-              </p>
-            </div>
-          </div>
-        </div>
+          </Tilt>
+        </Reveal>
       </div>
     </section>
   );
@@ -221,7 +234,7 @@ function ProblemSection() {
   return (
     <section className="border-b border-brand-line section-padding">
       <div className="container-x">
-        <div className="mx-auto max-w-3xl text-center">
+        <Reveal className="mx-auto max-w-3xl text-center">
           <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-primary">
             The Problem
           </span>
@@ -234,58 +247,62 @@ function ProblemSection() {
             감정, 시간, 경험. 셋 중 하나라도 부족하면 시장은 가차없습니다. 우리는
             이 세 가지를 알고리즘으로 대체합니다.
           </p>
-        </div>
+        </Reveal>
 
         <div className="mt-14 grid gap-6 lg:grid-cols-2">
-          <div className="relative overflow-hidden rounded-xl border border-brand-line bg-brand-subtle p-8">
-            <div className="stripes pointer-events-none absolute inset-0 opacity-40" />
-            <div className="relative">
-              <div className="inline-flex items-center gap-2 rounded-md border border-rose-300/50 bg-white px-3 py-1 text-xs font-bold text-rose-500">
-                <XCircle /> 수동 매매
+          <Reveal variant="left" className="h-full">
+            <div className="relative h-full overflow-hidden rounded-xl border border-brand-line bg-brand-subtle p-8">
+              <div className="stripes pointer-events-none absolute inset-0 opacity-40" />
+              <div className="relative">
+                <div className="inline-flex items-center gap-2 rounded-md border border-rose-300/50 bg-white px-3 py-1 text-xs font-bold text-rose-500">
+                  <XCircle /> 수동 매매
+                </div>
+                <h3 className="mt-4 text-2xl font-extrabold text-brand-text">
+                  감정에 흔들리는 매매
+                </h3>
+                <ul className="mt-6 space-y-3 text-sm text-brand-subText">
+                  {[
+                    "공포에 손절, 욕심에 추격매수",
+                    "PC 앞에 앉아 있어야만 가능",
+                    "야간/주말엔 시장 못 봄",
+                    "일관성 없는 진입/청산 기준",
+                    "지표 분석에 매주 수십 시간 소모",
+                  ].map((t) => (
+                    <li key={t} className="flex items-start gap-2.5">
+                      <XMini /> <span>{t}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <h3 className="mt-4 text-2xl font-extrabold text-brand-text">
-                감정에 흔들리는 매매
-              </h3>
-              <ul className="mt-6 space-y-3 text-sm text-brand-subText">
-                {[
-                  "공포에 손절, 욕심에 추격매수",
-                  "PC 앞에 앉아 있어야만 가능",
-                  "야간/주말엔 시장 못 봄",
-                  "일관성 없는 진입/청산 기준",
-                  "지표 분석에 매주 수십 시간 소모",
-                ].map((t) => (
-                  <li key={t} className="flex items-start gap-2.5">
-                    <XMini /> <span>{t}</span>
-                  </li>
-                ))}
-              </ul>
             </div>
-          </div>
+          </Reveal>
 
-          <div className="lift relative overflow-hidden rounded-xl border border-brand-primary/30 bg-white p-8 shadow-soft">
-            <div className="topline" />
-            <div className="relative">
-              <div className="inline-flex items-center gap-2 rounded-md border border-brand-primary/40 bg-brand-primarySoft px-3 py-1 text-xs font-bold text-brand-primary">
-                <CheckCircle /> 넥스트퀀트
+          <Reveal variant="right" delay={120} className="h-full">
+            <div className="lift sheen relative h-full overflow-hidden rounded-xl border border-brand-primary/30 bg-white p-8 shadow-soft">
+              <div className="topline" />
+              <div className="relative">
+                <div className="inline-flex items-center gap-2 rounded-md border border-brand-primary/40 bg-brand-primarySoft px-3 py-1 text-xs font-bold text-brand-primary">
+                  <CheckCircle /> 넥스트퀀트
+                </div>
+                <h3 className="mt-4 text-2xl font-extrabold text-brand-text">
+                  원칙대로 움직이는 알고리즘
+                </h3>
+                <ul className="mt-6 space-y-3 text-sm text-brand-subText">
+                  {[
+                    "정해진 룰셋이 모든 매매를 결정",
+                    "24시간 자동으로 시장을 모니터링",
+                    "야간·새벽 변동성도 놓치지 않음",
+                    "MDD · 분할 진입 · 익절 기준이 항상 일관",
+                    "전략 셋업 5분, 이후 클릭만으로 운용",
+                  ].map((t) => (
+                    <li key={t} className="flex items-start gap-2.5">
+                      <CheckMiniGreen /> <span>{t}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <h3 className="mt-4 text-2xl font-extrabold text-brand-text">
-                원칙대로 움직이는 알고리즘
-              </h3>
-              <ul className="mt-6 space-y-3 text-sm text-brand-subText">
-                {[
-                  "정해진 룰셋이 모든 매매를 결정",
-                  "24시간 자동으로 시장을 모니터링",
-                  "야간·새벽 변동성도 놓치지 않음",
-                  "MDD · 분할 진입 · 익절 기준이 항상 일관",
-                  "전략 셋업 5분, 이후 클릭만으로 운용",
-                ].map((t) => (
-                  <li key={t} className="flex items-start gap-2.5">
-                    <CheckMiniGreen /> <span>{t}</span>
-                  </li>
-                ))}
-              </ul>
             </div>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>
@@ -300,7 +317,7 @@ function SolutionBento() {
   return (
     <section className="section-padding">
       <div className="container-x">
-        <div className="grid gap-8 lg:grid-cols-[1fr_1.4fr] lg:items-end lg:gap-16">
+        <Reveal className="grid gap-8 lg:grid-cols-[1fr_1.4fr] lg:items-end lg:gap-16">
           <div>
             <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-primary">
               Solution
@@ -315,66 +332,77 @@ function SolutionBento() {
             넥스트퀀트는 시장 데이터 확인, 리스크 관리, 주문 실행까지의 과정을
             자동화합니다. 당신이 해야 할 일은 단 하나 ㅡ ‘START’ 버튼.
           </p>
-        </div>
+        </Reveal>
 
         <div className="mt-14 grid grid-cols-1 gap-4 md:grid-cols-3 md:grid-rows-2">
           {/* Big 1 — Market */}
-          <div className="lift relative overflow-hidden rounded-xl border border-brand-line bg-white p-7 md:col-span-2 md:row-span-2">
-            <div className="topline" />
-            <span className="text-[11px] font-bold tracking-[0.22em] text-brand-primary">
-              01 · MARKET
-            </span>
-            <h3 className="mt-3 text-2xl font-extrabold tracking-tight text-brand-text md:text-3xl">
-              시장 상황을 한눈에 보여드립니다.
-            </h3>
-            <p className="mt-4 max-w-xl text-sm text-brand-muted">
-              공포탐욕지수, 비트코인 도미넌스, 알트시즌 지수, 24시간 시가총액,
-              펀딩비, 미결제약정, 24시간 거래량, 스테이블코인 도미넌스까지
-              대시보드 한 화면에서 확인하실 수 있습니다.
-            </p>
-
-            <IndicatorGrid />
-          </div>
+          <Reveal variant="scale" className="md:col-span-2 md:row-span-2">
+            <Tilt max={5} glare className="h-full rounded-xl">
+              <div className="sheen relative h-full overflow-hidden rounded-xl border border-brand-line bg-white p-7">
+                <div className="topline" />
+                <span className="text-[11px] font-bold tracking-[0.22em] text-brand-primary">
+                  01 · MARKET
+                </span>
+                <h3 className="mt-3 text-2xl font-extrabold tracking-tight text-brand-text md:text-3xl">
+                  시장 상황을 한눈에 보여드립니다.
+                </h3>
+                <p className="mt-4 max-w-xl text-sm text-brand-muted">
+                  공포탐욕지수, 비트코인 도미넌스, 알트시즌 지수, 24시간
+                  시가총액, 펀딩비, 미결제약정, 24시간 거래량, 스테이블코인
+                  도미넌스까지 대시보드 한 화면에서 확인하실 수 있습니다.
+                </p>
+                <IndicatorGrid />
+              </div>
+            </Tilt>
+          </Reveal>
 
           {/* Right top — Risk */}
-          <div className="lift relative overflow-hidden rounded-xl border border-brand-line bg-white p-6">
-            <div className="topline" />
-            <span className="text-[11px] font-bold tracking-[0.22em] text-brand-primary">
-              02 · RISK
-            </span>
-            <h3 className="mt-2.5 text-lg font-extrabold text-brand-text">
-              MDD 기반 자동 손절
-            </h3>
-            <p className="mt-2 text-sm text-brand-muted">
-              사전 설정한 최대 낙폭에 닿으면 100% 자동 손절. 감정이 끼어들 틈을
-              차단합니다.
-            </p>
-            <RiskGaugeMini />
-          </div>
+          <Reveal variant="scale" delay={120}>
+            <Tilt max={8} glare className="h-full rounded-xl">
+              <div className="sheen relative h-full overflow-hidden rounded-xl border border-brand-line bg-white p-6">
+                <div className="topline" />
+                <span className="text-[11px] font-bold tracking-[0.22em] text-brand-primary">
+                  02 · RISK
+                </span>
+                <h3 className="mt-2.5 text-lg font-extrabold text-brand-text">
+                  MDD 기반 자동 손절
+                </h3>
+                <p className="mt-2 text-sm text-brand-muted">
+                  사전 설정한 최대 낙폭에 닿으면 100% 자동 손절. 감정이 끼어들
+                  틈을 차단합니다.
+                </p>
+                <RiskGaugeMini />
+              </div>
+            </Tilt>
+          </Reveal>
 
           {/* Right bottom — Execution */}
-          <div className="lift relative overflow-hidden rounded-xl border border-brand-line bg-white p-6">
-            <div className="topline" />
-            <span className="text-[11px] font-bold tracking-[0.22em] text-brand-primary">
-              03 · EXECUTION
-            </span>
-            <h3 className="mt-2.5 text-lg font-extrabold text-brand-text">
-              분할 진입 / 청산
-            </h3>
-            <p className="mt-2 text-sm text-brand-muted">
-              한 번에 다 사지 않습니다. 분할 비율을 조절하여 시장 충격을 최소화
-              합니다.
-            </p>
-            <div className="mt-4 flex items-end gap-1.5">
-              {[14, 22, 30, 38, 28, 44, 36, 52, 44, 60].map((h, i) => (
-                <span
-                  key={i}
-                  className="w-2 rounded-sm bg-brand-primary"
-                  style={{ height: `${h}px`, opacity: 0.35 + i * 0.06 }}
-                />
-              ))}
-            </div>
-          </div>
+          <Reveal variant="scale" delay={240}>
+            <Tilt max={8} glare className="h-full rounded-xl">
+              <div className="sheen relative h-full overflow-hidden rounded-xl border border-brand-line bg-white p-6">
+                <div className="topline" />
+                <span className="text-[11px] font-bold tracking-[0.22em] text-brand-primary">
+                  03 · EXECUTION
+                </span>
+                <h3 className="mt-2.5 text-lg font-extrabold text-brand-text">
+                  분할 진입 / 청산
+                </h3>
+                <p className="mt-2 text-sm text-brand-muted">
+                  한 번에 다 사지 않습니다. 분할 비율을 조절하여 시장 충격을
+                  최소화 합니다.
+                </p>
+                <div className="mt-4 flex items-end gap-1.5">
+                  {[14, 22, 30, 38, 28, 44, 36, 52, 44, 60].map((h, i) => (
+                    <span
+                      key={i}
+                      className="w-2 rounded-sm bg-brand-primary"
+                      style={{ height: `${h}px`, opacity: 0.35 + i * 0.06 }}
+                    />
+                  ))}
+                </div>
+              </div>
+            </Tilt>
+          </Reveal>
         </div>
       </div>
     </section>
@@ -470,7 +498,7 @@ function LivePreview() {
     <section className="border-y border-brand-line bg-brand-subtle section-padding">
       <div className="container-x">
         <div className="grid gap-12 lg:grid-cols-[1fr_1.3fr] lg:items-center lg:gap-16">
-          <div>
+          <Reveal variant="left">
             <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-primary">
               Dashboard
             </span>
@@ -503,24 +531,28 @@ function LivePreview() {
                 기능 자세히 보기
               </Link>
             </div>
-          </div>
+          </Reveal>
 
-          <div className="img-zoom relative overflow-hidden rounded-xl border border-brand-line bg-white shadow-depth">
-            <CornerMarkerDark />
-            <img
-              src={SOLUTION_IMG}
-              alt="대시보드 미리보기"
-              className="aspect-[16/10] w-full object-cover"
-              loading="lazy"
-            />
-            <div
-              className="pointer-events-none absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(180deg, transparent 70%, rgba(0,0,0,0.3) 100%)",
-              }}
-            />
-          </div>
+          <Reveal variant="right" delay={140}>
+            <Tilt max={7} glare className="rounded-xl">
+              <div className="img-zoom relative overflow-hidden rounded-xl border border-brand-line bg-white shadow-depth">
+                <CornerMarkerDark />
+                <img
+                  src={SOLUTION_IMG}
+                  alt="대시보드 미리보기"
+                  className="aspect-[16/10] w-full object-cover"
+                  loading="lazy"
+                />
+                <div
+                  className="pointer-events-none absolute inset-0"
+                  style={{
+                    background:
+                      "linear-gradient(180deg, transparent 70%, rgba(0,0,0,0.3) 100%)",
+                  }}
+                />
+              </div>
+            </Tilt>
+          </Reveal>
         </div>
       </div>
     </section>
@@ -555,7 +587,7 @@ function ProcessSection() {
   return (
     <section className="section-padding">
       <div className="container-x">
-        <div className="mx-auto max-w-3xl text-center">
+        <Reveal className="mx-auto max-w-3xl text-center">
           <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-primary">
             How it works
           </span>
@@ -563,7 +595,7 @@ function ProcessSection() {
           <p className="mt-5 section-sub">
             복잡한 코딩이나 시장 분석 없이, 누구나 5분이면 시작할 수 있습니다.
           </p>
-        </div>
+        </Reveal>
 
         <div className="relative mt-16">
           <div className="pointer-events-none absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-brand-line lg:block" />
@@ -571,27 +603,31 @@ function ProcessSection() {
             {steps.map((s, i) => {
               const right = i % 2 === 1;
               return (
-                <li
+                <Reveal
+                  as="li"
                   key={s.n}
+                  variant={right ? "right" : "left"}
                   className={`relative grid items-center gap-8 lg:grid-cols-2 lg:gap-16 ${
                     right ? "lg:[&>*:first-child]:order-2" : ""
                   }`}
                 >
-                  <div className="pointer-events-none absolute left-1/2 top-1/2 hidden h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-brand-primary bg-white text-base font-extrabold text-brand-primary shadow-card lg:flex">
+                  <div className="pointer-events-none absolute left-1/2 top-1/2 z-10 hidden h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-brand-primary bg-white text-base font-extrabold text-brand-primary shadow-card lg:flex">
                     {s.n}
                   </div>
 
-                  <div className="img-zoom relative overflow-hidden rounded-xl border border-brand-line bg-white shadow-soft">
-                    <img
-                      src={s.img}
-                      alt={s.t}
-                      className="aspect-[16/10] w-full object-cover"
-                      loading="lazy"
-                    />
-                    <div className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-md bg-white/95 px-2.5 py-1 text-[11px] font-bold tracking-[0.18em] text-brand-primary shadow-soft backdrop-blur">
-                      STEP {String(s.n).padStart(2, "0")}
+                  <Tilt max={6} glare className="rounded-xl">
+                    <div className="img-zoom relative overflow-hidden rounded-xl border border-brand-line bg-white shadow-soft">
+                      <img
+                        src={s.img}
+                        alt={s.t}
+                        className="aspect-[16/10] w-full object-cover"
+                        loading="lazy"
+                      />
+                      <div className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-md bg-white/95 px-2.5 py-1 text-[11px] font-bold tracking-[0.18em] text-brand-primary shadow-soft backdrop-blur">
+                        STEP {String(s.n).padStart(2, "0")}
+                      </div>
                     </div>
-                  </div>
+                  </Tilt>
 
                   <div>
                     <div className="num-display text-[68px] font-black leading-none text-brand-text/10 md:text-[96px]">
@@ -604,7 +640,7 @@ function ProcessSection() {
                       {s.d}
                     </p>
                   </div>
-                </li>
+                </Reveal>
               );
             })}
           </ol>
@@ -622,11 +658,16 @@ function CtaSection() {
   return (
     <section className="section-padding">
       <div className="container-x">
+        <Reveal variant="scale">
         <div
-          className="relative isolate overflow-hidden rounded-xl border border-white/5 p-10 md:p-16"
+          className="sheen relative isolate overflow-hidden rounded-xl border border-white/5 p-10 md:p-16"
           style={{ background: "var(--ink)" }}
         >
           <div className="line-grid-dark pointer-events-none absolute inset-0" />
+          <NetworkCanvas
+            className="absolute inset-0 opacity-50"
+            color="110,231,194"
+          />
 
           <div className="relative grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-center">
             <div>
@@ -683,6 +724,7 @@ function CtaSection() {
             </div>
           </div>
         </div>
+        </Reveal>
       </div>
     </section>
   );
