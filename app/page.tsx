@@ -1,15 +1,26 @@
 import Link from "next/link";
+import { supabaseAdmin, rowsToSettings } from "@/lib/supabase";
+import { toYoutubeEmbed } from "@/lib/youtube";
+
+export const dynamic = "force-dynamic";
 
 const HERO_BG =
-  "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1800&q=80";
-const APP_SCREENSHOT = "/program-dashboard.png";
+  "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&w=1800&q=80";
 const SOLUTION_IMG =
-  "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1400&q=80";
+  "https://images.unsplash.com/photo-1518546305927-5a555bb7020d?auto=format&fit=crop&w=1400&q=80";
 
-export default function HomePage() {
+export default async function HomePage() {
+  let videoEmbed: string | null = null;
+  try {
+    const { data } = await supabaseAdmin.from("settings").select("key, value");
+    videoEmbed = toYoutubeEmbed(rowsToSettings(data).youtube_live_url);
+  } catch {
+    videoEmbed = null;
+  }
+
   return (
     <>
-      <Hero />
+      <Hero videoEmbed={videoEmbed} />
       <ExchangeSection />
       <ProblemSection />
       <SolutionBento />
@@ -24,7 +35,7 @@ export default function HomePage() {
 /* Hero                                                 */
 /* ──────────────────────────────────────────────────── */
 
-function Hero() {
+function Hero({ videoEmbed }: { videoEmbed: string | null }) {
   return (
     <section className="relative isolate overflow-hidden border-b border-white/5">
       <img
@@ -36,9 +47,18 @@ function Hero() {
       />
       <div
         className="absolute inset-0 -z-10"
-        style={{ background: "rgba(8,15,30,0.82)" }}
+        style={{ background: "rgba(8,15,30,0.84)" }}
       />
       <div className="dot-grid-dark pointer-events-none absolute inset-0 -z-10" />
+      {/* 은은한 글로우 오브 (장식) */}
+      <div
+        className="pointer-events-none absolute -left-32 top-10 -z-10 h-80 w-80 rounded-full opacity-50 blur-3xl animate-float"
+        style={{ background: "rgba(0,183,131,0.22)" }}
+      />
+      <div
+        className="pointer-events-none absolute -right-24 top-1/3 -z-10 h-72 w-72 rounded-full opacity-40 blur-3xl animate-float-slow"
+        style={{ background: "rgba(59,130,246,0.20)" }}
+      />
       <div
         className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-40"
         style={{
@@ -73,16 +93,24 @@ function Hero() {
             당신이 잠든 순간에도 정확한 타이밍에 진입하고 청산합니다.
           </p>
 
-          <div className="fade-up fade-up-3 mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Link href="/guide" className="btn-primary btn-3d group">
-              무료체험 다운로드
+          {/* 무료 다운로드 — 단일 강조 버튼 */}
+          <div className="fade-up fade-up-3 mt-11 flex justify-center">
+            <Link
+              href="/guide"
+              className="btn-3d group relative inline-flex items-center gap-2.5 rounded-xl bg-brand-primary px-10 py-5 text-lg font-extrabold text-white shadow-glow transition-all hover:bg-brand-primaryDim hover:shadow-[0_24px_60px_-16px_rgba(0,183,131,0.7)]"
+            >
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white/70" />
+                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-white" />
+              </span>
+              무료 다운로드
               <svg
-                width="16"
-                height="16"
+                width="20"
+                height="20"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="2.5"
+                strokeWidth="2.6"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 className="transition-transform group-hover:translate-y-0.5"
@@ -92,44 +120,48 @@ function Hero() {
                 <line x1="12" y1="15" x2="12" y2="3" />
               </svg>
             </Link>
-            <Link href="/program" className="btn-outline-light">
-              프로그램 자세히 보기
-            </Link>
           </div>
-
-          <p className="fade-up fade-up-4 mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-white/55">
-            <span className="inline-flex items-center gap-1.5">
-              <CheckMini /> SMS 인증으로 즉시 발급
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <CheckMini /> 1분 설치 · Windows
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <CheckMini /> 7일 무료체험
-            </span>
-          </p>
         </div>
 
-        {/* 프로그램 메인 화면 */}
-        <div className="relative mx-auto mt-16 max-w-5xl">
-          <div className="img-zoom card-dark-elevated relative overflow-hidden">
+        {/* 광고 영상 */}
+        <div className="fade-up fade-up-4 relative mx-auto mt-16 max-w-5xl">
+          <div className="card-dark-elevated relative overflow-hidden">
             <CornerMarkerDark />
-            <img
-              src={APP_SCREENSHOT}
-              alt="넥스트퀀트 프로그램 메인 화면"
-              className="aspect-[16/9] w-full object-cover"
-              loading="eager"
-            />
-            <div
-              className="pointer-events-none absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(180deg, transparent 70%, rgba(8,15,30,0.6) 100%)",
-              }}
-            />
-            <div className="absolute bottom-4 left-4 inline-flex items-center gap-1.5 rounded-md bg-white/90 px-2.5 py-1 text-[11px] font-bold text-brand-text backdrop-blur">
-              넥스트퀀트 프로그램 화면
-            </div>
+            {videoEmbed ? (
+              <div className="relative aspect-video w-full">
+                <iframe
+                  src={videoEmbed}
+                  title="넥스트퀀트 광고영상"
+                  className="absolute inset-0 h-full w-full"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                />
+              </div>
+            ) : (
+              <div className="flex aspect-video w-full flex-col items-center justify-center px-6 text-center">
+                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/5 text-brand-primary">
+                  <svg
+                    width="30"
+                    height="30"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <polygon points="6 4 20 12 6 20 6 4" />
+                  </svg>
+                </div>
+                <h2 className="mt-5 text-xl font-extrabold text-white">
+                  광고영상 준비 중입니다
+                </h2>
+                <p className="mt-2 max-w-md text-sm text-white/60">
+                  넥스트퀀트를 소개하는 영상을 준비하고 있습니다. 곧 이곳에서
+                  만나보실 수 있습니다.
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -505,19 +537,19 @@ function ProcessSection() {
       n: 1,
       t: "다운로드 & 설치",
       d: "Windows 인스톨러로 1분 설치하고, SMS 인증을 거치면 7일 체험판이 바로 발급됩니다.",
-      img: "https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?auto=format&fit=crop&w=900&q=80",
+      img: "https://images.unsplash.com/photo-1640340434855-6084b1f4901c?auto=format&fit=crop&w=900&q=80",
     },
     {
       n: 2,
       t: "거래소 API 연결",
       d: "바이낸스 선물 API 키를 등록합니다. 출금 권한은 부여하지 않으셔도 됩니다.",
-      img: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&w=900&q=80",
+      img: "https://images.unsplash.com/photo-1621761191319-c6fb62004040?auto=format&fit=crop&w=900&q=80",
     },
     {
       n: 3,
       t: "전략 선택 & START",
       d: "전략을 선택하고 슬라이더로 본인 성향에 맞게 조정하신 뒤 START 버튼만 눌러주세요.",
-      img: "https://images.unsplash.com/photo-1554260570-9140fd3b7614?auto=format&fit=crop&w=900&q=80",
+      img: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=900&q=80",
     },
   ];
   return (
@@ -625,15 +657,28 @@ function CtaSection() {
             <div className="flex flex-col gap-3 lg:items-end">
               <Link
                 href="/guide"
-                className="btn-3d inline-flex w-full items-center justify-center gap-2 rounded-lg bg-brand-primary px-8 py-4 text-base font-bold text-white shadow-glow transition-all hover:bg-brand-primaryDim lg:w-auto"
+                className="btn-3d group inline-flex w-full items-center justify-center gap-2.5 rounded-lg bg-brand-primary px-8 py-4 text-base font-extrabold text-white shadow-glow transition-all hover:bg-brand-primaryDim lg:w-auto"
               >
-                무료체험 다운로드
-              </Link>
-              <Link
-                href="/program"
-                className="btn-outline-light w-full lg:w-auto"
-              >
-                프로그램 자세히 보기
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white/70" />
+                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-white" />
+                </span>
+                무료 다운로드
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="transition-transform group-hover:translate-y-0.5"
+                >
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
               </Link>
             </div>
           </div>

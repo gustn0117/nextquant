@@ -5,7 +5,6 @@ const NAV_GROUPS = [
     title: "프로덕트",
     items: [
       { label: "프로그램 소개", href: "/program" },
-      { label: "실시간 성과", href: "/live" },
       { label: "수익인증", href: "/performance" },
       { label: "이용 방법", href: "/guide" },
     ],

@@ -76,21 +76,21 @@ export default function SettingsTab({
         </label>
       </div>
 
-      {/* 실시간 성과 (유튜브) */}
+      {/* 메인 광고영상 */}
       <div className="mt-6 rounded-xl border border-brand-line bg-white p-6 shadow-soft md:p-8">
         <h3 className="text-lg font-extrabold text-brand-text">
-          실시간 성과 (유튜브 라이브)
+          메인 광고영상
         </h3>
         <p className="mt-1.5 text-sm text-brand-muted">
-          유튜브 라이브 URL을 입력하면 ‘실시간 성과’ 페이지에 영상이 바로
-          임베드됩니다. 비워두면 ‘준비 중’으로 표시됩니다.
+          유튜브 영상 URL을 입력하면 메인 페이지 상단에 광고영상이 임베드됩니다.
+          비워두면 안내 화면이 표시됩니다.
         </p>
         <label className="mt-5 flex flex-col gap-2">
           <span className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.16em] text-brand-muted">
             <span className="text-[#FF0000]">
               <YoutubeIcon />
             </span>
-            유튜브 라이브 URL
+            광고영상 URL
           </span>
           <input
             type="url"
