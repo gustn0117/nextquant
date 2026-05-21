@@ -5,10 +5,9 @@ import { Reveal, Tilt, Magnetic, NetworkCanvas } from "@/components/Fx";
 
 export const dynamic = "force-dynamic";
 
-const HERO_BG =
-  "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&w=1800&q=80";
+const HERO_BG = "/hero-crypto.jpg";
 const SOLUTION_IMG =
-  "https://images.unsplash.com/photo-1518546305927-5a555bb7020d?auto=format&fit=crop&w=1400&q=80";
+  "https://images.unsplash.com/photo-1640340434855-6084b1f4901c?auto=format&fit=crop&w=1400&q=80";
 
 export default async function HomePage() {
   let videoEmbed: string | null = null;
@@ -22,6 +21,7 @@ export default async function HomePage() {
   return (
     <>
       <Hero videoEmbed={videoEmbed} />
+      <CoinMarquee />
       <ExchangeSection />
       <ProblemSection />
       <SolutionBento />
@@ -29,6 +29,57 @@ export default async function HomePage() {
       <ProcessSection />
       <CtaSection />
     </>
+  );
+}
+
+/* ──────────────────────────────────────────────────── */
+/* CoinMarquee — 암호화폐 심볼 무한 흐름 띠              */
+/* ──────────────────────────────────────────────────── */
+
+const COINS: { sym: string; color: string }[] = [
+  { sym: "BTC", color: "#F7931A" },
+  { sym: "ETH", color: "#627EEA" },
+  { sym: "SOL", color: "#14F195" },
+  { sym: "XRP", color: "#23292F" },
+  { sym: "BNB", color: "#F0B90B" },
+  { sym: "ADA", color: "#0033AD" },
+  { sym: "DOGE", color: "#C2A633" },
+  { sym: "AVAX", color: "#E84142" },
+  { sym: "LINK", color: "#2A5ADA" },
+  { sym: "DOT", color: "#E6007A" },
+  { sym: "TRX", color: "#EF0027" },
+  { sym: "MATIC", color: "#8247E5" },
+];
+
+function CoinMarquee() {
+  const row = [...COINS, ...COINS, ...COINS];
+  return (
+    <section
+      className="relative overflow-hidden border-b border-white/5 py-6"
+      style={{ background: "var(--ink)" }}
+    >
+      <div className="dot-grid-dark pointer-events-none absolute inset-0 opacity-60" />
+      <div className="marquee relative">
+        <div className="marquee-track gap-8 px-4">
+          {row.map((c, i) => (
+            <span
+              key={i}
+              className="group flex shrink-0 items-center gap-2.5 text-lg font-extrabold tracking-tight text-white/45 transition-colors hover:text-white"
+            >
+              <span
+                className="flex h-8 w-8 items-center justify-center rounded-full text-[10px] font-black text-white shadow-[0_0_18px_-4px_rgba(0,183,131,0.6)]"
+                style={{ background: c.color }}
+              >
+                {c.sym.slice(0, 1)}
+              </span>
+              {c.sym}
+              <span className="text-white/25">/</span>
+              <span className="text-white/30">USDT</span>
+            </span>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -52,7 +103,7 @@ function Hero({ videoEmbed }: { videoEmbed: string | null }) {
       />
       <div className="dot-grid-dark pointer-events-none absolute inset-0 -z-10" />
       {/* 네트워크 파티클 캔버스 */}
-      <NetworkCanvas className="absolute inset-0 -z-10 opacity-70" />
+      <NetworkCanvas className="absolute inset-0 -z-10 opacity-95" />
       {/* 은은한 글로우 오브 (장식) */}
       <div
         className="pointer-events-none absolute -left-32 top-10 -z-10 h-80 w-80 rounded-full opacity-50 blur-3xl animate-float"
@@ -130,6 +181,30 @@ function Hero({ videoEmbed }: { videoEmbed: string | null }) {
 
         {/* 광고 영상 */}
         <div className="fade-up fade-up-4 relative mx-auto mt-16 max-w-5xl">
+          {/* 떠다니는 장식 배지 */}
+          <div className="card-dark animate-float absolute -left-5 top-8 z-10 hidden items-center gap-2 px-3.5 py-2 text-xs font-bold text-white shadow-darkDepth lg:flex">
+            <span className="live-dot" /> BINANCE FUTURES
+          </div>
+          <div
+            className="card-dark animate-float-slow absolute -right-5 bottom-10 z-10 hidden items-center gap-2 px-3.5 py-2 text-xs font-bold text-white shadow-darkDepth lg:flex"
+            style={{ animationDelay: "1.4s" }}
+          >
+            <svg
+              width="13"
+              height="13"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.6"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="text-brand-primary"
+            >
+              <path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z" />
+            </svg>
+            QUANT ENGINE · 24/7
+          </div>
+
           <div className="card-dark-elevated relative overflow-hidden">
             <CornerMarkerDark />
             {videoEmbed ? (
