@@ -1,20 +1,13 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { NetworkCanvas } from "@/components/Fx";
+import { ArtOrderbook, ArtRisk, ArtDashboard } from "@/components/Art";
 
 export const metadata: Metadata = {
   title: "프로그램 소개 | 넥스트퀀트 NEXT QUANT",
   description:
     "백테스팅 데이터로 검증된 강력한 시스템 트레이딩 엔진. 정밀한 마켓 데이터 분석, 철저한 리스크 컨트롤, 직관적인 대시보드를 제공합니다.",
 };
-
-const HERO_BG =
-  "https://images.unsplash.com/photo-1640340434855-6084b1f4901c?auto=format&fit=crop&w=1800&q=80";
-const ORDERBOOK_IMG =
-  "https://images.unsplash.com/photo-1591696205602-2f950c417cb9?auto=format&fit=crop&w=1200&q=80";
-const RISK_IMG =
-  "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?auto=format&fit=crop&w=1200&q=80";
-const DASHBOARD_IMG =
-  "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80";
 
 export default function ProgramPage() {
   return (
@@ -34,22 +27,16 @@ export default function ProgramPage() {
 function Hero() {
   return (
     <section className="relative isolate overflow-hidden border-b border-white/5">
-      <img
-        src={HERO_BG}
-        alt=""
-        aria-hidden
-        className="absolute inset-0 -z-20 h-full w-full object-cover"
-        loading="eager"
-      />
       <div
-        className="absolute inset-0 -z-10"
-        style={{ background: "rgba(8,15,30,0.86)" }}
+        className="absolute inset-0 -z-20"
+        style={{ background: "var(--ink)" }}
       />
       <div className="dot-grid-dark pointer-events-none absolute inset-0 -z-10" />
+      <NetworkCanvas className="absolute inset-0 -z-10 opacity-80" />
       <div
         className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-32"
         style={{
-          background: "linear-gradient(0deg, rgba(8,15,30,0.95), transparent)",
+          background: "linear-gradient(0deg, rgba(22,24,29,0.95), transparent)",
         }}
       />
 
@@ -126,7 +113,7 @@ function CoreFeatures() {
         "유동성 / 슬리피지 사전 점검",
         "변동성 구간 자동 인식",
       ],
-      img: ORDERBOOK_IMG,
+      Art: ArtOrderbook,
       badge: "1초당 2,600+ 틱 처리",
     },
     {
@@ -139,7 +126,7 @@ function CoreFeatures() {
         "MDD 기준 자동 손절 / 분할 진입",
         "마진 비율 단계별 알림",
       ],
-      img: RISK_IMG,
+      Art: ArtRisk,
       badge: "위험 신호 0.18s 내 차단",
     },
     {
@@ -152,7 +139,7 @@ function CoreFeatures() {
         "누적 수익률 / 승률 시각화",
         "전략별 ON/OFF 토글",
       ],
-      img: DASHBOARD_IMG,
+      Art: ArtDashboard,
       badge: "키보드 단축키 12종 지원",
     },
   ];
@@ -183,12 +170,7 @@ function CoreFeatures() {
               >
                 <div className="img-zoom relative overflow-hidden rounded-xl border border-brand-line bg-white shadow-depth">
                   <CornerMarker />
-                  <img
-                    src={f.img}
-                    alt={f.title}
-                    className="aspect-[5/4] w-full object-cover"
-                    loading="lazy"
-                  />
+                  <f.Art className="aspect-[5/4] w-full" />
                   <div className="absolute left-5 top-5 flex items-center gap-2">
                     <span className="rounded-md bg-white/95 px-2.5 py-1 text-[10px] font-extrabold tracking-[0.22em] text-brand-primary shadow-soft backdrop-blur">
                       {f.idx}

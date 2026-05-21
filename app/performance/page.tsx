@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { supabaseAdmin, type PerformancePost } from "@/lib/supabase";
+import { ArtMonitor } from "@/components/Art";
 
 export const metadata: Metadata = {
   title: "수익인증 | 넥스트퀀트 NEXT QUANT",
@@ -9,9 +10,6 @@ export const metadata: Metadata = {
 };
 
 export const dynamic = "force-dynamic";
-
-const COVER_IMG =
-  "https://images.unsplash.com/photo-1554260570-9140fd3b7614?auto=format&fit=crop&w=1400&q=80";
 
 export default async function PerformancePage() {
   let posts: PerformancePost[] = [];
@@ -62,21 +60,9 @@ function Hero({ hasContent }: { hasContent: boolean }) {
               </span>
             </div>
           </div>
-          <div className="img-zoom relative overflow-hidden rounded-xl border border-brand-line bg-white shadow-depth">
+          <div className="relative overflow-hidden rounded-xl border border-brand-line bg-white shadow-depth">
             <CornerMarker />
-            <img
-              src={COVER_IMG}
-              alt="수익 인증"
-              className="aspect-[5/4] w-full object-cover"
-              loading="eager"
-            />
-            <div
-              className="pointer-events-none absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(180deg, transparent 65%, rgba(0,0,0,0.3) 100%)",
-              }}
-            />
+            <ArtMonitor className="aspect-[5/4] w-full" />
             <div className="absolute bottom-5 left-5 inline-flex items-center gap-2 rounded-md bg-white/95 px-3 py-1.5 text-xs font-bold text-brand-text backdrop-blur">
               Profit Proof
             </div>

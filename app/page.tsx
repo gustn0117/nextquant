@@ -2,12 +2,16 @@ import Link from "next/link";
 import { supabaseAdmin, rowsToSettings } from "@/lib/supabase";
 import { toYoutubeEmbed } from "@/lib/youtube";
 import { Reveal, Tilt, Magnetic, NetworkCanvas } from "@/components/Fx";
+import {
+  ArtDashboard,
+  ArtInstall,
+  ArtApiKey,
+  ArtStrategy,
+} from "@/components/Art";
 
 export const dynamic = "force-dynamic";
 
 const HERO_BG = "/hero-crypto.jpg";
-const SOLUTION_IMG =
-  "https://images.unsplash.com/photo-1640340434855-6084b1f4901c?auto=format&fit=crop&w=1400&q=80";
 
 export default async function HomePage() {
   let videoEmbed: string | null = null;
@@ -558,21 +562,9 @@ function LivePreview() {
 
           <Reveal variant="right" delay={140}>
             <Tilt max={7} glare className="rounded-xl">
-              <div className="img-zoom relative overflow-hidden rounded-xl border border-brand-line bg-white shadow-depth">
+              <div className="relative overflow-hidden rounded-xl border border-brand-line bg-white shadow-depth">
                 <CornerMarkerDark />
-                <img
-                  src={SOLUTION_IMG}
-                  alt="대시보드 미리보기"
-                  className="aspect-[16/10] w-full object-cover"
-                  loading="lazy"
-                />
-                <div
-                  className="pointer-events-none absolute inset-0"
-                  style={{
-                    background:
-                      "linear-gradient(180deg, transparent 70%, rgba(0,0,0,0.3) 100%)",
-                  }}
-                />
+                <ArtDashboard className="aspect-[16/10] w-full" />
               </div>
             </Tilt>
           </Reveal>
@@ -592,19 +584,19 @@ function ProcessSection() {
       n: 1,
       t: "다운로드 & 설치",
       d: "Windows 인스톨러로 1분 설치하고, SMS 인증을 거치면 7일 체험판이 바로 발급됩니다.",
-      img: "https://images.unsplash.com/photo-1640340434855-6084b1f4901c?auto=format&fit=crop&w=900&q=80",
+      Art: ArtInstall,
     },
     {
       n: 2,
       t: "거래소 API 연결",
       d: "바이낸스 선물 API 키를 등록합니다. 출금 권한은 부여하지 않으셔도 됩니다.",
-      img: "https://images.unsplash.com/photo-1621761191319-c6fb62004040?auto=format&fit=crop&w=900&q=80",
+      Art: ArtApiKey,
     },
     {
       n: 3,
       t: "전략 선택 & START",
       d: "전략을 선택하고 슬라이더로 본인 성향에 맞게 조정하신 뒤 START 버튼만 눌러주세요.",
-      img: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=900&q=80",
+      Art: ArtStrategy,
     },
   ];
   return (
@@ -639,13 +631,8 @@ function ProcessSection() {
                   </div>
 
                   <Tilt max={6} glare className="rounded-xl">
-                    <div className="img-zoom relative overflow-hidden rounded-xl border border-brand-line bg-white shadow-soft">
-                      <img
-                        src={s.img}
-                        alt={s.t}
-                        className="aspect-[16/10] w-full object-cover"
-                        loading="lazy"
-                      />
+                    <div className="relative overflow-hidden rounded-xl border border-brand-line bg-white shadow-soft">
+                      <s.Art className="aspect-[16/10] w-full" />
                       <div className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-md bg-white/95 px-2.5 py-1 text-[11px] font-bold tracking-[0.18em] text-brand-primary shadow-soft backdrop-blur">
                         STEP {String(s.n).padStart(2, "0")}
                       </div>

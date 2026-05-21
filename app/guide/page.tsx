@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
 import { supabaseAdmin, rowsToSettings, type SiteSettings } from "@/lib/supabase";
+import {
+  ArtInstall,
+  ArtApiKey,
+  ArtStrategy,
+  ArtMonitor,
+} from "@/components/Art";
 
 export const metadata: Metadata = {
   title: "이용 방법 | 넥스트퀀트 NEXT QUANT",
@@ -9,14 +15,6 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-dynamic";
 
-const STEP_IMG_1 =
-  "https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?auto=format&fit=crop&w=1200&q=80";
-const STEP_IMG_2 =
-  "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&w=1200&q=80";
-const STEP_IMG_3 =
-  "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?auto=format&fit=crop&w=1200&q=80";
-const STEP_IMG_4 =
-  "https://images.unsplash.com/photo-1554260570-9140fd3b7614?auto=format&fit=crop&w=1200&q=80";
 
 export default async function GuidePage() {
   let settings: SiteSettings;
@@ -110,7 +108,7 @@ function StepGuide() {
         "SMS 인증으로 즉시 발급",
         "신용카드 등록 없이 7일 무료체험",
       ],
-      img: STEP_IMG_1,
+      Art: ArtInstall,
       time: "약 1분",
     },
     {
@@ -122,7 +120,7 @@ function StepGuide() {
         "IP 화이트리스트 설정 권장",
         "출금 권한 OFF · 거래 권한만 ON",
       ],
-      img: STEP_IMG_2,
+      Art: ArtApiKey,
       time: "약 2분",
     },
     {
@@ -134,7 +132,7 @@ function StepGuide() {
         "MDD · 익절 · 손절 기준 직접 조정",
         "1종목당 최대 사용 금액 설정",
       ],
-      img: STEP_IMG_3,
+      Art: ArtStrategy,
       time: "약 2분",
     },
     {
@@ -146,7 +144,7 @@ function StepGuide() {
         "거래 기록 자동 저장",
         "일별 손익 차트 제공",
       ],
-      img: STEP_IMG_4,
+      Art: ArtMonitor,
       time: "1초",
     },
   ];
@@ -182,12 +180,7 @@ function StepGuide() {
 
                   <div className="img-zoom relative overflow-hidden rounded-xl border border-brand-line bg-white shadow-depth">
                     <CornerMarker />
-                    <img
-                      src={s.img}
-                      alt={s.title}
-                      className="aspect-[5/4] w-full object-cover"
-                      loading="lazy"
-                    />
+                    <s.Art className="aspect-[5/4] w-full" />
                     <div className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-md bg-white/95 px-3 py-1.5 text-[11px] font-extrabold tracking-[0.22em] text-brand-primary shadow-soft backdrop-blur">
                       STEP {s.n}
                     </div>
