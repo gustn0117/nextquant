@@ -46,7 +46,7 @@ function Hero() {
           평일 10:00–18:00 안에 신속하게 답변드립니다.
         </p>
         <div className="fade-up fade-up-3 mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <a href="mailto:contact@nextquant.kr" className="btn-primary btn-3d">
+          <a href="mailto:contact@nextquant.kr" className="btn-primary">
             이메일 문의
           </a>
           <a href="#faq" className="btn-outline-light">

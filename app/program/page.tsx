@@ -1,6 +1,5 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { NetworkCanvas } from "@/components/Fx";
 import { ArtOrderbook, ArtRisk, ArtDashboard } from "@/components/Art";
 
 export const metadata: Metadata = {
@@ -32,7 +31,6 @@ function Hero() {
         style={{ background: "var(--ink)" }}
       />
       <div className="dot-grid-dark pointer-events-none absolute inset-0 -z-10" />
-      <NetworkCanvas className="absolute inset-0 -z-10 opacity-80" />
       <div
         className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-32"
         style={{
@@ -54,7 +52,7 @@ function Hero() {
         </p>
 
         <div className="fade-up fade-up-3 mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <Link href="/guide" className="btn-primary btn-3d">
+          <Link href="/guide" className="btn-primary">
             무료체험 다운로드
           </Link>
           <Link href="/performance" className="btn-outline-light">
@@ -431,7 +429,7 @@ function CtaBand() {
               무료체험으로 넥스트퀀트의 엔진을 직접 경험해보세요.
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <Link href="/guide" className="btn-primary btn-3d">
+              <Link href="/guide" className="btn-primary">
                 무료체험 다운로드
               </Link>
               <Link href="/performance" className="btn-ghost">

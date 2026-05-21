@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { supabaseAdmin, rowsToSettings } from "@/lib/supabase";
 import { toYoutubeEmbed } from "@/lib/youtube";
-import { Reveal, Tilt, Magnetic, NetworkCanvas } from "@/components/Fx";
+import { Reveal } from "@/components/Fx";
 import {
   ArtDashboard,
   ArtInstall,
@@ -54,17 +54,6 @@ function Hero({ videoEmbed }: { videoEmbed: string | null }) {
         style={{ background: "rgba(8,15,30,0.84)" }}
       />
       <div className="dot-grid-dark pointer-events-none absolute inset-0 -z-10" />
-      {/* 네트워크 파티클 캔버스 */}
-      <NetworkCanvas className="absolute inset-0 -z-10 opacity-95" />
-      {/* 은은한 글로우 오브 (장식) */}
-      <div
-        className="pointer-events-none absolute -left-32 top-10 -z-10 h-80 w-80 rounded-full opacity-50 blur-3xl animate-float"
-        style={{ background: "rgba(169,45,35,0.28)" }}
-      />
-      <div
-        className="pointer-events-none absolute -right-24 top-1/3 -z-10 h-72 w-72 rounded-full opacity-40 blur-3xl animate-float-slow"
-        style={{ background: "rgba(169,45,35,0.13)" }}
-      />
       <div
         className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-40"
         style={{
@@ -93,64 +82,34 @@ function Hero({ videoEmbed }: { videoEmbed: string | null }) {
             시스템 트레이딩 프로그램입니다.
           </p>
 
-          {/* 무료 다운로드 — 단일 강조 버튼 (자석 + 글로우 펄스) */}
+          {/* 무료 다운로드 — 단일 강조 버튼 */}
           <div className="fade-up fade-up-3 mt-11 flex justify-center">
-            <Magnetic strength={0.4}>
-              <Link
-                href="/guide"
-                className="btn-3d animate-glow group relative inline-flex items-center gap-2.5 rounded-xl bg-brand-primary px-10 py-5 text-lg font-extrabold text-white shadow-glow transition-all hover:bg-brand-primaryDim hover:shadow-[0_24px_60px_-16px_rgba(169,45,35,0.65)]"
+            <Link
+              href="/guide"
+              className="group inline-flex items-center gap-2.5 bg-brand-primary px-10 py-5 text-lg font-extrabold text-white shadow-soft transition-colors hover:bg-brand-primaryDim"
+            >
+              무료 다운로드
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="transition-transform group-hover:translate-y-0.5"
               >
-                <span className="relative flex h-2.5 w-2.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white/70" />
-                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-white" />
-                </span>
-                무료 다운로드
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="transition-transform group-hover:translate-y-0.5"
-                >
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                  <polyline points="7 10 12 15 17 10" />
-                  <line x1="12" y1="15" x2="12" y2="3" />
-                </svg>
-              </Link>
-            </Magnetic>
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+            </Link>
           </div>
         </div>
 
         {/* 광고 영상 */}
         <div className="fade-up fade-up-4 relative mx-auto mt-16 max-w-5xl">
-          {/* 떠다니는 장식 배지 */}
-          <div className="card-dark animate-float absolute -left-5 top-8 z-10 hidden items-center gap-2 px-3.5 py-2 text-xs font-bold text-white shadow-darkDepth lg:flex">
-            <span className="live-dot" /> BINANCE FUTURES
-          </div>
-          <div
-            className="card-dark animate-float-slow absolute -right-5 bottom-10 z-10 hidden items-center gap-2 px-3.5 py-2 text-xs font-bold text-white shadow-darkDepth lg:flex"
-            style={{ animationDelay: "1.4s" }}
-          >
-            <svg
-              width="13"
-              height="13"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.6"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="text-brand-primary"
-            >
-              <path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z" />
-            </svg>
-            QUANT ENGINE · 24/7
-          </div>
-
           <div className="card-dark-elevated relative overflow-hidden">
             <CornerMarkerDark />
             {videoEmbed ? (
@@ -209,35 +168,29 @@ function ExchangeSection() {
           </h2>
         </Reveal>
 
-        <Reveal
-          variant="scale"
-          delay={120}
-          className="mx-auto mt-8 max-w-md"
-        >
-          <Tilt max={11} glare className="rounded-xl">
-            <div className="sheen w-full rounded-xl border border-brand-line bg-white p-8 shadow-card">
-              <div className="flex flex-col items-center">
-                <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-[#0B0E11]">
-                  <BinanceLogo />
-                </div>
-                <div className="mt-4 text-xl font-extrabold tracking-tight text-brand-text">
-                  Binance Futures
-                </div>
-                <div className="mt-1 text-sm font-semibold text-brand-muted">
-                  바이낸스 선물
-                </div>
+        <Reveal variant="scale" delay={120} className="mx-auto mt-8 max-w-md">
+          <div className="w-full rounded-xl border border-brand-line bg-white p-8 shadow-card">
+            <div className="flex flex-col items-center">
+              <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-[#0B0E11]">
+                <BinanceLogo />
               </div>
-
-              <div className="mt-6 space-y-2 border-t border-brand-lineSoft pt-5 text-sm">
-                <p className="flex items-center justify-center gap-2 text-brand-subText">
-                  <CheckMiniGreen /> 바이낸스 선물 API Key 한 번 등록
-                </p>
-                <p className="flex items-center justify-center gap-2 text-brand-subText">
-                  <CheckMiniGreen /> 출금 권한은 절대 부여하지 않습니다
-                </p>
+              <div className="mt-4 text-xl font-extrabold tracking-tight text-brand-text">
+                Binance Futures
+              </div>
+              <div className="mt-1 text-sm font-semibold text-brand-muted">
+                바이낸스 선물
               </div>
             </div>
-          </Tilt>
+
+            <div className="mt-6 space-y-2 border-t border-brand-lineSoft pt-5 text-sm">
+              <p className="flex items-center justify-center gap-2 text-brand-subText">
+                <CheckMiniGreen /> 바이낸스 선물 API Key 한 번 등록
+              </p>
+              <p className="flex items-center justify-center gap-2 text-brand-subText">
+                <CheckMiniGreen /> 출금 권한은 절대 부여하지 않습니다
+              </p>
+            </div>
+          </div>
         </Reveal>
       </div>
     </section>
@@ -289,7 +242,7 @@ function ProblemSection() {
           </Reveal>
 
           <Reveal variant="right" delay={120} className="h-full">
-            <div className="lift sheen relative h-full overflow-hidden rounded-xl border border-brand-primary/30 bg-white p-8 shadow-soft">
+            <div className="lift relative h-full overflow-hidden rounded-xl border border-brand-primary/30 bg-white p-8 shadow-soft">
               <div className="topline" />
               <div className="relative">
                 <div className="inline-flex items-center gap-2 rounded-md border border-brand-primary/40 bg-brand-primarySoft px-3 py-1 text-xs font-bold text-brand-primary">
@@ -341,71 +294,65 @@ function SolutionBento() {
         <div className="mt-14 grid grid-cols-1 gap-4 md:grid-cols-3 md:grid-rows-2">
           {/* Big 1 — Market */}
           <Reveal variant="scale" className="md:col-span-2 md:row-span-2">
-            <Tilt max={5} glare className="h-full rounded-xl">
-              <div className="sheen relative h-full overflow-hidden rounded-xl border border-brand-line bg-white p-7">
-                <div className="topline" />
-                <span className="text-[11px] font-bold tracking-[0.22em] text-brand-primary">
-                  01 · MARKET
-                </span>
-                <h3 className="mt-3 text-2xl font-extrabold tracking-tight text-brand-text md:text-3xl">
-                  시장 상황을 한눈에 보여드립니다.
-                </h3>
-                <p className="mt-4 max-w-xl text-sm text-brand-muted">
-                  공포탐욕지수, 비트코인 도미넌스, 알트시즌 지수, 24시간
-                  시가총액, 펀딩비, 미결제약정, 24시간 거래량, 스테이블코인
-                  도미넌스까지 대시보드 한 화면에서 확인하실 수 있습니다.
-                </p>
-                <IndicatorGrid />
-              </div>
-            </Tilt>
+            <div className="relative h-full overflow-hidden rounded-xl border border-brand-line bg-white p-7">
+              <div className="topline" />
+              <span className="text-[11px] font-bold tracking-[0.22em] text-brand-primary">
+                01 · MARKET
+              </span>
+              <h3 className="mt-3 text-2xl font-extrabold tracking-tight text-brand-text md:text-3xl">
+                시장 상황을 한눈에 보여드립니다.
+              </h3>
+              <p className="mt-4 max-w-xl text-sm text-brand-muted">
+                공포탐욕지수, 비트코인 도미넌스, 알트시즌 지수, 24시간
+                시가총액, 펀딩비, 미결제약정, 24시간 거래량, 스테이블코인
+                도미넌스까지 대시보드 한 화면에서 확인하실 수 있습니다.
+              </p>
+              <IndicatorGrid />
+            </div>
           </Reveal>
 
           {/* Right top — Risk */}
           <Reveal variant="scale" delay={120}>
-            <Tilt max={8} glare className="h-full rounded-xl">
-              <div className="sheen relative h-full overflow-hidden rounded-xl border border-brand-line bg-white p-6">
-                <div className="topline" />
-                <span className="text-[11px] font-bold tracking-[0.22em] text-brand-primary">
-                  02 · RISK
-                </span>
-                <h3 className="mt-2.5 text-lg font-extrabold text-brand-text">
-                  MDD 기반 자동 손절
-                </h3>
-                <p className="mt-2 text-sm text-brand-muted">
-                  사전 설정한 최대 낙폭에 닿으면 100% 자동 손절. 감정이 끼어들
-                  틈을 차단합니다.
-                </p>
-                <RiskGaugeMini />
-              </div>
-            </Tilt>
+            <div className="relative h-full overflow-hidden rounded-xl border border-brand-line bg-white p-6">
+              <div className="topline" />
+              <span className="text-[11px] font-bold tracking-[0.22em] text-brand-primary">
+                02 · RISK
+              </span>
+              <h3 className="mt-2.5 text-lg font-extrabold text-brand-text">
+                MDD 기반 자동 손절
+              </h3>
+              <p className="mt-2 text-sm text-brand-muted">
+                사전 설정한 최대 낙폭에 닿으면 100% 자동 손절. 감정이 끼어들
+                틈을 차단합니다.
+              </p>
+              <RiskGaugeMini />
+            </div>
           </Reveal>
 
           {/* Right bottom — Execution */}
           <Reveal variant="scale" delay={240}>
-            <Tilt max={8} glare className="h-full rounded-xl">
-              <div className="sheen relative h-full overflow-hidden rounded-xl border border-brand-line bg-white p-6">
-                <div className="topline" />
-                <span className="text-[11px] font-bold tracking-[0.22em] text-brand-primary">
-                  03 · EXECUTION
-                </span>
-                <h3 className="mt-2.5 text-lg font-extrabold text-brand-text">
-                  분할 진입 / 청산
-                </h3>
-                <p className="mt-2 text-sm text-brand-muted">
-                  한 번에 다 사지 않습니다. 분할 비율을 조절하여 시장 충격을
-                  최소화 합니다.
-                </p>
-                <div className="mt-4 flex items-end gap-1.5">
-                  {[14, 22, 30, 38, 28, 44, 36, 52, 44, 60].map((h, i) => (
-                    <span
-                      key={i}
-                      className="w-2 rounded-sm bg-brand-primary"
-                      style={{ height: `${h}px`, opacity: 0.35 + i * 0.06 }}
-                    />
-                  ))}
-                </div>
+            <div className="relative h-full overflow-hidden rounded-xl border border-brand-line bg-white p-6">
+              <div className="topline" />
+              <span className="text-[11px] font-bold tracking-[0.22em] text-brand-primary">
+                03 · EXECUTION
+              </span>
+              <h3 className="mt-2.5 text-lg font-extrabold text-brand-text">
+                분할 진입 / 청산
+              </h3>
+              <p className="mt-2 text-sm text-brand-muted">
+                한 번에 다 사지 않습니다. 분할 비율을 조절하여 시장 충격을
+                최소화 합니다.
+              </p>
+              <div className="mt-4 flex items-end gap-1.5">
+                {[14, 22, 30, 38, 28, 44, 36, 52, 44, 60].map((h, i) => (
+                  <span
+                    key={i}
+                    className="w-2 rounded-sm bg-brand-primary"
+                    style={{ height: `${h}px`, opacity: 0.35 + i * 0.06 }}
+                  />
+                ))}
               </div>
-            </Tilt>
+            </div>
           </Reveal>
         </div>
       </div>
@@ -535,12 +482,10 @@ function LivePreview() {
           </Reveal>
 
           <Reveal variant="right" delay={140}>
-            <Tilt max={7} glare className="rounded-xl">
-              <div className="relative overflow-hidden rounded-xl border border-brand-line bg-white shadow-depth">
-                <CornerMarkerDark />
-                <ArtDashboard className="aspect-[16/10] w-full" />
-              </div>
-            </Tilt>
+            <div className="relative overflow-hidden rounded-xl border border-brand-line bg-white shadow-depth">
+              <CornerMarkerDark />
+              <ArtDashboard className="aspect-[16/10] w-full" />
+            </div>
           </Reveal>
         </div>
       </div>
@@ -601,14 +546,12 @@ function ProcessSection() {
                     {s.n}
                   </div>
 
-                  <Tilt max={6} glare className="rounded-xl">
-                    <div className="relative overflow-hidden rounded-xl border border-brand-line bg-white shadow-soft">
-                      <s.Art className="aspect-[16/10] w-full" />
-                      <div className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-md bg-white/95 px-2.5 py-1 text-[11px] font-bold tracking-[0.18em] text-brand-primary shadow-soft backdrop-blur">
-                        STEP {String(s.n).padStart(2, "0")}
-                      </div>
+                  <div className="relative overflow-hidden rounded-xl border border-brand-line bg-white shadow-soft">
+                    <s.Art className="aspect-[16/10] w-full" />
+                    <div className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-md bg-white/95 px-2.5 py-1 text-[11px] font-bold tracking-[0.18em] text-brand-primary shadow-soft backdrop-blur">
+                      STEP {String(s.n).padStart(2, "0")}
                     </div>
-                  </Tilt>
+                  </div>
 
                   <div>
                     <div className="num-display text-[68px] font-black leading-none text-brand-text/10 md:text-[96px]">
@@ -640,68 +583,60 @@ function CtaSection() {
     <section className="section-padding">
       <div className="container-x">
         <Reveal variant="scale">
-        <div
-          className="sheen relative isolate overflow-hidden rounded-xl border border-white/5 p-10 md:p-16"
-          style={{ background: "var(--ink)" }}
-        >
-          <div className="line-grid-dark pointer-events-none absolute inset-0" />
-          <NetworkCanvas
-            className="absolute inset-0 opacity-50"
-            color="169,45,35"
-          />
+          <div
+            className="relative isolate overflow-hidden rounded-xl border border-white/5 p-10 md:p-16"
+            style={{ background: "var(--ink)" }}
+          >
+            <div className="line-grid-dark pointer-events-none absolute inset-0" />
 
-          <div className="relative grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-center">
-            <div>
-              <h2 className="mt-4 text-4xl font-extrabold tracking-tightest text-white md:text-6xl">
-                감정 대신 데이터로,
-                <br />
-                <span className="text-brand-primary">지금</span> 시작하세요.
-              </h2>
-              <p className="mt-5 max-w-xl text-base text-white/85 md:text-lg">
-                1분 설치와 SMS 인증으로 24시간 자동매매를 바로 경험해보세요.
-              </p>
-              <div className="mt-6 flex flex-wrap gap-4 text-xs text-white/65">
-                <span className="inline-flex items-center gap-1.5">
-                  <CheckMini /> 7일 무료
-                </span>
-                <span className="inline-flex items-center gap-1.5">
-                  <CheckMini /> SMS 인증으로 발급
-                </span>
-                <span className="inline-flex items-center gap-1.5">
-                  <CheckMini /> 자동 결제 없음
-                </span>
+            <div className="relative grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-center">
+              <div>
+                <h2 className="mt-4 text-4xl font-extrabold tracking-tightest text-white md:text-6xl">
+                  감정 대신 데이터로,
+                  <br />
+                  <span className="text-brand-primary">지금</span> 시작하세요.
+                </h2>
+                <p className="mt-5 max-w-xl text-base text-white/85 md:text-lg">
+                  1분 설치와 SMS 인증으로 24시간 자동매매를 바로 경험해보세요.
+                </p>
+                <div className="mt-6 flex flex-wrap gap-4 text-xs text-white/65">
+                  <span className="inline-flex items-center gap-1.5">
+                    <CheckMini /> 7일 무료
+                  </span>
+                  <span className="inline-flex items-center gap-1.5">
+                    <CheckMini /> SMS 인증으로 발급
+                  </span>
+                  <span className="inline-flex items-center gap-1.5">
+                    <CheckMini /> 자동 결제 없음
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-3 lg:items-end">
+                <Link
+                  href="/guide"
+                  className="group inline-flex w-full items-center justify-center gap-2.5 bg-brand-primary px-8 py-4 text-base font-extrabold text-white shadow-soft transition-colors hover:bg-brand-primaryDim lg:w-auto"
+                >
+                  무료 다운로드
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="transition-transform group-hover:translate-y-0.5"
+                  >
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                </Link>
               </div>
             </div>
-
-            <div className="flex flex-col gap-3 lg:items-end">
-              <Link
-                href="/guide"
-                className="btn-3d group inline-flex w-full items-center justify-center gap-2.5 rounded-lg bg-brand-primary px-8 py-4 text-base font-extrabold text-white shadow-glow transition-all hover:bg-brand-primaryDim lg:w-auto"
-              >
-                <span className="relative flex h-2.5 w-2.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white/70" />
-                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-white" />
-                </span>
-                무료 다운로드
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="transition-transform group-hover:translate-y-0.5"
-                >
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                  <polyline points="7 10 12 15 17 10" />
-                  <line x1="12" y1="15" x2="12" y2="3" />
-                </svg>
-              </Link>
-            </div>
           </div>
-        </div>
         </Reveal>
       </div>
     </section>

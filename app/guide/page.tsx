@@ -51,7 +51,7 @@ function Hero() {
             준비했습니다.
           </p>
           <div className="fade-up fade-up-3 mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <a href="#download" className="btn-primary btn-3d">
+            <a href="#download" className="btn-primary">
               지금 다운로드
             </a>
             <a href="#steps" className="btn-ghost">
