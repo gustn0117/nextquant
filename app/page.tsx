@@ -21,7 +21,6 @@ export default async function HomePage() {
   return (
     <>
       <Hero videoEmbed={videoEmbed} />
-      <CoinMarquee />
       <ExchangeSection />
       <ProblemSection />
       <SolutionBento />
@@ -29,57 +28,6 @@ export default async function HomePage() {
       <ProcessSection />
       <CtaSection />
     </>
-  );
-}
-
-/* ──────────────────────────────────────────────────── */
-/* CoinMarquee — 암호화폐 심볼 무한 흐름 띠              */
-/* ──────────────────────────────────────────────────── */
-
-const COINS: { sym: string; color: string }[] = [
-  { sym: "BTC", color: "#F7931A" },
-  { sym: "ETH", color: "#627EEA" },
-  { sym: "SOL", color: "#14F195" },
-  { sym: "XRP", color: "#23292F" },
-  { sym: "BNB", color: "#F0B90B" },
-  { sym: "ADA", color: "#0033AD" },
-  { sym: "DOGE", color: "#C2A633" },
-  { sym: "AVAX", color: "#E84142" },
-  { sym: "LINK", color: "#2A5ADA" },
-  { sym: "DOT", color: "#E6007A" },
-  { sym: "TRX", color: "#EF0027" },
-  { sym: "MATIC", color: "#8247E5" },
-];
-
-function CoinMarquee() {
-  const row = [...COINS, ...COINS, ...COINS];
-  return (
-    <section
-      className="relative overflow-hidden border-b border-white/5 py-6"
-      style={{ background: "var(--ink)" }}
-    >
-      <div className="dot-grid-dark pointer-events-none absolute inset-0 opacity-60" />
-      <div className="marquee relative">
-        <div className="marquee-track gap-8 px-4">
-          {row.map((c, i) => (
-            <span
-              key={i}
-              className="group flex shrink-0 items-center gap-2.5 text-lg font-extrabold tracking-tight text-white/45 transition-colors hover:text-white"
-            >
-              <span
-                className="flex h-8 w-8 items-center justify-center rounded-full text-[10px] font-black text-white shadow-[0_0_18px_-4px_rgba(169,45,35,0.55)]"
-                style={{ background: c.color }}
-              >
-                {c.sym.slice(0, 1)}
-              </span>
-              {c.sym}
-              <span className="text-white/25">/</span>
-              <span className="text-white/30">USDT</span>
-            </span>
-          ))}
-        </div>
-      </div>
-    </section>
   );
 }
 
