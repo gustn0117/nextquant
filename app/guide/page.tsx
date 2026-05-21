@@ -43,14 +43,8 @@ function Hero() {
       <div className="dot-grid-light pointer-events-none absolute inset-0 opacity-90" />
       <div className="container-x relative section-padding pt-24 md:pt-32">
         <div className="mx-auto max-w-3xl text-center">
-          <div className="fade-up flex items-center justify-center gap-3 text-xs font-bold uppercase tracking-[0.22em] text-brand-primary">
-            <span className="h-px w-8 bg-brand-primary/40" />
-            HOW TO START
-            <span className="h-px w-8 bg-brand-primary/40" />
-          </div>
-          <h1 className="fade-up fade-up-1 mt-5 text-5xl font-extrabold tracking-tightest md:text-7xl">
-            <span className="text-brand-primary">5분</span>이면 충분합니다
-            <span className="text-brand-primary">.</span>
+          <h1 className="fade-up text-4xl font-extrabold tracking-tightest md:text-6xl">
+            설치부터 첫 매매까지
           </h1>
           <p className="fade-up fade-up-2 mt-7 section-sub">
             다운로드부터 첫 자동매매까지, 누구나 따라할 수 있는 단계별 가이드를
@@ -153,9 +147,6 @@ function StepGuide() {
     <section id="steps" className="section-padding">
       <div className="container-x">
         <div className="mx-auto max-w-3xl text-center">
-          <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-primary">
-            Step-by-Step
-          </span>
           <h2 className="mt-4 section-title">4단계 시작 가이드</h2>
           <p className="mt-5 section-sub">
             각 단계는 명확합니다. 막힐 일은 없습니다.
@@ -223,9 +214,6 @@ function RequirementBox() {
     <section className="border-y border-brand-line bg-brand-subtle section-padding">
       <div className="container-x">
         <div className="mx-auto max-w-3xl text-center">
-          <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-primary">
-            Requirements
-          </span>
           <h2 className="mt-4 section-title">시스템 요구사항</h2>
           <p className="mt-5 section-sub">
             넥스트퀀트는 Windows 전용 프로그램입니다.
@@ -277,9 +265,6 @@ function Download({ settings }: { settings: SiteSettings }) {
       <div className="container-x relative">
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
           <div>
-            <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-primary">
-              Download
-            </span>
             <h3 className="mt-4 text-4xl font-extrabold tracking-tightest text-white md:text-6xl">
               지금 다운로드,
               <br />

@@ -35,11 +35,6 @@ function Hero() {
       />
 
       <div className="container-x relative pb-24 pt-32 text-center md:pb-28 md:pt-40">
-        <div className="fade-up flex items-center justify-center gap-3 text-[11px] font-bold uppercase tracking-[0.22em] text-white/55">
-          <span className="h-px w-8 bg-white/20" />
-          SUPPORT
-          <span className="h-px w-8 bg-white/20" />
-        </div>
         <h1 className="fade-up fade-up-1 mt-6 text-5xl font-extrabold tracking-tightest text-white md:text-7xl">
           궁금한 점,
           <br />
@@ -187,9 +182,6 @@ function FaqFull() {
     <section id="faq" className="bg-brand-subtle section-padding">
       <div className="container-x">
         <div className="mx-auto max-w-3xl text-center">
-          <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-primary">
-            FAQ
-          </span>
           <h2 className="mt-4 section-title">자주 묻는 질문</h2>
         </div>
 
@@ -237,9 +229,6 @@ function ContactSection() {
       <div className="container-x">
         <div className="mx-auto grid max-w-5xl gap-10 rounded-xl border border-brand-line bg-white p-8 shadow-card md:p-12 lg:grid-cols-[1fr_1.2fr]">
           <div>
-            <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-primary">
-              Contact
-            </span>
             <h2 className="mt-3 text-3xl font-extrabold tracking-tight md:text-4xl">
               아직 답을 못 찾으셨나요?
             </h2>

@@ -41,12 +41,6 @@ function Hero() {
       />
 
       <div className="container-x relative pb-24 pt-32 text-center md:pb-32 md:pt-40">
-        <div className="fade-up flex items-center justify-center gap-3 text-[11px] font-bold uppercase tracking-[0.22em] text-white/55">
-          <span className="h-px w-8 bg-white/20" />
-          PROGRAM OVERVIEW
-          <span className="h-px w-8 bg-white/20" />
-        </div>
-
         <h1 className="fade-up fade-up-1 mx-auto mt-7 max-w-4xl text-5xl font-extrabold tracking-tightest text-white md:text-7xl">
           백테스팅으로 검증된
           <br />
@@ -148,9 +142,6 @@ function CoreFeatures() {
     <section className="section-padding">
       <div className="container-x">
         <div className="mx-auto max-w-3xl text-center">
-          <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-primary">
-            Core Features
-          </span>
           <h2 className="mt-4 section-title">3가지 핵심 기술</h2>
           <p className="mt-5 section-sub">
             데이터 분석, 리스크 컨트롤, 사용자 경험. 트레이딩의 본질에
@@ -247,9 +238,6 @@ function Architecture() {
       <div className="container-x relative">
         <div className="grid gap-12 lg:grid-cols-[1fr_1.4fr] lg:items-start lg:gap-16">
           <div>
-            <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-primary">
-              Architecture
-            </span>
             <h2 className="mt-4 text-3xl font-extrabold tracking-tightest text-white md:text-5xl">
               4-Layer
               <br />
@@ -329,9 +317,6 @@ function CompareTable() {
     <section className="section-padding">
       <div className="container-x">
         <div className="mx-auto max-w-3xl text-center">
-          <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-primary">
-            Comparison
-          </span>
           <h2 className="mt-4 section-title">수동 매매 vs 넥스트퀀트</h2>
         </div>
 
@@ -408,9 +393,6 @@ function Security() {
     <section className="border-y border-brand-line bg-brand-subtle section-padding">
       <div className="container-x">
         <div className="mx-auto max-w-3xl text-center">
-          <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-primary">
-            Security
-          </span>
           <h2 className="mt-4 section-title">
             돈을 다루기에, <br />
             보안은 타협하지 않습니다.

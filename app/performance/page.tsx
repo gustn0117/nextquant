@@ -40,10 +40,6 @@ function Hero({ hasContent }: { hasContent: boolean }) {
       <div className="container-x relative section-padding pt-24 md:pt-32">
         <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_1fr]">
           <div>
-            <div className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.22em] text-brand-primary">
-              <span className="h-px w-8 bg-brand-primary/40" />
-              PROOF
-            </div>
             <h1 className="mt-5 text-4xl font-extrabold tracking-tightest md:text-6xl">
               가공 없이 공개하는
               <br />
@@ -93,9 +89,6 @@ function PostsGallery({ posts }: { posts: PerformancePost[] }) {
     <section className="border-b border-brand-line bg-white section-padding">
       <div className="container-x">
         <div className="max-w-2xl">
-          <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-primary">
-            Result Log
-          </span>
           <h2 className="mt-4 section-title">수익 인증 게시물</h2>
           <p className="mt-5 section-sub">
             프로그램 매매 내역과 실제 바이낸스 매매 내역을 함께 게시합니다.

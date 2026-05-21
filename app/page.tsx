@@ -80,12 +80,6 @@ function Hero({ videoEmbed }: { videoEmbed: string | null }) {
 
       <div className="container-x relative pb-28 pt-28 md:pb-36 md:pt-40">
         <div className="mx-auto max-w-4xl text-center">
-          <div className="fade-up flex items-center justify-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/55">
-            <span className="h-px w-8 bg-white/20" />
-            QUANT TRADING SYSTEM
-            <span className="h-px w-8 bg-white/20" />
-          </div>
-
           <h1 className="fade-up fade-up-1 mt-7 text-5xl font-extrabold tracking-tightest text-white md:text-7xl lg:text-[88px]">
             감정을 빼고,
             <br />
@@ -94,9 +88,9 @@ function Hero({ videoEmbed }: { videoEmbed: string | null }) {
           </h1>
 
           <p className="fade-up fade-up-2 mx-auto mt-7 max-w-2xl text-base font-medium text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.55)] md:text-xl">
-            시장의 변동성에 흔들리지 마세요. 데이터와 알고리즘이
+            바이낸스 선물에서 24시간 자동으로 매매하는
             <br className="hidden md:block" />
-            당신이 잠든 순간에도 정확한 타이밍에 진입하고 청산합니다.
+            시스템 트레이딩 프로그램입니다.
           </p>
 
           {/* 무료 다운로드 — 단일 강조 버튼 (자석 + 글로우 펄스) */}
@@ -210,9 +204,6 @@ function ExchangeSection() {
     <section className="border-b border-brand-line bg-white section-padding">
       <div className="container-x">
         <Reveal className="mx-auto flex max-w-md flex-col items-center text-center">
-          <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-primary">
-            Exchange
-          </span>
           <h2 className="mt-3 text-2xl font-extrabold tracking-tight text-brand-text md:text-3xl">
             연동 거래소
           </h2>
@@ -262,17 +253,10 @@ function ProblemSection() {
     <section className="border-b border-brand-line section-padding">
       <div className="container-x">
         <Reveal className="mx-auto max-w-3xl text-center">
-          <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-primary">
-            The Problem
-          </span>
-          <h2 className="mt-4 section-title">
-            개인 투자자가 늘 지는 이유,
-            <br />
-            대부분 <span className="accent-underline">‘사람’</span> 이라서입니다.
-          </h2>
+          <h2 className="section-title">수동 매매와 무엇이 다른가</h2>
           <p className="mt-5 section-sub">
-            감정, 시간, 경험. 셋 중 하나라도 부족하면 시장은 가차없습니다. 우리는
-            이 세 가지를 알고리즘으로 대체합니다.
+            감정, 시간, 일관성. 수동 매매에서 흔들리기 쉬운 부분을 정해진
+            규칙으로 대신합니다.
           </p>
         </Reveal>
 
@@ -346,18 +330,11 @@ function SolutionBento() {
       <div className="container-x">
         <Reveal className="grid gap-8 lg:grid-cols-[1fr_1.4fr] lg:items-end lg:gap-16">
           <div>
-            <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-primary">
-              Solution
-            </span>
-            <h2 className="mt-4 section-title">
-              데이터로 매매하고,
-              <br />
-              <span className="text-brand-muted">사람으로 살아갑니다.</span>
-            </h2>
+            <h2 className="section-title">프로그램이 하는 일</h2>
           </div>
           <p className="section-sub lg:max-w-md">
-            넥스트퀀트는 시장 데이터 확인, 리스크 관리, 주문 실행까지의 과정을
-            자동화합니다. 당신이 해야 할 일은 단 하나 ㅡ ‘START’ 버튼.
+            시장 데이터 확인, 리스크 관리, 주문 실행을 자동으로 처리합니다.
+            전략을 고르고 START 버튼을 누르면 됩니다.
           </p>
         </Reveal>
 
@@ -526,9 +503,6 @@ function LivePreview() {
       <div className="container-x">
         <div className="grid gap-12 lg:grid-cols-[1fr_1.3fr] lg:items-center lg:gap-16">
           <Reveal variant="left">
-            <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-primary">
-              Dashboard
-            </span>
             <h2 className="mt-4 section-title">
               한 화면에서
               <br />
@@ -603,9 +577,6 @@ function ProcessSection() {
     <section className="section-padding">
       <div className="container-x">
         <Reveal className="mx-auto max-w-3xl text-center">
-          <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-primary">
-            How it works
-          </span>
           <h2 className="mt-4 section-title">3단계, 5분이면 충분합니다</h2>
           <p className="mt-5 section-sub">
             복잡한 코딩이나 시장 분석 없이, 누구나 5분이면 시작할 수 있습니다.
@@ -681,9 +652,6 @@ function CtaSection() {
 
           <div className="relative grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-center">
             <div>
-              <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-primary">
-                Get started
-              </span>
               <h2 className="mt-4 text-4xl font-extrabold tracking-tightest text-white md:text-6xl">
                 감정 대신 데이터로,
                 <br />
