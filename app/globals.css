@@ -4,43 +4,57 @@
 
 :root {
   color-scheme: light;
-  --pri: #00b783;
-  --pri-dim: #008f66;
-  --pri-soft: #e6f8f2;
-  --acc: #3b82f6;
-  --text: #0f172a;
-  --sub-text: #334155;
-  --muted: #64748b;
-  --line: #e5e7eb;
-  --line-soft: #eef1f6;
-  --bg: #fafafb;
+  --pri: #a92d23;
+  --pri-dim: #8e241c;
+  --pri-soft: #fbecea;
+  --acc: #a92d23;
+  --text: #222222;
+  --sub-text: #444444;
+  --muted: #7b7b7b;
+  --line: #e5e5e5;
+  --line-soft: #efefef;
+  --bg: #ffffff;
   --surface: #ffffff;
-  --subtle: #f4f6fa;
-  --ink: #0b1426;
-  --ink-2: #131e36;
+  --subtle: #f6f6f7;
+  --ink: #16181d;
+  --ink-2: #202327;
 }
 
-html,
-body {
-  background-color: var(--bg);
-  color: var(--text);
-  font-family:
-    "Pretendard",
-    -apple-system,
-    BlinkMacSystemFont,
-    system-ui,
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-feature-settings: "ss01", "cv11", "tnum" off;
+/* ── NanumSquareNeo (오르다 레퍼런스 폰트) ───────────── */
+@font-face {
+  font-family: "Nanum Square Neo";
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url("https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquareNeo/NanumSquareNeo.woff2")
+    format("woff2");
+}
+@font-face {
+  font-family: "Nanum Square Neo";
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url("https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquareNeo/NanumSquareNeoB.woff2")
+    format("woff2");
+}
+@font-face {
+  font-family: "Nanum Square Neo";
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+  src: url("https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquareNeo/NanumSquareNeoEB.woff2")
+    format("woff2");
+}
+@font-face {
+  font-family: "Nanum Square Neo";
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+  src: url("https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquareNeo/NanumSquareNeoBL.woff2")
+    format("woff2");
 }
 
-/* tabular-nums (숫자 정렬용) */
-.tnum {
-  font-feature-settings: "tnum";
-  font-variant-numeric: tabular-nums;
-}
-
+/* Pretendard — 폴백 폰트 */
 @font-face {
   font-family: "Pretendard";
   font-weight: 45 920;
@@ -50,9 +64,30 @@ body {
     format("woff2-variations");
 }
 
+html,
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family:
+    "Nanum Square Neo",
+    "Pretendard",
+    -apple-system,
+    BlinkMacSystemFont,
+    system-ui,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* tabular-nums (숫자 정렬용) */
+.tnum {
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+}
+
 ::selection {
-  background: rgba(0, 183, 131, 0.22);
-  color: #0f172a;
+  background: rgba(169, 45, 35, 0.18);
+  color: #222222;
 }
 
 /* 스크롤바 */
@@ -61,14 +96,14 @@ body {
   height: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #f4f6fa;
+  background: #f4f4f5;
 }
 ::-webkit-scrollbar-thumb {
-  background: #d6dbe3;
+  background: #d6d6d8;
   border-radius: 6px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #b9c0cc;
+  background: #bcbcbf;
 }
 
 /* heading safety net */
@@ -78,8 +113,8 @@ h3,
 h4,
 h5,
 h6 {
-  line-height: 1.18 !important;
-  letter-spacing: -0.02em;
+  line-height: 1.22 !important;
+  letter-spacing: -0.01em;
 }
 p,
 li {
@@ -92,7 +127,7 @@ li {
 }
 
 .gradient-text {
-  color: #00b783;
+  color: #a92d23;
 }
 .gradient-text-bright {
   color: #ffffff;
@@ -103,23 +138,25 @@ li {
 }
 
 .eyebrow {
-  @apply inline-flex items-center gap-2 rounded-md border border-brand-line bg-white px-3 py-1 text-xs font-semibold tracking-[0.18em] text-brand-primary;
+  @apply inline-flex items-center gap-2 rounded-sm border border-brand-line bg-white px-3 py-1 text-xs font-bold tracking-[0.18em] text-brand-primary;
 }
 
 .eyebrow-dark {
-  @apply inline-flex items-center gap-2 rounded-md border border-white/15 bg-white/5 px-3 py-1 text-xs font-semibold tracking-[0.18em] text-brand-primary;
+  @apply inline-flex items-center gap-2 rounded-sm border border-white/15 bg-white/5 px-3 py-1 text-xs font-bold tracking-[0.18em] text-brand-primary;
 }
 
+/* 버튼 — 솔리드 CTA는 각진 사각형 (오르다 스타일) */
 .btn-primary {
-  @apply inline-flex items-center justify-center gap-2 rounded-lg bg-brand-primary px-7 py-3.5 text-base font-semibold text-white shadow-soft transition-all duration-200 hover:bg-brand-primaryDim hover:shadow-[0_10px_28px_-10px_rgba(0,183,131,0.55)];
+  @apply inline-flex items-center justify-center gap-2 bg-brand-primary px-8 py-4 text-base font-extrabold text-white transition-all duration-200 hover:bg-brand-primaryDim;
 }
 
+/* 아웃라인 버튼 — 알약형 (오르다 스타일) */
 .btn-ghost {
-  @apply inline-flex items-center justify-center gap-2 rounded-lg border border-brand-line bg-white px-7 py-3.5 text-base font-semibold text-brand-text transition-all duration-200 hover:border-brand-primary hover:text-brand-primary;
+  @apply inline-flex items-center justify-center gap-2 rounded-full border border-brand-text/25 bg-transparent px-8 py-4 text-base font-bold text-brand-text transition-all duration-200 hover:border-brand-primary hover:text-brand-primary;
 }
 
 .btn-outline-light {
-  @apply inline-flex items-center justify-center gap-2 rounded-lg border border-white/30 bg-white/10 px-7 py-3.5 text-base font-semibold text-white backdrop-blur transition-all hover:bg-white/20 hover:border-white/50;
+  @apply inline-flex items-center justify-center gap-2 rounded-full border border-white/35 bg-transparent px-8 py-4 text-base font-bold text-white transition-all duration-200 hover:bg-white hover:text-brand-text hover:border-white;
 }
 
 .card-soft {
@@ -131,7 +168,7 @@ li {
 }
 
 .section-title {
-  @apply text-3xl font-extrabold tracking-tight md:text-5xl;
+  @apply text-3xl font-extrabold leading-tight tracking-tight md:text-5xl;
 }
 
 .section-sub {
@@ -144,12 +181,12 @@ li {
 }
 
 /* ────────────────────────────────────────────────────────── */
-/* 디자인 시스템 폴리시 (그라데이션 없이 입체감/임팩트)        */
+/* 디자인 시스템 폴리시                                        */
 /* ────────────────────────────────────────────────────────── */
 
 /* 점/선 그리드 패턴 (라이트) */
 .dot-grid-light {
-  background-image: radial-gradient(rgba(15, 23, 42, 0.08) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(34, 34, 34, 0.07) 1px, transparent 1px);
   background-size: 22px 22px;
   -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 78%);
   mask-image: radial-gradient(ellipse at center, black 30%, transparent 78%);
@@ -176,7 +213,7 @@ li {
   background-image: repeating-linear-gradient(
     -45deg,
     transparent 0 6px,
-    rgba(15, 23, 42, 0.04) 6px 7px
+    rgba(34, 34, 34, 0.04) 6px 7px
   );
 }
 
@@ -185,14 +222,14 @@ li {
   height: 1px;
   background-image: linear-gradient(
     to right,
-    rgba(15, 23, 42, 0.18) 50%,
+    rgba(34, 34, 34, 0.18) 50%,
     transparent 50%
   );
   background-size: 8px 1px;
   background-repeat: repeat-x;
 }
 
-/* 코너 마커 (Linear / Stripe 스타일) */
+/* 코너 마커 */
 .corner-mark {
   position: relative;
 }
@@ -228,9 +265,9 @@ li {
 .lift:hover {
   transform: translateY(-4px);
   box-shadow:
-    0 1px 0 rgba(15, 23, 42, 0.04),
-    0 28px 60px -18px rgba(15, 23, 42, 0.18);
-  border-color: rgba(0, 183, 131, 0.42);
+    0 1px 0 rgba(20, 20, 24, 0.04),
+    0 28px 60px -18px rgba(20, 20, 24, 0.2);
+  border-color: rgba(169, 45, 35, 0.45);
 }
 
 /* 카드 강조 보더 톱-라인 */
@@ -242,10 +279,9 @@ li {
   position: absolute;
   top: 0;
   left: 0;
-  height: 2px;
-  width: 40px;
+  height: 3px;
+  width: 44px;
   background: var(--pri);
-  border-top-left-radius: inherit;
 }
 
 /* 라이브 도트 */
@@ -255,7 +291,7 @@ li {
   height: 8px;
   width: 8px;
   border-radius: 9999px;
-  background: #00b783;
+  background: #a92d23;
   flex-shrink: 0;
 }
 .live-dot::after {
@@ -263,7 +299,7 @@ li {
   position: absolute;
   inset: -4px;
   border-radius: 9999px;
-  background: rgba(0, 183, 131, 0.32);
+  background: rgba(169, 45, 35, 0.32);
   animation: pulseRing 2.4s ease-out infinite;
 }
 @keyframes pulseRing {
@@ -342,7 +378,7 @@ li {
   transform: scale(1.05);
 }
 
-/* 이미지 모노톤 -> hover 컬러 (선택적) */
+/* 이미지 모노톤 -> hover 컬러 */
 .img-mono img {
   filter: saturate(0.5) contrast(1.05);
   transition: filter 0.6s ease;
@@ -351,7 +387,7 @@ li {
   filter: saturate(1) contrast(1.05);
 }
 
-/* underline accent (이미 헤딩 강조) */
+/* underline accent */
 .accent-underline {
   position: relative;
   display: inline-block;
@@ -364,7 +400,6 @@ li {
   bottom: -4px;
   height: 3px;
   background: var(--pri);
-  border-radius: 2px;
 }
 
 /* 키 캡 (작은 라벨) */
@@ -410,18 +445,18 @@ li {
 .num-display {
   font-feature-settings: "tnum";
   font-variant-numeric: tabular-nums;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.03em;
 }
 
-/* 다크 카드 (글래스 아님, 솔리드 + 보더) */
+/* 다크 카드 */
 .card-dark {
-  background: #131e36;
+  background: #1f222a;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 12px;
 }
 
 .card-dark-elevated {
-  background: #131e36;
+  background: #1f222a;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
   box-shadow:
@@ -438,13 +473,13 @@ li {
 }
 .lift-dark:hover {
   transform: translateY(-3px);
-  border-color: rgba(0, 183, 131, 0.45);
+  border-color: rgba(169, 45, 35, 0.5);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.06),
     0 30px 80px -20px rgba(0, 0, 0, 0.65);
 }
 
-/* 노이즈 오버레이 (선택) */
+/* 노이즈 오버레이 */
 .noise-overlay::after {
   content: "";
   position: absolute;
@@ -457,10 +492,10 @@ li {
 
 /* 작은 stat 칩 */
 .stat-chip {
-  @apply inline-flex items-center gap-2 rounded-md border border-brand-line bg-white px-2.5 py-1 text-xs font-bold text-brand-text;
+  @apply inline-flex items-center gap-2 rounded-sm border border-brand-line bg-white px-2.5 py-1 text-xs font-bold text-brand-text;
 }
 
-/* spotlight (정적 vignette) */
+/* spotlight */
 .spotlight {
   background: radial-gradient(
     ellipse 60% 50% at 50% 0%,
@@ -483,7 +518,7 @@ li {
   background: var(--line);
 }
 
-/* 카드 sheen — 호버 시 빛이 스쳐 지나감 */
+/* 카드 sheen */
 .sheen {
   position: relative;
   overflow: hidden;
@@ -514,10 +549,10 @@ li {
 @keyframes glowPulse {
   0%,
   100% {
-    box-shadow: 0 0 0 0 rgba(0, 183, 131, 0);
+    box-shadow: 0 0 0 0 rgba(169, 45, 35, 0);
   }
   50% {
-    box-shadow: 0 0 32px 2px rgba(0, 183, 131, 0.4);
+    box-shadow: 0 0 32px 2px rgba(169, 45, 35, 0.4);
   }
 }
 .animate-glow {
@@ -526,7 +561,7 @@ li {
 
 /* 윤곽선 텍스트 (대형 장식 숫자/단어) */
 .text-stroke {
-  -webkit-text-stroke: 1.5px rgba(15, 23, 42, 0.16);
+  -webkit-text-stroke: 1.5px rgba(34, 34, 34, 0.16);
   color: transparent;
 }
 .text-stroke-light {
@@ -534,7 +569,7 @@ li {
   color: transparent;
 }
 
-/* 회전 보더 (conic, accent 단색 계열) */
+/* 회전 보더 (conic) */
 @keyframes spinBorder {
   to {
     transform: rotate(360deg);
@@ -552,14 +587,14 @@ li {
   background: conic-gradient(
     from 0deg,
     transparent 0deg,
-    rgba(0, 183, 131, 0.7) 60deg,
+    rgba(169, 45, 35, 0.7) 60deg,
     transparent 140deg
   );
   animation: spinBorder 4s linear infinite;
   z-index: -1;
 }
 
-/* 펄스 링 (라이브 강조) */
+/* 펄스 링 */
 @keyframes pingSoft {
   0% {
     transform: scale(1);
@@ -582,7 +617,6 @@ li {
   }
 }
 
-/* tilt 카드 내부 글레어 부드럽게 */
 .tilt-glare {
   transition: background 0.2s ease;
 }

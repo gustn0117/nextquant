@@ -204,7 +204,7 @@ export function Tilt({
 export function Spotlight({
   children,
   className = "",
-  color = "rgba(0,183,131,0.16)",
+  color = "rgba(169,45,35,0.16)",
   size = 480,
 }: {
   children: ReactNode;
@@ -287,7 +287,7 @@ export function Magnetic({
 /* ────────────────────────────────────────────── */
 export function NetworkCanvas({
   className = "",
-  color = "0,183,131",
+  color = "169,45,35",
 }: {
   className?: string;
   color?: string;

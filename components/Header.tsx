@@ -32,8 +32,8 @@ export default function Header() {
     <header
       className={`fixed top-0 z-50 w-full transition-all duration-500 ${
         scrolled
-          ? "border-b border-brand-line/80 bg-white/80 shadow-soft backdrop-blur-xl"
-          : "border-b border-transparent bg-white/50 backdrop-blur-md"
+          ? "border-b border-brand-line bg-white/95 shadow-soft backdrop-blur-xl"
+          : "border-b border-transparent bg-white/70 backdrop-blur-md"
       }`}
     >
       <div className="container-x flex h-16 items-center justify-between">
@@ -50,10 +50,10 @@ export default function Header() {
             draggable={false}
           />
           <div className="flex flex-col leading-none">
-            <span className="text-[15px] font-extrabold tracking-[0.04em] text-brand-text">
+            <span className="text-[15px] font-extrabold tracking-[0.02em] text-brand-text">
               NEXT QUANT
             </span>
-            <span className="mt-1 text-[10px] font-medium tracking-[0.22em] text-brand-muted">
+            <span className="mt-1 text-[10px] font-bold tracking-[0.22em] text-brand-muted">
               넥스트퀀트
             </span>
           </div>
@@ -69,15 +69,15 @@ export default function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`group/nav relative rounded-md px-3.5 py-2 text-sm font-semibold transition-colors lg:px-4 ${
+                className={`group/nav relative rounded-md px-3.5 py-2 text-sm font-bold transition-colors lg:px-4 ${
                   active
-                    ? "text-brand-text"
+                    ? "text-brand-primary"
                     : "text-brand-subText hover:text-brand-text"
                 }`}
               >
                 {item.label}
                 <span
-                  className={`pointer-events-none absolute inset-x-3.5 -bottom-[3px] h-[2px] origin-left rounded-full bg-brand-primary transition-transform duration-300 lg:inset-x-4 ${
+                  className={`pointer-events-none absolute inset-x-3.5 -bottom-[3px] h-[2px] origin-left bg-brand-primary transition-transform duration-300 lg:inset-x-4 ${
                     active
                       ? "scale-x-100"
                       : "scale-x-0 group-hover/nav:scale-x-100"
@@ -91,9 +91,9 @@ export default function Header() {
         <div className="hidden items-center gap-3 lg:flex">
           <Link
             href="/guide"
-            className="btn-3d inline-flex items-center gap-1.5 rounded-md bg-brand-primary px-5 py-2.5 text-sm font-semibold text-white shadow-soft transition-all hover:bg-brand-primaryDim hover:shadow-[0_10px_22px_-8px_rgba(0,183,131,0.55)]"
+            className="group inline-flex items-center gap-1.5 rounded-full border border-brand-text/25 px-5 py-2.5 text-sm font-bold text-brand-text transition-all hover:border-brand-primary hover:bg-brand-primary hover:text-white"
           >
-            무료 다운로드
+            무료체험 다운로드
             <svg
               width="12"
               height="12"
@@ -103,6 +103,7 @@ export default function Header() {
               strokeWidth="3"
               strokeLinecap="round"
               strokeLinejoin="round"
+              className="transition-transform group-hover:translate-x-0.5"
             >
               <line x1="5" y1="12" x2="19" y2="12" />
               <polyline points="12 5 19 12 12 19" />
@@ -112,7 +113,7 @@ export default function Header() {
 
         <button
           type="button"
-          className="flex h-10 w-10 items-center justify-center rounded-lg border border-brand-line bg-white lg:hidden"
+          className="flex h-10 w-10 items-center justify-center rounded-md border border-brand-line bg-white lg:hidden"
           aria-label="메뉴 열기"
           onClick={() => setOpen((v) => !v)}
         >
@@ -148,7 +149,7 @@ export default function Header() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`rounded-lg px-4 py-3 text-sm font-semibold transition-colors ${
+                  className={`rounded-md px-4 py-3 text-sm font-bold transition-colors ${
                     active
                       ? "bg-brand-primarySoft text-brand-primary"
                       : "text-brand-subText hover:bg-brand-subtle"
@@ -160,9 +161,9 @@ export default function Header() {
             })}
             <Link
               href="/guide"
-              className="mt-2 rounded-md bg-brand-primary px-5 py-3 text-center text-sm font-semibold text-white"
+              className="mt-2 bg-brand-primary px-5 py-3 text-center text-sm font-extrabold text-white"
             >
-              무료 다운로드
+              무료체험 다운로드
             </Link>
           </div>
         </div>

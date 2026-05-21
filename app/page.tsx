@@ -67,7 +67,7 @@ function CoinMarquee() {
               className="group flex shrink-0 items-center gap-2.5 text-lg font-extrabold tracking-tight text-white/45 transition-colors hover:text-white"
             >
               <span
-                className="flex h-8 w-8 items-center justify-center rounded-full text-[10px] font-black text-white shadow-[0_0_18px_-4px_rgba(0,183,131,0.6)]"
+                className="flex h-8 w-8 items-center justify-center rounded-full text-[10px] font-black text-white shadow-[0_0_18px_-4px_rgba(169,45,35,0.55)]"
                 style={{ background: c.color }}
               >
                 {c.sym.slice(0, 1)}
@@ -107,11 +107,11 @@ function Hero({ videoEmbed }: { videoEmbed: string | null }) {
       {/* 은은한 글로우 오브 (장식) */}
       <div
         className="pointer-events-none absolute -left-32 top-10 -z-10 h-80 w-80 rounded-full opacity-50 blur-3xl animate-float"
-        style={{ background: "rgba(0,183,131,0.22)" }}
+        style={{ background: "rgba(169,45,35,0.28)" }}
       />
       <div
         className="pointer-events-none absolute -right-24 top-1/3 -z-10 h-72 w-72 rounded-full opacity-40 blur-3xl animate-float-slow"
-        style={{ background: "rgba(59,130,246,0.20)" }}
+        style={{ background: "rgba(169,45,35,0.13)" }}
       />
       <div
         className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-40"
@@ -152,7 +152,7 @@ function Hero({ videoEmbed }: { videoEmbed: string | null }) {
             <Magnetic strength={0.4}>
               <Link
                 href="/guide"
-                className="btn-3d animate-glow group relative inline-flex items-center gap-2.5 rounded-xl bg-brand-primary px-10 py-5 text-lg font-extrabold text-white shadow-glow transition-all hover:bg-brand-primaryDim hover:shadow-[0_24px_60px_-16px_rgba(0,183,131,0.7)]"
+                className="btn-3d animate-glow group relative inline-flex items-center gap-2.5 rounded-xl bg-brand-primary px-10 py-5 text-lg font-extrabold text-white shadow-glow transition-all hover:bg-brand-primaryDim hover:shadow-[0_24px_60px_-16px_rgba(169,45,35,0.65)]"
               >
                 <span className="relative flex h-2.5 w-2.5">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white/70" />
@@ -741,7 +741,7 @@ function CtaSection() {
           <div className="line-grid-dark pointer-events-none absolute inset-0" />
           <NetworkCanvas
             className="absolute inset-0 opacity-50"
-            color="110,231,194"
+            color="169,45,35"
           />
 
           <div className="relative grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-center">
