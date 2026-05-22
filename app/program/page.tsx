@@ -223,7 +223,7 @@ function Architecture() {
     {
       tag: "EXEC",
       title: "주문 실행 레이어",
-      desc: "분할 진입 / TWAP / 아이스버그 등의 실행 알고리즘으로 시장 충격을 최소화하며 주문을 처리합니다.",
+      desc: "분할 진입 실행 알고리즘으로 시장 충격을 최소화하며 주문을 처리합니다.",
       icon: <ZapIcon />,
     },
   ];

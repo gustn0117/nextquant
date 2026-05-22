@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { supabaseAdmin, type PerformancePost } from "@/lib/supabase";
 import { ArtMonitor } from "@/components/Art";
+import PostFigure from "./PostFigure";
 
 export const metadata: Metadata = {
   title: "수익인증 | 넥스트퀀트 NEXT QUANT",
@@ -151,38 +152,6 @@ function PostsGallery({ posts }: { posts: PerformancePost[] }) {
         )}
       </div>
     </section>
-  );
-}
-
-function PostFigure({
-  label,
-  src,
-}: {
-  label: string;
-  src: string | null;
-}) {
-  if (!src) {
-    return (
-      <figure className="flex aspect-[16/10] items-center justify-center bg-brand-subtle">
-        <figcaption className="text-xs text-brand-mutedSoft">
-          {label} — 이미지 없음
-        </figcaption>
-      </figure>
-    );
-  }
-  return (
-    <figure className="relative bg-brand-subtle">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={src}
-        alt={label}
-        className="aspect-[16/10] w-full object-contain"
-        loading="lazy"
-      />
-      <figcaption className="absolute left-4 top-4 rounded-md bg-brand-text/80 px-2.5 py-1 text-[11px] font-bold text-white backdrop-blur">
-        {label}
-      </figcaption>
-    </figure>
   );
 }
 

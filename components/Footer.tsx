@@ -37,9 +37,13 @@ export default function Footer() {
         <div className="grid gap-12 lg:grid-cols-[1.4fr_2fr]">
           <div>
             <div className="flex items-center gap-2.5">
-              <span className="flex h-9 w-9 items-center justify-center bg-brand-primary text-base font-black text-white">
-                N
-              </span>
+              <img
+                src="/logo-brain.png"
+                alt=""
+                aria-hidden
+                className="h-11 w-auto select-none"
+                draggable={false}
+              />
               <div className="flex flex-col leading-none">
                 <span className="text-base font-extrabold tracking-[0.02em] text-white">
                   NEXT QUANT
