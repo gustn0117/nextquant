@@ -38,3 +38,8 @@ next-env.d.ts
 
 # uploaded files (영속 볼륨)
 /data
+
+# 보안 로그·내보내기 파일 (저장소에 올리지 말 것)
+export-*.csv
+export-*.numbers
+*.numbers
