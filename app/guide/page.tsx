@@ -100,7 +100,6 @@ function StepGuide() {
       bullets: [
         "Windows 10 이상 지원",
         "SMS 인증으로 즉시 발급",
-        "신용카드 등록 없이 7일 무료체험",
       ],
       Art: ArtInstall,
       time: "약 1분",

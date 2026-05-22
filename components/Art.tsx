@@ -36,7 +36,8 @@ function Frame({
 
 /* ─── 대시보드 ─── */
 export function ArtDashboard({ className }: ArtProps) {
-  const line = "M70 300 L130 270 L190 285 L250 220 L310 240 L370 180 L430 200 L490 140 L550 165 L610 110 L680 80";
+  const line =
+    "M110 400 L175 360 L240 375 L305 310 L370 330 L435 255 L500 220";
   return (
     <Frame className={className}>
       {/* 사이드바 */}
@@ -92,16 +93,23 @@ export function ArtDashboard({ className }: ArtProps) {
         />
       ))}
       <path
-        d={`${line} L680 460 L70 460 Z`}
+        d={`${line} L500 452 L110 452 Z`}
         fill={C.accentSoft}
         opacity="0.7"
       />
-      <path d={line} fill="none" stroke={C.accent} strokeWidth="3.5" />
+      <path
+        d={line}
+        fill="none"
+        stroke={C.accent}
+        strokeWidth="3.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
       {[
-        [130, 270],
-        [310, 240],
-        [490, 140],
-        [680, 80],
+        [175, 360],
+        [305, 310],
+        [435, 255],
+        [500, 220],
       ].map(([cx, cy]) => (
         <circle key={cx} cx={cx} cy={cy} r="5" fill={C.accent} />
       ))}

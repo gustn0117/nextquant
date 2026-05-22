@@ -77,9 +77,9 @@ function Hero({ videoEmbed }: { videoEmbed: string | null }) {
           </h1>
 
           <p className="fade-up fade-up-2 mx-auto mt-7 max-w-2xl text-base font-medium text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.55)] md:text-xl">
-            바이낸스 선물에서 24시간 자동으로 매매하는
+            가짜 프로그램들은 무조건 돈을 번다고 과장하지만,
             <br className="hidden md:block" />
-            시스템 트레이딩 프로그램입니다.
+            진짜 개발자는 &apos;리스크 관리&apos;를 말합니다.
           </p>
 
           {/* 무료 다운로드 — 단일 강조 버튼 */}
@@ -227,7 +227,7 @@ function ProblemSection() {
                 <ul className="mt-6 space-y-3 text-sm text-brand-subText">
                   {[
                     "공포에 손절, 욕심에 추격매수",
-                    "PC 앞에 앉아 있어야만 가능",
+                    "일상생활 중 상시 차트 확인 필요",
                     "야간/주말엔 시장 못 봄",
                     "일관성 없는 진입/청산 기준",
                     "지표 분석에 매주 수십 시간 소모",
@@ -319,11 +319,11 @@ function SolutionBento() {
                 02 · RISK
               </span>
               <h3 className="mt-2.5 text-lg font-extrabold text-brand-text">
-                MDD 기반 자동 손절
+                MDD 기반 자동 리스크 제어
               </h3>
               <p className="mt-2 text-sm text-brand-muted">
-                사전 설정한 최대 낙폭에 닿으면 100% 자동 손절. 감정이 끼어들
-                틈을 차단합니다.
+                설정한 최대 낙폭 기준에 따라 리스크를 자동으로 관리하며, 감정에
+                치우치지 않는 철저한 자산 보호를 실현합니다.
               </p>
               <RiskGaugeMini />
             </div>
@@ -600,9 +600,6 @@ function CtaSection() {
                   1분 설치와 SMS 인증으로 24시간 자동매매를 바로 경험해보세요.
                 </p>
                 <div className="mt-6 flex flex-wrap gap-4 text-xs text-white/65">
-                  <span className="inline-flex items-center gap-1.5">
-                    <CheckMini /> 7일 무료
-                  </span>
                   <span className="inline-flex items-center gap-1.5">
                     <CheckMini /> SMS 인증으로 발급
                   </span>
