@@ -327,7 +327,7 @@ export function ArtRisk({ className }: ArtProps) {
         strokeLinecap="round"
       />
       <path
-        d="M220 320 A180 180 0 0 1 388 198"
+        d="M220 320 A180 180 0 0 1 297 173"
         fill="none"
         stroke={C.accent}
         strokeWidth="34"
@@ -337,8 +337,8 @@ export function ArtRisk({ className }: ArtProps) {
       <line
         x1="400"
         y1="320"
-        x2="330"
-        y2="225"
+        x2="314"
+        y2="197"
         stroke={C.ink}
         strokeWidth="8"
         strokeLinecap="round"
