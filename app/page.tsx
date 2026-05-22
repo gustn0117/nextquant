@@ -502,7 +502,7 @@ function ProcessSection() {
     {
       n: 1,
       t: "다운로드 & 설치",
-      d: "Windows 인스톨러로 1분 설치하고, SMS 인증을 거치면 7일 체험판이 바로 발급됩니다.",
+      d: "Windows 인스톨러를 받아 1분이면 설치가 완료됩니다.",
       Art: ArtInstall,
     },
     {
@@ -597,12 +597,9 @@ function CtaSection() {
                   <span className="text-brand-primary">지금</span> 시작하세요.
                 </h2>
                 <p className="mt-5 max-w-xl text-base text-white/85 md:text-lg">
-                  1분 설치와 SMS 인증으로 24시간 자동매매를 바로 경험해보세요.
+                  1분 설치로 24시간 자동매매를 바로 경험해보세요.
                 </p>
                 <div className="mt-6 flex flex-wrap gap-4 text-xs text-white/65">
-                  <span className="inline-flex items-center gap-1.5">
-                    <CheckMini /> SMS 인증으로 발급
-                  </span>
                   <span className="inline-flex items-center gap-1.5">
                     <CheckMini /> 자동 결제 없음
                   </span>
