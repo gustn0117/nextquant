@@ -19,7 +19,6 @@ const NAV_GROUPS = [
   {
     title: "회사",
     items: [
-      { label: "이메일 문의", href: "mailto:contact@nextquant.kr" },
       { label: "이용약관", href: "#" },
       { label: "개인정보 처리방침", href: "#" },
     ],

@@ -4,7 +4,7 @@ import ContactForm from "./ContactForm";
 export const metadata: Metadata = {
   title: "고객지원 | 넥스트퀀트 NEXT QUANT",
   description:
-    "FAQ, 이메일 문의, 1:1 채팅 등 다양한 채널로 신속하게 도와드립니다.",
+    "FAQ, 1:1 채팅, 상담 신청 등 다양한 채널로 신속하게 도와드립니다.",
 };
 
 export default function SupportPage() {
@@ -41,13 +41,13 @@ function Hero() {
           <span className="text-brand-primary">바로 답변드립니다.</span>
         </h1>
         <p className="fade-up fade-up-2 mx-auto mt-7 max-w-2xl text-base font-medium text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.55)] md:text-xl">
-          FAQ에서 답을 찾지 못했다면 이메일·채팅으로
+          FAQ에서 답을 찾지 못하셨다면 상담 신청을 남겨주시면
           <br className="hidden md:block" />
           평일 10:00–18:00 안에 신속하게 답변드립니다.
         </p>
         <div className="fade-up fade-up-3 mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <a href="mailto:contact@nextquant.kr" className="btn-primary">
-            이메일 문의
+          <a href="#contact" className="btn-primary">
+            상담 신청하기
           </a>
           <a href="#faq" className="btn-outline-light">
             FAQ 먼저 보기
@@ -66,12 +66,12 @@ function Hero() {
 function ChannelCards() {
   const channels = [
     {
-      icon: <MailIcon />,
-      label: "이메일",
-      value: "contact@nextquant.kr",
-      desc: "평일 24시간 내 답변",
-      action: "메일 보내기",
-      href: "mailto:contact@nextquant.kr",
+      icon: <PhoneIcon />,
+      label: "상담 신청",
+      value: "1:1 전화 상담",
+      desc: "이름·연락처만 남기면 연락",
+      action: "상담 신청하기",
+      href: "#contact",
     },
     {
       icon: <ChatIcon />,
@@ -212,7 +212,7 @@ function FaqFull() {
 /* ─────────── Contact section ─────────── */
 function ContactSection() {
   return (
-    <section className="section-padding">
+    <section id="contact" className="section-padding">
       <div className="container-x">
         <ContactForm />
       </div>
@@ -220,11 +220,10 @@ function ContactSection() {
   );
 }
 
-function MailIcon() {
+function PhoneIcon() {
   return (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="3" y="5" width="18" height="14" rx="2" />
-      <path d="M3 7l9 6 9-6" />
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z" />
     </svg>
   );
 }

@@ -127,7 +127,7 @@ export default function InquiriesTab({
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="이름·이메일·내용 검색"
+            placeholder="이름·연락처·내용 검색"
             className="w-full rounded-md border border-brand-line bg-white px-4 py-2.5 pl-10 text-sm focus:border-brand-primary focus:outline-none focus:ring-4 focus:ring-brand-primarySoft"
           />
           <svg
@@ -272,10 +272,10 @@ export default function InquiriesTab({
 
                           <div className="flex gap-2">
                             <a
-                              href={`mailto:${it.email}?subject=${encodeURIComponent("Re: " + it.subject)}`}
+                              href={`tel:${it.email}`}
                               className="flex-1 rounded-md border border-brand-line bg-white px-3 py-2 text-center text-xs font-bold text-brand-text transition-colors hover:border-brand-primary hover:text-brand-primary"
                             >
-                              답장 메일
+                              전화 걸기
                             </a>
                             <button
                               type="button"
